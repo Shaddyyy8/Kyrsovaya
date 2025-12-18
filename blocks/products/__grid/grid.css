@@ -1,0 +1,14 @@
+.products-grid-section { margin-bottom: 3rem; }
+
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+
+.products-grid--compact { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:1rem; }
+.products__grid-section {
+    margin-bottom: 3rem;
+}
+
+.products__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}

@@ -1,0 +1,35 @@
+.modal__warning-text {
+    color: var(--text-color);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+.modal__warning-text--bold {
+    font-weight: 700;
+    color: #dc3545;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+.modal__warning-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    background: rgba(220, 53, 69, 0.05);
+    border-radius: var(--border-radius-sm);
+    padding: 1.5rem;
+    border: 1px solid rgba(220, 53, 69, 0.1);
+}
+
+.modal__warning-list li {
+    padding: 0.75rem 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+}
+
+.modal__warning-list li:last-child {
+    border-bottom: none;
+}

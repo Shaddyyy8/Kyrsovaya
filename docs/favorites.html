@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избранное | Эко-Платформа ПМР</title>
+    <meta name="description" content="Ваши избранные эко-товары и статьи">
+    
+    <!-- Общие стили -->
+    <link rel="stylesheet" href="../blocks/blocks.css">
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header" role="banner">
+        <div class="container">
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="index.html" class="nav__logo" aria-label="На главную страницу">
+                    <span class="nav__logo-icon">🌿</span>
+                    <span class="nav__logo-text">Эко-Платформа ПМР</span>
+                </a>
+                <ul class="nav__list" id="navList">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Дашборд</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="calculator.html" class="nav__link">Калькуляторы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Эко-товары</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="articles.html" class="nav__link">Статьи</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="map.html" class="nav__link">Карта</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="favorites.html" class="nav__link nav__link--active" aria-current="page">Избранное</a>
+                    </li>
+                </ul>
+                <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main" role="main">
+        <div class="container">
+            <!-- Hero секция -->
+            <section class="favorites-hero" data-aos="fade-up">
+                <h1 class="favorites-hero__title">Избранное</h1>
+                <p class="favorites-hero__description">
+                    Все ваши сохраненные эко-товары и статьи в одном месте. 
+                    Быстрый доступ к тому, что вас интересует.
+                </p>
+            </section>
+
+            <!-- Сетка избранного -->
+            <section class="favorites-section" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="favorites__title">Сохраненные товары</h2>
+                <div class="favorites__grid" id="favorites-list">
+                    <!-- Товары будут загружены через JS -->
+                </div>
+                
+                <!-- Пустое состояние -->
+                <div id="emptyState" class="favorites-empty" hidden>
+                    <div class="favorites-empty__icon">❤️</div>
+                    <h3 class="favorites-empty__title">Избранное пусто</h3>
+                    <p class="favorites-empty__description">
+                        Добавьте товары или статьи в избранное, чтобы они отображались здесь.
+                    </p>
+                    <a href="products.html" class="btn btn--primary">Перейти к товарам</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__info">
+                    <div class="footer__logo">
+                        <span class="footer__logo-icon">🌿</span>
+                        <span class="footer__logo-text">Эко-Платформа ПМР</span>
+                    </div>
+                    <p class="footer__description">
+                        Платформа для продвижения устойчивого образа жизни 
+                        и экологически ответственного потребления в Приднестровье.
+                    </p>
+                </div>
+                
+                <div class="footer__contact">
+                    <h3 class="footer__contact-title">Контакты</h3>
+                    <ul class="footer__contact-list">
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📍</span>
+                            <span>г. Тирасполь, ул. Экологическая, 15</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📧</span>
+                            <span>info@ecopmr.ru</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📞</span>
+                            <span>+373 (777) 123-45</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">🕒</span>
+                            <span>Пн-Пт: 9:00-18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2025 Эко-Платформа ПМР. Все права защищены.
+                </p>
+                <div class="footer__links">
+                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__link">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="../js/favorites.js"></script>
+    <script src="../js/nav.js"></script>
+</body>
+</html>
+</body>
+</html>

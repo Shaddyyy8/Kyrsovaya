@@ -1,0 +1,6 @@
+.calculator-info__title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-bottom: 2.5rem;
+}

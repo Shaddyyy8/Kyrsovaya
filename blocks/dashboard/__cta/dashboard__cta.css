@@ -1,0 +1,8 @@
+.cta {
+    background: linear-gradient(135deg, rgba(46, 139, 87, 0.05), rgba(245, 245, 220, 0.2));
+    border-radius: var(--border-radius-lg);
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+    border: 2px solid var(--border-color);
+    text-align: center;
+}

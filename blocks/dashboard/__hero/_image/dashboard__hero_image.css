@@ -1,0 +1,10 @@
+.hero__image {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.hero__image-placeholder {
+    font-size: 12rem;
+    animation: float 6s ease-in-out infinite;
+    display: inline-block;
+}

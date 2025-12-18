@@ -1,0 +1,14 @@
+.nav__list {
+    display: flex;
+    list-style: none;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    max-width: 100%;
+    margin: 0 1rem;
+    overflow: visible;
+}

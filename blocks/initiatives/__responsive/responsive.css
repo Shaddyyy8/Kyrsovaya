@@ -1,0 +1,22 @@
+@media (max-width: 1024px) {
+    .initiatives-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .initiatives-stats__grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+}
+
+@media (max-width: 768px) {
+    .initiatives-hero__title { font-size: 2rem; }
+    .initiatives-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .initiatives-stats__grid { grid-template-columns: 1fr; gap: 1rem; }
+    .stat-card { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+    .initiatives-hero { padding: 1rem; }
+    .initiatives-hero__title { font-size: 1.6rem; }
+    .initiatives-hero__description { font-size: 1rem; }
+    .initiatives-grid-section__title, .initiatives-stats__title, .more-initiatives__title { font-size: 1.5rem; }
+    .initiative-card__meta { flex-direction: column; gap: 0.25rem; }
+    .initiative-card__footer { flex-direction: column; gap: 1rem; align-items: stretch; }
+    .initiative-card__actions { width: 100%; }
+    .initiative-card__btn { flex: 1; justify-content: center; }
+}

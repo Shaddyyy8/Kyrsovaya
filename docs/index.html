@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эко-Платформа ПМР | Устойчивый образ жизни</title>
+    <meta name="description" content="Платформа для продвижения устойчивого образа жизни и экологически ответственного потребления в Приднестровье">
+    
+    <!-- Schema.org для веб-сайта -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Эко-Платформа ПМР",
+        "description": "Платформа для продвижения устойчивого образа жизни",
+        "url": "https://ecoplatform-pmr.ru",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://ecoplatform-pmr.ru/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- Общие стили -->
+    <link rel="stylesheet" href="../blocks/blocks.css">
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js для графиков -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- AOS для анимаций -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+ 
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header" role="banner">
+        <div class="container">
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="index.html" class="nav__logo" aria-label="На главную страницу">
+                    <span class="nav__logo-icon">🌿</span>
+                    <span class="nav__logo-text">Эко-Платформа ПМР</span>
+                </a>
+                <ul class="nav__list" id="navList">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link nav__link--active" aria-current="page">Дашборд</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="calculator.html" class="nav__link">Калькуляторы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Эко-товары</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="articles.html" class="nav__link">Статьи</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="map.html" class="nav__link">Карта</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="favorites.html" class="nav__link">Избранное</a>
+                    </li>
+                </ul>
+                <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main" role="main">
+        <!-- Hero секция -->
+        <section class="hero" data-aos="fade-up">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Ваш путь к устойчивому образу жизни</h1>
+                    <p class="hero__description">
+                        Присоединяйтесь к сообществу, которое заботится о будущем нашей планеты. 
+                        Отслеживайте прогресс, участвуйте в инициативах и делайте осознанный выбор каждый день.
+                    </p>
+                    <div class="hero__actions">
+                        <a href="#dashboard" class="btn btn--primary hero__btn">
+                            <span>🚀</span>
+                            <span>Начать путешествие</span>
+                        </a>
+                        <a href="articles.html" class="btn btn--secondary hero__btn">
+                            <span>📚</span>
+                            <span>Изучить статьи</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero__image" data-aos="fade-left" data-aos-delay="300">
+                    <div class="hero__image-placeholder">🌍</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Быстрые статистики -->
+        <section class="quick-stats" data-aos="fade-up" data-aos-delay="100">
+            <div class="container">
+                <div class="quick-stats__grid">
+                    <div class="quick-stat">
+                        <div class="quick-stat__icon">🌱</div>
+                        <div class="quick-stat__content">
+                            <h3 class="quick-stat__title">Эко-баллы</h3>
+                            <div class="quick-stat__value" id="quickEcoPoints">0</div>
+                            <div class="quick-stat__meta" id="ecoLevelLabel">Эко-новичок</div>
+                            <div class="quick-stat__meta-small" id="ecoLevelProgress">До следующего уровня: 0 баллов</div>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat__icon">🌍</div>
+                        <div class="quick-stat__content">
+                            <h3 class="quick-stat__title">CO₂ сэкономлено</h3>
+                            <div class="quick-stat__value" id="quickCO2Saved">0 кг</div>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat__icon">💧</div>
+                        <div class="quick-stat__content">
+                            <h3 class="quick-stat__title">Вода сохранена</h3>
+                            <div class="quick-stat__value" id="quickWaterSaved">0 л</div>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat__icon">♻️</div>
+                        <div class="quick-stat__content">
+                            <h3 class="quick-stat__title">Отходы переработано</h3>
+                            <div class="quick-stat__value" id="quickWasteRecycled">0 кг</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Дашборд -->
+        <section id="dashboard" class="dashboard" data-aos="fade-up" data-aos-delay="200">
+            <div class="container">
+                <div class="dashboard__header">
+                    <h2 class="dashboard__title">Ваш экологический дашборд</h2>
+                    <p class="dashboard__subtitle">Отслеживайте прогресс и достигайте новых целей</p>
+                </div>
+
+                <!-- Основные виджеты -->
+                <div class="dashboard__grid">
+                    <div class="quick-stat">
+    <div class="quick-stat__icon">📊</div>
+    <div class="quick-stat__content">
+        <h3 class="quick-stat__title">Привычек сегодня</h3>
+        <div class="quick-stat__value" id="todayHabitsCount">0</div>
+    </div>
+</div>
+
+<div class="quick-stat">
+    <div class="quick-stat__icon">🚀</div>
+    <div class="quick-stat__content">
+        <h3 class="quick-stat__title">Активных инициатив</h3>
+        <div class="quick-stat__value" id="activeInitiativesCount">0</div>
+    </div>
+</div>
+
+                    <!-- Быстрый ввод привычек -->
+                    <div class="dashboard-widget">
+                        <div class="dashboard-widget__header">
+                            <h3 class="dashboard-widget__title">Добавить привычку</h3>
+                        </div>
+                        <div class="dashboard-widget__content">
+                            <div class="habits-grid">
+                                <button class="habit-btn" data-habit="bike" data-co2="1.2">
+                                    <span class="habit-btn__icon">🚲</span>
+                                    <span class="habit-btn__text">Велосипед</span>
+                                    <span class="habit-btn__info">+1.2 кг CO₂</span>
+                                </button>
+                                <button class="habit-btn" data-habit="recycle" data-co2="0.5">
+                                    <span class="habit-btn__icon">♻️</span>
+                                    <span class="habit-btn__text">Переработка</span>
+                                    <span class="habit-btn__info">+0.5 кг CO₂</span>
+                                </button>
+                                <button class="habit-btn" data-habit="water" data-co2="0.3">
+                                    <span class="habit-btn__icon">💧</span>
+                                    <span class="habit-btn__text">Экономия воды</span>
+                                    <span class="habit-btn__info">+0.3 кг CO₂</span>
+                                </button>
+                                <button class="habit-btn" data-habit="energy" data-co2="0.8">
+                                    <span class="habit-btn__icon">💡</span>
+                                    <span class="habit-btn__text">Экономия энергии</span>
+                                    <span class="habit-btn__info">+0.8 кг CO₂</span>
+                                </button>
+                            </div>
+                            <div class="habits-history" id="habitsHistory">
+                                <!-- История привычек будет загружена через JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Активные инициативы -->
+                    <div class="dashboard-widget">
+                        <div class="dashboard-widget__header">
+                            <h3 class="dashboard-widget__title">Активные инициативы</h3>
+                            <a href="initiatives.html" class="dashboard-widget__link">Все →</a>
+                        </div>
+                        <div class="dashboard-widget__content">
+                            <div class="initiatives-list" id="activeInitiatives">
+                                <!-- Активные инициативы будут загружены через JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Настройки и управление -->
+                    <div class="dashboard-widget dashboard-widget--danger">
+                        <div class="dashboard-widget__header">
+                            <h3 class="dashboard-widget__title">Управление данными</h3>
+                        </div>
+                        <div class="dashboard-widget__content">
+                            <div class="settings-content">
+                                <p class="settings-description">
+                                    Вы можете сбросить все ваши данные: баллы, инициативы, привычки, 
+                                    достижения и избранное. Это действие нельзя отменить.
+                                </p>
+                                <button id="resetDataBtn" class="btn btn--danger btn--full">
+                                    <span>🗑️</span>
+                                    <span>Сбросить все данные</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Эко-товары рекомендации -->
+                    <div class="dashboard-widget">
+                        <div class="dashboard-widget__header">
+                            <h3 class="dashboard-widget__title">Рекомендуемые товары</h3>
+                            <a href="products.html" class="dashboard-widget__link">Все →</a>
+                        </div>
+                        <div class="dashboard-widget__content">
+                            <div class="products-list" id="recommendedProducts">
+                                <!-- Рекомендуемые товары будут загружены через JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Последние статьи -->
+                    <div class="dashboard-widget">
+                        <div class="dashboard-widget__header">
+                            <h3 class="dashboard-widget__title">Последние статьи</h3>
+                            <a href="articles.html" class="dashboard-widget__link">Все →</a>
+                        </div>
+                        <div class="dashboard-widget__content">
+                            <div class="articles-list" id="recentArticles">
+                                <!-- Последние статьи будут загружены через JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Достижения -->
+                    <div class="dashboard-widget">
+                        <div class="dashboard-widget__header">
+                            <h3 class="dashboard-widget__title">Ваши достижения</h3>
+                        </div>
+                        <div class="dashboard-widget__content">
+                            <div class="achievements-grid" id="achievementsList">
+                                <!-- Достижения будут загружены через JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Призыв к действию -->
+        <section class="cta" data-aos="fade-up" data-aos-delay="300">
+            <div class="container">
+                <div class="cta__content">
+                    <h2 class="cta__title">Готовы сделать больше?</h2>
+                    <p class="cta__description">
+                        Присоединяйтесь к нашему сообществу и вместе мы сможем изменить будущее нашей планеты.
+                    </p>
+                    <div class="cta__actions">
+                        <a href="initiatives.html" class="btn btn--primary cta__btn">
+                            <span>🎯</span>
+                            <span>Присоединиться к инициативам</span>
+                        </a>
+                        <a href="calculator.html" class="btn btn--secondary cta__btn">
+                            <span>🧮</span>
+                            <span>Рассчитать экослед</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__info">
+                    <div class="footer__logo">
+                        <span class="footer__logo-icon">🌿</span>
+                        <span class="footer__logo-text">Эко-Платформа ПМР</span>
+                    </div>
+                    <p class="footer__description">
+                        Платформа для продвижения устойчивого образа жизни 
+                        и экологически ответственного потребления в Приднестровье.
+                    </p>
+                </div>
+                
+                
+                
+                <div class="footer__contact">
+                    <h3 class="footer__contact-title">Контакты</h3>
+                    <ul class="footer__contact-list">
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📍</span>
+                            <span>г. Тирасполь, ул. Экологическая, 15</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📧</span>
+                            <span>info@ecopmr.ru</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📞</span>
+                            <span>+373 (777) 123-45</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">🕒</span>
+                            <span>Пн-Пт: 9:00-18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2025 Эко-Платформа ПМР. Все права защищены.
+                </p>
+                <div class="footer__links">
+                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__link">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <!-- Единый менеджер данных и инициативы подключаем ДО дашборда -->
+    <script src="../js/data-manager.js"></script>
+    <script src="../js/initiatives.js"></script>
+    <!-- Логика дашборда и навигации -->
+    <script src="../js/products.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/nav.js"></script>
+    <script>
+        // Инициализация AOS и прочей логики страницы (логика мобильного меню вынесена в js/nav.js)
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+
+            // Плавная прокрутка для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Модальное окно подтверждения сброса -->
+    <div id="resetModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="resetModalTitle">
+        <div class="modal__content modal__content--small">
+            <button id="resetModalClose" class="modal__close" aria-label="Закрыть окно">&times;</button>
+            
+            <div class="modal__header">
+                <div class="modal__icon modal__icon--danger">⚠️</div>
+                <h2 id="resetModalTitle" class="modal__title">Подтверждение сброса данных</h2>
+            </div>
+            
+            <div class="modal__body">
+                <p class="modal__warning-text">
+                    Вы уверены, что хотите сбросить все данные? Это действие удалит:
+                </p>
+                <ul class="modal__warning-list">
+                    <li>🌱 Все эко-баллы</li>
+                    <li>📊 Статистику экономии CO₂ и воды</li>
+                    <li>♻️ Статистику переработки отходов</li>
+                    <li>🎯 Все инициативы и их прогресс</li>
+                    <li>✅ Все привычки и достижения</li>
+                    <li>❤️ Все избранные товары и точки на карте</li>
+                </ul>
+                <p class="modal__warning-text modal__warning-text--bold">
+                    Это действие нельзя отменить!
+                </p>
+            </div>
+            
+            <div class="modal__footer">
+                <button id="resetModalCancel" class="btn btn--secondary">
+                    <span>Отмена</span>
+                </button>
+                <button id="resetModalConfirm" class="btn btn--danger">
+                    <span>🗑️</span>
+                    <span>Да, сбросить все</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+.modal__text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    white-space: pre-line;
+}
+
+.modal__text p {
+    margin-bottom: 1.5rem;
+}
+
+.modal__text p:last-child {
+    margin-bottom: 0;
+}

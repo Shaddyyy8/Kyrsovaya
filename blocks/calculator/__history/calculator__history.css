@@ -1,0 +1,100 @@
+.calculator-history {
+    margin-top: 3rem;
+    padding: 2rem;
+    border-radius: var(--border-radius-md);
+    background: linear-gradient(135deg, rgba(46, 139, 87, 0.03), rgba(245, 245, 220, 0.25));
+    border: 1px solid rgba(46, 139, 87, 0.18);
+    box-shadow: var(--shadow-light);
+}
+
+.calculator-history__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.calculator-history__tabs {
+    display: inline-flex;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 999px;
+    background: rgba(245, 245, 220, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.calculator-history__tab {
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: transparent;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--accent-color);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.calculator-history__tab--active {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: var(--shadow-light);
+}
+
+.calculator-history__list {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.calculator-history__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    background: var(--text-light);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.calculator-history__item-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.calculator-history__item-icon {
+    font-size: 1.4rem;
+}
+
+.calculator-history__item-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.calculator-history__item-meta {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.calculator-history__item-value {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+.calculator-history__empty {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+
+

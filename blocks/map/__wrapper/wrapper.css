@@ -1,0 +1,32 @@
+.map__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 24px;
+    height: 600px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+    .map__wrapper {
+        grid-template-columns: 1fr;
+        height: 500px;
+    }
+    .map__sidebar {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 350px;
+        height: 100vh;
+        z-index: 1001;
+        transition: right 0.3s ease;
+    }
+    .map__sidebar--active {
+        right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .map__wrapper {
+        height: 400px;
+    }
+}

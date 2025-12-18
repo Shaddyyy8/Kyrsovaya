@@ -1,0 +1,43 @@
+.map__legend-container {
+    background: var(--color-white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+}
+
+.map__legend-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+}
+
+.map__legend-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.map__legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.map__legend-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.map__legend-icon--recycling { background: var(--color-recycling); }
+.map__legend-icon--shop { background: var(--color-shop); }
+.map__legend-icon--compost { background: var(--color-compost); }
+
+.map__legend-text {
+    font-size: 0.95rem;
+    color: var(--color-text);
+}

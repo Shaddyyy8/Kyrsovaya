@@ -1,0 +1,13 @@
+.header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    box-shadow: 0 4px 20px rgba(46, 139, 87, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+
+
