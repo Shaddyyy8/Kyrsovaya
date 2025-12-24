@@ -17,11 +17,11 @@ class DataManager {
             
             // Инициализируем недостающие поля
             this.userData = {
-                // Основные метрики
-                ecoPoints: userData.ecoPoints || 0,
-                co2Saved: userData.co2Saved || 0,
-                waterSaved: userData.waterSaved || 0,
-                wasteRecycled: userData.wasteRecycled || 0,
+                // Основные метрики (убеждаемся что это числа)
+                ecoPoints: parseInt(userData.ecoPoints) || 0,
+                co2Saved: parseFloat(userData.co2Saved) || 0,
+                waterSaved: parseFloat(userData.waterSaved) || 0,
+                wasteRecycled: parseFloat(userData.wasteRecycled) || 0,
                 
                 // Привычки
                 habits: userData.habits || [],
@@ -212,6 +212,31 @@ class DataManager {
         // Обновляем статистику
         this.userData.ecoPoints += habitData.points || 0;
         this.userData.co2Saved += habitData.co2 || 0;
+        
+        // Правильное распределение очков по категориям
+        const habitType = habitData.type;
+        switch(habitType) {
+            case 'recycle':
+                // Переработка -> отходы
+                this.userData.wasteRecycled += habitData.wasteRecycled || 2.0;
+                break;
+            case 'water':
+                // Экономия воды -> вода
+                this.userData.waterSaved += habitData.waterSaved || 50;
+                break;
+            case 'bike':
+            case 'energy':
+                // Велосипед и энергия -> только CO2 (уже добавлено выше)
+                break;
+            default:
+                // Для других типов привычек используем переданные значения
+                if (habitData.waterSaved) {
+                    this.userData.waterSaved += habitData.waterSaved;
+                }
+                if (habitData.wasteRecycled) {
+                    this.userData.wasteRecycled += habitData.wasteRecycled;
+                }
+        }
         
         // Обновляем статистику привычек
         this.updateHabitsStats();
@@ -455,13 +480,18 @@ class DataManager {
         // Прогресс за неделю (упрощенный)
         const weekProgress = this.calculateWeekProgress();
         
+        // Убеждаемся, что значения числовые
+        const wasteRecycled = parseFloat(this.userData.wasteRecycled) || 0;
+        const waterSaved = parseFloat(this.userData.waterSaved) || 0;
+        const co2Saved = parseFloat(this.userData.co2Saved) || 0;
+        
         return {
             // Быстрая статистика
             quickStats: {
-                ecoPoints: this.userData.ecoPoints,
-                co2Saved: this.userData.co2Saved.toFixed(1),
-                waterSaved: this.userData.waterSaved,
-                wasteRecycled: this.userData.wasteRecycled.toFixed(1),
+                ecoPoints: this.userData.ecoPoints || 0,
+                co2Saved: co2Saved.toFixed(1),
+                waterSaved: waterSaved,
+                wasteRecycled: wasteRecycled.toFixed(1),
                 todayHabits: todayHabits,
                 activeInitiatives: activeInitiatives.length,
                 level: this.getLevelInfo()

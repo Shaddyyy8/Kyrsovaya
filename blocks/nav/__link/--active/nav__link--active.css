@@ -1,16 +1,16 @@
 .nav__link--active {
-    background-color: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    position: relative;
+    background: #fff;
+    color: var(--primary-dark, #1f6b3f);
+    box-shadow: 0 12px 36px rgba(31,107,63,0.12);
+    border: none;
 }
 
 .nav__link--active::after {
-    content: '•';
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--secondary-color);
-    font-size: 1.2rem;
+    content: '';
+    display: block;
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    margin-left: 8px;
 }

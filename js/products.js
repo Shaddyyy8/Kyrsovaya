@@ -157,9 +157,9 @@ function createProductCard(product) {
                     <span class="product-card__btn-icon">🔍</span>
                     Подробнее
                 </button>
-                <button class="product-card__btn product-card__btn--fav ${isFavorite ? 'product-card__btn--fav--active' : ''}" data-id="${product.id}">
+                <button class="product-card__btn product-card__btn--fav ${isFavorite ? 'product-card__btn--fav--active' : ''}" data-id="${product.id}" title="${isFavorite ? 'В избранном' : 'В избранное'}">
                     <span class="product-card__btn-icon">${isFavorite ? '❤️' : '🤍'}</span>
-                    ${isFavorite ? 'В избранном' : 'В избранное'}
+                    <span class="product-card__btn-text">${isFavorite ? 'В избранном' : 'В избранное'}</span>
                 </button>
             </div>
         </div>
@@ -236,7 +236,7 @@ function toggleFavorite(productId, button) {
     if (isFavorite) {
         favorites = favorites.filter(id => id !== productId);
         if (button) {
-            button.innerHTML = '<span class="product-card__btn-icon">🤍</span> В избранное';
+            button.innerHTML = '<span class="product-card__btn-icon">🤍</span><span class="product-card__btn-text"> В избранное</span>';
             button.classList.remove('product-card__btn--fav--active');
         }
         if (modalFavBtn.dataset.id == productId) {
@@ -245,7 +245,7 @@ function toggleFavorite(productId, button) {
     } else {
         favorites.push(productId);
         if (button) {
-            button.innerHTML = '<span class="product-card__btn-icon">❤️</span> В избранном';
+            button.innerHTML = '<span class="product-card__btn-icon">❤️</span><span class="product-card__btn-text"> В избранном</span>';
             button.classList.add('product-card__btn--fav--active');
         }
         if (modalFavBtn.dataset.id == productId) {
@@ -500,8 +500,8 @@ function init() {
                 const favorites = getFavoritesIds();
                 const isFavorite = favorites.includes(productId);
                 btn.innerHTML = isFavorite 
-                    ? '<span class="product-card__btn-icon">❤️</span> В избранном'
-                    : '<span class="product-card__btn-icon">🤍</span> В избранное';
+                    ? '<span class="product-card__btn-icon">❤️</span><span class="product-card__btn-text"> В избранном</span>'
+                    : '<span class="product-card__btn-icon">🤍</span><span class="product-card__btn-text"> В избранное</span>';
                 btn.classList.toggle('product-card__btn--fav--active', isFavorite);
             });
         });

@@ -24,7 +24,7 @@ const INITIATIVES_DATA = [
         },
         co2Reduction: 12,
         waterSaved: 50,
-        image: "🚫"
+        image: "♻️"
     },
     {
         id: 2,
@@ -92,7 +92,7 @@ const INITIATIVES_DATA = [
         },
         co2Reduction: 5,
         waterSaved: 120,
-        image: "💧"
+        image: "🚰"
     }
 ];
 
@@ -614,7 +614,6 @@ function showInitiativeDetails(initiativeId) {
             updateCardProgress(initiativeId);
             // Закрыть модальное окно
             modal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
             // Обновить список инициатив
             renderAllInitiatives();
         };
@@ -647,9 +646,8 @@ function showInitiativeDetails(initiativeId) {
         });
     });
     
-    // Показываем модальное окно
+    // Показываем модальное окно (inline panel)
     modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
 }
 
 function showNotification(message) {
@@ -677,7 +675,7 @@ function initApp() {
         console.log('Загружаем DataManager...');
         const script = document.createElement('script');
         // Путь указываем относительно HTML-страницы (папка html/)
-        // поэтому используем ../js/, а не js/
+        // путь относительно HTML файла в docs/
         script.src = '../js/data-manager.js';
         script.onload = function() {
             console.log('DataManager загружен');

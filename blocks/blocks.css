@@ -13,7 +13,6 @@
 @import "./styles/card/card.css";
 @import "./styles/decor/decor.css";
 @import "./styles/form/form.css";
-@import "./styles/responsive/responsive.css";
 
 @import "./container/container.css";
 
@@ -37,6 +36,24 @@
 @import "./footer/__description/footer__description.css";
 @import "./footer/__bottom/footer__bottom.css";
 @import "./footer/__copyright/footer__copyright.css";
+
+@import "./hero/hero.css";
+
+@import "./features/features.css";
+@import "./features/__card/features__card.css";
+
+@import "./news/news.css";
+@import "./news/__card/news__card.css";
+
+@import "./cta/cta.css";
+
+@import "./stat-card/stat-card.css";
+@import "./stat-card/__icon/stat-card__icon.css";
+@import "./stat-card/__content/stat-card__content.css";
+@import "./stat-card/__title/stat-card__title.css";
+@import "./stat-card/__value/stat-card__value.css";
+
+@import "./map/__legend/map__legend.css";
 
 @import "./articles/__hero/articles__hero.css";
 @import "./articles/__hero/_title/articles__hero_title.css";
@@ -187,6 +204,7 @@
 @import "./dashboard/__habit/_btn/dashboard__btn.css";
 @import "./dashboard/__habit/_btn/_icon/habit__btn_icon.css";
 @import "./dashboard/__habit/_btn/_info/dashboard__btn_info.css";
+@import "./dashboard/__habit/_btn/_co2/dashboard__btn_co2.css";
 @import "./dashboard/__habit/_btn/_text/dashboard__btn_text.css";
 @import "./dashboard/__progressChart/dashboard__progressChart.css";
 @import "./dashboard/__settings/_content/dashboard__settings_content.css";
@@ -228,5 +246,10 @@
 @import "./calculator/__section/_icon/calculator__section_icon.css";
 @import "./calculator/__section/_description/calculator__section_description.css";
 
+@import "./styles/responsive/responsive.css";
+
 /* End of imports */
+
+@import "./custom-design.css";
+@import "./custom-fixes.css";
 

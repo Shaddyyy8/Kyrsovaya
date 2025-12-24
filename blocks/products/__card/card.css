@@ -200,3 +200,13 @@
     color: var(--text-light);
 }
 
+/* Additional product card styles */
+.product-card { display: flex; flex-direction: column; height: 100%; }
+.product-card__image { height: 180px; min-height: 160px; }
+.product-card__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product-card__content { display: flex; flex-direction: column; padding: 1rem; gap: 0.6rem; }
+.product-card__description { margin: 0; }
+.product-card__price { margin-top: auto; }
+.product-card__actions { margin-top: 12px; }
+.product-card__btn { padding: 0.65rem 0.8rem; }
+

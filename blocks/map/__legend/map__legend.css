@@ -1,0 +1,50 @@
+/* Map legend styles */
+.map-legend {
+    display: block;
+    margin-top: 18px;
+}
+
+.map-legend__title, .map__legend-title {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+.map-legend__items {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.map-legend__item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 10px;
+    background: var(--text-light);
+    border-radius: 10px;
+    box-shadow: var(--shadow-card);
+}
+
+.map-legend__icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+}
+
+.map-legend__icon--recycling {
+    background: var(--color-recycling);
+}
+
+.map-legend__icon--shop {
+    background: var(--color-shop);
+}
+
+.map-legend__icon--compost {
+    background: var(--color-compost);
+}
+
+.map-legend__text {
+    color: var(--color-text);
+    font-size: 0.95rem;
+}

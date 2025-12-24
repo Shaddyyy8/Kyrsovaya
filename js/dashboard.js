@@ -13,6 +13,8 @@ const userData = {
     readArticles: []
 };
 
+let currentHabitFilter = 'all';
+
 // Демо-данные
 const demoData = {
     habits: [
@@ -52,7 +54,8 @@ const elements = {
     recommendedProducts: document.getElementById('recommendedProducts'),
     recentArticles: document.getElementById('recentArticles'),
     achievementsList: document.getElementById('achievementsList'),
-    habitButtons: document.querySelectorAll('.habit-btn')
+    habitButtons: document.querySelectorAll('.habit-card-btn'),
+    filterButtons: document.querySelectorAll('.filter-btn')
 };
 
 // Инициализация при загрузке
@@ -68,6 +71,9 @@ function initializePage() {
     loadUserData();
     loadProductsData();
     updateDashboard();
+    // Синхронизируем иконки привычек в кнопках с теми, что используются в истории
+    if (typeof syncHabitIcons === 'function') syncHabitIcons();
+    if (typeof applyIconsToFilters === 'function') applyIconsToFilters();
     
     // Обновление при изменении данных из других частей приложения
     document.addEventListener('ecodata-updated', function() {
@@ -207,22 +213,23 @@ function updateDashboard() {
 
 // Обновление быстрой статистики
 function updateQuickStats() {
-    if (elements.quickEcoPoints) {
-        elements.quickEcoPoints.textContent = userData.ecoPoints || 0;
-    }
-    if (elements.quickCO2Saved) {
-        elements.quickCO2Saved.textContent = (userData.co2Saved || 0).toFixed(1) + ' кг';
-    }
-    if (elements.quickWaterSaved) {
-        elements.quickWaterSaved.textContent = (userData.waterSaved || 0) + ' л';
-    }
-    if (elements.quickWasteRecycled) {
-        elements.quickWasteRecycled.textContent = (userData.wasteRecycled || 0).toFixed(1) + ' кг';
-    }
-    
-    // Обновляем счетчики
+    // Используем dataManager для получения актуальных данных
     if (window.dataManager) {
         const stats = window.dataManager.getDashboardStats();
+        
+        // Обновляем основные метрики из dataManager
+        if (elements.quickEcoPoints) {
+            elements.quickEcoPoints.textContent = stats.quickStats.ecoPoints || 0;
+        }
+        if (elements.quickCO2Saved) {
+            elements.quickCO2Saved.textContent = stats.quickStats.co2Saved + ' кг';
+        }
+        if (elements.quickWaterSaved) {
+            elements.quickWaterSaved.textContent = stats.quickStats.waterSaved + ' л';
+        }
+        if (elements.quickWasteRecycled) {
+            elements.quickWasteRecycled.textContent = stats.quickStats.wasteRecycled + ' кг';
+        }
 
         const todayHabitsCount = document.getElementById('todayHabitsCount');
         if (todayHabitsCount) {
@@ -238,17 +245,46 @@ function updateQuickStats() {
         const levelInfo = stats.quickStats.level;
         const levelLabel = document.getElementById('ecoLevelLabel');
         const levelProgress = document.getElementById('ecoLevelProgress');
+        const levelProgressBar = document.getElementById('ecoLevelProgressBar');
 
         if (levelInfo && levelLabel) {
             levelLabel.textContent = `${levelInfo.currentLevel.icon} ${levelInfo.currentLevel.name}`;
         }
 
-        if (levelInfo && levelProgress) {
+        if (levelInfo) {
             if (levelInfo.nextLevel) {
-                levelProgress.textContent = `До уровня "${levelInfo.nextLevel.name}": ${levelInfo.pointsToNext} баллов`;
+                if (levelProgress) {
+                    levelProgress.textContent = `До уровня "${levelInfo.nextLevel.name}": ${levelInfo.pointsToNext} баллов`;
+                }
+                
+                // Calculate percentage
+                if (levelProgressBar) {
+                    const currentPoints = stats.quickStats.ecoPoints;
+                    const currentLevelMin = levelInfo.currentLevel.min;
+                    const nextLevelMin = levelInfo.nextLevel.min;
+                    const range = nextLevelMin - currentLevelMin;
+                    const progress = currentPoints - currentLevelMin;
+                    const percentage = Math.min(100, Math.max(0, (progress / range) * 100));
+                    levelProgressBar.style.width = `${percentage}%`;
+                }
             } else {
-                levelProgress.textContent = 'Достигнут максимальный уровень 🎉';
+                if (levelProgress) levelProgress.textContent = 'Достигнут максимальный уровень 🎉';
+                if (levelProgressBar) levelProgressBar.style.width = '100%';
             }
+        }
+    } else {
+        // Fallback на локальные данные
+        if (elements.quickEcoPoints) {
+            elements.quickEcoPoints.textContent = userData.ecoPoints || 0;
+        }
+        if (elements.quickCO2Saved) {
+            elements.quickCO2Saved.textContent = (userData.co2Saved || 0).toFixed(1) + ' кг';
+        }
+        if (elements.quickWaterSaved) {
+            elements.quickWaterSaved.textContent = (userData.waterSaved || 0) + ' л';
+        }
+        if (elements.quickWasteRecycled) {
+            elements.quickWasteRecycled.textContent = (userData.wasteRecycled || 0).toFixed(1) + ' кг';
         }
     }
 }
@@ -259,14 +295,24 @@ function updateHabitsHistory() {
     
     elements.habitsHistory.innerHTML = '';
     
-    const recentHabits = userData.habits
+    let filteredHabits = userData.habits;
+    
+    if (currentHabitFilter !== 'all') {
+        filteredHabits = filteredHabits.filter(h => h.type === currentHabitFilter);
+    }
+    
+    const recentHabits = filteredHabits
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 5);
     
     if (recentHabits.length === 0) {
+        const emptyMsg = currentHabitFilter === 'all' 
+            ? 'Пока нет привычек' 
+            : 'Нет привычек в этой категории';
+            
         elements.habitsHistory.innerHTML = `
             <div class="text-center p-3">
-                <div class="text-muted">Пока нет привычек</div>
+                <div class="text-muted">${emptyMsg}</div>
                 <div class="text-muted" style="font-size: 0.9rem;">Добавьте первую привычку!</div>
             </div>
         `;
@@ -303,12 +349,73 @@ function updateHabitsHistory() {
 // Информация о привычках
 function getHabitInfo(type) {
     const habits = {
-        bike: { name: 'Велосипед', icon: '🚲' },
+        bike: { name: 'Велосипед', icon: '🚴' },
         recycle: { name: 'Переработка', icon: '♻️' },
-        water: { name: 'Экономия воды', icon: '💧' },
+        water: { name: 'Экономия воды', icon: '🚰' },
         energy: { name: 'Экономия энергии', icon: '💡' }
     };
     return habits[type] || { name: 'Неизвестно', icon: '❓' };
+}
+
+// Синхронизировать иконки в кнопках добавления привычек и в быстрых статистиках
+function syncHabitIcons() {
+    // Replace habit button icons with SVGs from getHabitInfo
+    document.querySelectorAll('.habit-card-btn').forEach(btn => {
+        const type = btn.dataset.habit;
+        const iconEl = btn.querySelector('.habit-card-icon');
+        if (iconEl) {
+            const info = getHabitInfo(type);
+            iconEl.innerHTML = info.icon;
+            iconEl.style.width = '42px';
+            iconEl.style.height = '42px';
+            iconEl.style.display = 'inline-flex';
+            iconEl.style.alignItems = 'center';
+            iconEl.style.justifyContent = 'center';
+            iconEl.style.background = 'rgba(46,139,87,0.08)';
+            iconEl.style.borderRadius = '8px';
+        }
+    });
+
+    // Also update quick stats icons to use same SVG style
+    const statMap = {
+        quickEcoPoints: 'bike',
+        quickCO2Saved: 'recycle',
+        quickWaterSaved: 'water',
+        quickWasteRecycled: 'energy'
+    };
+
+    Object.keys(statMap).forEach(id => {
+        const statEl = document.getElementById(id);
+        if (!statEl) return;
+        const wrapper = statEl.closest('.stat-card')?.querySelector('.dashboard-quick-stat__icon');
+        if (wrapper) {
+            wrapper.innerHTML = getHabitInfo(statMap[id]).icon;
+            wrapper.style.width = '48px';
+            wrapper.style.height = '48px';
+            wrapper.style.display = 'inline-flex';
+            wrapper.style.alignItems = 'center';
+            wrapper.style.justifyContent = 'center';
+            wrapper.style.background = 'linear-gradient(180deg,#e6f8ec,#f7fff9)';
+            wrapper.style.borderRadius = '50%';
+        }
+    });
+}
+
+// Подставить те же SVG-иконки в кнопки-фильтры истории
+function applyIconsToFilters() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        const filter = btn.dataset.filter;
+        if (!filter || filter === 'all') {
+            // keep text for "all"
+            btn.innerHTML = btn.textContent.trim() || 'Все';
+            return;
+        }
+        const info = getHabitInfo(filter);
+        btn.innerHTML = info.icon;
+        btn.classList.add('filter-btn--icon');
+        // keep accessible title
+        btn.setAttribute('title', info.name);
+    });
 }
 
 // Обновление активных инициатив
@@ -418,17 +525,52 @@ function updateActiveInitiatives() {
 function updateRecommendedProducts() {
     if (!elements.recommendedProducts) return;
     
-    elements.recommendedProducts.innerHTML = '';
+    // Show loading state
+    elements.recommendedProducts.innerHTML = `
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <p class="text-muted mt-2">Подбираем эко-товары...</p>
+        </div>
+    `;
     
-    // Если есть реальные товары из products.js — используем их
-    if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length > 0) {
-        const topProducts = window.PRODUCTS.slice(0, 4);
+    // Simulate recommendation engine delay
+    setTimeout(() => {
+        elements.recommendedProducts.innerHTML = '';
         
-        topProducts.forEach(product => {
+        // Если есть реальные товары из products.js — используем их
+        if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length > 0) {
+            const topProducts = window.PRODUCTS.slice(0, 4);
+            
+            topProducts.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'product-item';
+                productElement.innerHTML = `
+                    <span class="product-item__icon">🛍️</span>
+                    <div class="product-item__content">
+                        <div class="product-item__title">${product.title}</div>
+                        <div class="product-item__info">
+                            <span>${product.category}</span>
+                            <span>${product.price} руб.</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Переход к товару по клику
+                productElement.addEventListener('click', () => {
+                    window.location.href = `products.html#product-${product.id}`;
+                });
+                
+                elements.recommendedProducts.appendChild(productElement);
+            });
+            return;
+        }
+        
+        // Fallback: демо-данные
+        demoData.recommendedProducts.forEach(product => {
             const productElement = document.createElement('div');
             productElement.className = 'product-item';
             productElement.innerHTML = `
-                <span class="product-item__icon">🛍️</span>
+                <span class="product-item__icon">${product.icon}</span>
                 <div class="product-item__content">
                     <div class="product-item__title">${product.title}</div>
                     <div class="product-item__info">
@@ -438,33 +580,9 @@ function updateRecommendedProducts() {
                 </div>
             `;
             
-            // Переход к товару по клику
-            productElement.addEventListener('click', () => {
-                window.location.href = `products.html#product-${product.id}`;
-            });
-            
             elements.recommendedProducts.appendChild(productElement);
         });
-        return;
-    }
-    
-    // Fallback: демо-данные
-    demoData.recommendedProducts.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.className = 'product-item';
-        productElement.innerHTML = `
-            <span class="product-item__icon">${product.icon}</span>
-            <div class="product-item__content">
-                <div class="product-item__title">${product.title}</div>
-                <div class="product-item__info">
-                    <span>${product.category}</span>
-                    <span>${product.price} руб.</span>
-                </div>
-            </div>
-        `;
-        
-        elements.recommendedProducts.appendChild(productElement);
-    });
+    }, 800);
 }
 
 
@@ -476,11 +594,17 @@ function updateRecommendedProducts() {
 function updateRecentArticles() {
     if (!elements.recentArticles) return;
     
-    elements.recentArticles.innerHTML = '';
+    // Show loading state
+    elements.recentArticles.innerHTML = `
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <p class="text-muted mt-2">Загружаем статьи...</p>
+        </div>
+    `;
     
     // Если уже есть кэш загруженных статей — используем его
     if (Array.isArray(window.RECENT_ARTICLES_CACHE) && window.RECENT_ARTICLES_CACHE.length > 0) {
-        renderRecentArticles(window.RECENT_ARTICLES_CACHE);
+        setTimeout(() => renderRecentArticles(window.RECENT_ARTICLES_CACHE), 300);
         return;
     }
     
@@ -488,23 +612,40 @@ function updateRecentArticles() {
     fetch('../json/articles.json')
         .then(resp => resp.json())
         .then(raw => {
-            const articles = raw.map(a => ({
-                id: a.id,
-                title: a.title,
-                date: a.date,
-                readTime: a.readTime || '1 мин'
-            }));
-            
+            // Преобразуем исходный массив, чтобы сохранить картинку и текст
+            const articles = raw.map(a => {
+                // Выбираем поле с изображением
+                const rawImage = a.img || a.image || '';
+                let image = rawImage || '';
+                if (image && !image.startsWith('http') && !image.startsWith('../') && !image.startsWith('/')) {
+                    image = '../' + image.replace(/^\/+/, '');
+                } else if (!image) {
+                    // fallback к существующей картинке в наборе
+                    image = '../images/article/article1.jpg';
+                }
+
+                return {
+                    id: a.id,
+                    title: a.title,
+                    date: a.date,
+                    readTime: a.readTime || '1 мин',
+                    image: image,
+                    excerpt: (a.text || a.content || '').slice(0, 160)
+                };
+            });
+
             // Сортируем по дате (последние сверху)
             articles.sort((a, b) => {
                 const da = new Date(a.date);
                 const db = new Date(b.date);
                 return db - da;
             });
-            
+
             const latest = articles.slice(0, 4);
             window.RECENT_ARTICLES_CACHE = latest;
             renderRecentArticles(latest);
+            // Also render the news grid on the main page (bigger cards)
+            renderNewsGrid(articles.slice(0, 6));
         })
         .catch(() => {
             // Fallback: демо-данные
@@ -520,12 +661,17 @@ function renderRecentArticles(list) {
     list.forEach(article => {
         const articleElement = document.createElement('div');
         articleElement.className = 'article-item';
+        const displayDate = article.date ? new Date(article.date) : null;
+        const formattedDate = displayDate
+            ? displayDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })
+            : '';
+
         articleElement.innerHTML = `
             <span class="article-item__icon">${article.icon || '📝'}</span>
             <div class="article-item__content">
                 <div class="article-item__title">${article.title}</div>
                 <div class="article-item__info">
-                    <span>${article.date || ''}</span>
+                    <span>${formattedDate}</span>
                     <span>${article.readTime || '1 мин'}</span>
                 </div>
             </div>
@@ -536,6 +682,50 @@ function renderRecentArticles(list) {
         });
         
         elements.recentArticles.appendChild(articleElement);
+    });
+}
+
+// Render larger news cards for the homepage news grid
+function renderNewsGrid(list) {
+    const newsGrid = document.getElementById('newsGrid');
+    if (!newsGrid) return;
+    newsGrid.innerHTML = '';
+
+    // Normalize list and show only 3 most recent articles
+    const prepared = (Array.isArray(list) ? list.slice() : [])
+        .map(i => Object.assign({}, i))
+        .sort((a, b) => {
+            const da = a.date ? new Date(a.date) : new Date(0);
+            const db = b.date ? new Date(b.date) : new Date(0);
+            return db - da;
+        })
+        .slice(0, 3);
+
+    prepared.forEach(item => {
+        const dateObj = item.date ? new Date(item.date) : null;
+        const formattedDate = dateObj ? dateObj.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+
+        const card = document.createElement('article');
+        card.className = 'news-card';
+        // Use either item.image or item.img (older JSON uses 'img')
+        let imageSrc = item.image || item.img || '../images/article/article1.jpg';
+        if (imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('../') && !imageSrc.startsWith('/')) {
+            imageSrc = '../' + imageSrc.replace(/^\/+/, '');
+        }
+        const excerpt = (item.excerpt || item.text || '').slice(0, 160);
+        card.innerHTML = `
+            <div class="news-image-wrapper">
+                <img src="${imageSrc}" alt="${item.title}" class="news-image">
+                <span class="news-category">${item.category || ''}</span>
+            </div>
+            <div class="news-content">
+                <div class="news-date">${formattedDate}</div>
+                <h3 class="news-title">${item.title}</h3>
+                <p class="news-excerpt">${excerpt}</p>
+                <a href="articles.html?article=${item.id}" class="news-link">Читать далее →</a>
+            </div>
+        `;
+        newsGrid.appendChild(card);
     });
 }
 
@@ -577,6 +767,22 @@ function setupEventListeners() {
             }, 2000);
         });
     });
+
+    // Фильтры истории
+    if (elements.filterButtons) {
+        elements.filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all
+                elements.filterButtons.forEach(b => b.classList.remove('filter-btn--active'));
+                // Add active class to clicked
+                this.classList.add('filter-btn--active');
+                
+                // Update filter
+                currentHabitFilter = this.dataset.filter;
+                updateHabitsHistory();
+            });
+        });
+    }
     
 }
 
@@ -588,12 +794,40 @@ function addHabit(type, co2) {
     // Если доступен DataManager — добавляем привычку через него,
     // чтобы всё хранилось в единой системе и обновлялись глобальные метрики.
     if (window.dataManager) {
-        window.dataManager.addHabit({
+        // Правильное распределение очков по категориям
+        const habitData = {
             type: type,
             co2: co2,
             points: points,
             description: getHabitInfo(type).name
-        });
+        };
+        
+        // Добавляем специфичные значения для каждой категории с реалистичными данными
+        switch(type) {
+            case 'recycle':
+                // Переработка 1 кг отходов экономит ~0.5 кг CO2 и дает 2 кг переработанных отходов
+                habitData.wasteRecycled = 2.0; // кг переработанных отходов
+                habitData.co2 = 0.5; // переопределяем CO2 для переработки
+                break;
+            case 'water':
+                // Экономия 50 литров воды экономит ~0.3 кг CO2 (на подогрев и очистку)
+                habitData.waterSaved = 50; // литров сохраненной воды
+                habitData.co2 = 0.3; // переопределяем CO2 для воды
+                break;
+            case 'bike':
+                // Поездка на велосипеде 5 км вместо машины экономит ~1.2 кг CO2
+                habitData.co2 = 1.2;
+                break;
+            case 'energy':
+                // Экономия энергии (выключение света, техники) экономит ~0.8 кг CO2
+                habitData.co2 = 0.8;
+                break;
+        }
+        
+        // Пересчитываем баллы на основе реального CO2
+        habitData.points = Math.round(habitData.co2 * 42);
+        
+        window.dataManager.addHabit(habitData);
         
         // Локально обновляем данные и дашборд
         loadUserData();

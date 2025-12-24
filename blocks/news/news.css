@@ -1,0 +1,26 @@
+/* News section styles */
+.news-section {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, #f8fffe 0%, #ffffff 100%);
+    position: relative;
+}
+
+.news-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(46, 139, 87, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.8rem;
+    position: relative;
+    z-index: 1;
+}

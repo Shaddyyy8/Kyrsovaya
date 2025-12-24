@@ -57,3 +57,14 @@
         initNav();
     }
 })();
+// Add small scroll handler to toggle header scrolled state (visual depth)
+(function(){
+    function onScroll() {
+        const header = document.querySelector('.header');
+        if (!header) return;
+        if (window.scrollY > 12) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // run once
+    onScroll();
+})();

@@ -1,4 +1,5 @@
-.map__map {
+.map__map,
+.map-wrapper__map {
     position: relative;
     width: 100%;
     height: 100%;
@@ -33,4 +34,12 @@
 .leaflet-popup-tip {
     background: var(--text-light);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Улучшаем визуал подсказки (стрелки) у Leaflet: тонкая рамка и мягкая тень */
+.leaflet-popup-tip-container, .leaflet-popup-tip {
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.08));
+}
+.leaflet-popup-content-wrapper {
+    border: 1px solid rgba(0,0,0,0.06);
 }

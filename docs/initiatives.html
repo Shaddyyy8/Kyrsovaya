@@ -18,7 +18,7 @@
         <div class="container">
             <nav class="nav" aria-label="Основная навигация">
                 <a href="index.html" class="nav__logo" aria-label="На главную страницу">
-                    <span class="nav__logo-icon">🌿</span>
+                    <img src="../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
                     <span class="nav__logo-text">Эко-Платформа ПМР</span>
                 </a>
                 <ul class="nav__list" id="navList">
@@ -31,6 +31,7 @@
                     <li class="nav__item">
                         <a href="products.html" class="nav__link">Эко-товары</a>
                     </li>
+                    
                     <li class="nav__item">
                         <a href="articles.html" class="nav__link">Статьи</a>
                     </li>
@@ -43,6 +44,7 @@
                     <li class="nav__item">
                         <a href="favorites.html" class="nav__link">Избранное</a>
                     </li>
+                    <li class="nav__item"><a href="contact.html" class="nav__link">Обратная связь</a></li>
                 </ul>
                 <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
                     ☰
@@ -54,13 +56,15 @@
     <main class="main" role="main">
         <div class="container">
             <!-- Hero секция -->
-            <section class="initiatives-hero">
-                <h1 class="initiatives-hero__title">Эко-Инициативы</h1>
-                <p class="initiatives-hero__description">
-                    Образовательные программы и практические вызовы для перехода 
-                    к устойчивому образу жизни. Отслеживайте прогресс, получайте награды 
-                    и вносите реальный вклад в сохранение окружающей среды.
-                </p>
+            <section class="hero-section hero-section--compact" data-aos="fade-up">
+                <div class="hero-content hero-content--center">
+                    <h1 class="hero-title">Эко-Инициативы</h1>
+                    <p class="hero-description">
+                        Образовательные программы и практические вызовы для перехода 
+                        к устойчивому образу жизни. Отслеживайте прогресс, получайте награды 
+                        и вносите реальный вклад в сохранение окружающей среды.
+                    </p>
+                </div>
             </section>
 
             <!-- Сетка инициатив -->
@@ -160,8 +164,8 @@
         <div class="container">
             <div class="footer__content">
                 <div class="footer__info">
-                    <div class="footer__logo">
-                        <span class="footer__logo-icon">🌿</span>
+                        <div class="footer__logo">
+                        <img src="../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
                         <span class="footer__logo-text">Эко-Платформа ПМР</span>
                     </div>
                     <p class="footer__description">
@@ -174,16 +178,20 @@
                     <h3 class="footer__contact-title">Контакты</h3>
                     <ul class="footer__contact-list">
                         <li class="footer__contact-item">
-                            <i>📍</i> г. Тирасполь, ул. Экологическая, 15
+                            <span class="footer__contact-icon">📍</span>
+                            <span>г. Тирасполь, ул. Экологическая, 15</span>
                         </li>
                         <li class="footer__contact-item">
-                            <i>📧</i> info@ecopmr.ru
+                            <span class="footer__contact-icon">📧</span>
+                            <span>info@ecopmr.ru</span>
                         </li>
                         <li class="footer__contact-item">
-                            <i>📞</i> +373 (777) 123-45
+                            <span class="footer__contact-icon">📞</span>
+                            <span>+373 (777) 123-45</span>
                         </li>
                         <li class="footer__contact-item">
-                            <i>🕒</i> Пн-Пт: 9:00-18:00
+                            <span class="footer__contact-icon">🕒</span>
+                            <span>Пн-Пт: 9:00-18:00</span>
                         </li>
                     </ul>
                 </div>
@@ -193,6 +201,7 @@
                 <p class="footer__copyright">
                     &copy; 2025 Эко-Платформа ПМР. Все права защищены.
                 </p>
+                <p class="footer__note">Учебный проект. Выполнил Гасинец Дмитрий.</p>
                 <div class="footer__links">
                     <a href="#" class="footer__link">Политика конфиденциальности</a>
                     <a href="#" class="footer__link">Пользовательское соглашение</a>
@@ -215,7 +224,6 @@
             if (modalClose) {
                 modalClose.addEventListener('click', () => {
                     modal.setAttribute('aria-hidden', 'true');
-                    document.body.style.overflow = '';
                 });
             }
             
@@ -223,7 +231,6 @@
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
                         modal.setAttribute('aria-hidden', 'true');
-                        document.body.style.overflow = '';
                     }
                 });
             }

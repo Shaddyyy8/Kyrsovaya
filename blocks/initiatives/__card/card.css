@@ -87,11 +87,11 @@
     color: var(--text-color);
     opacity: 0.8;
     line-height: 1.5;
-    flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    flex: 0 0 auto;
+    display: block;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
 }
 
 .initiative-card__progress {
@@ -385,3 +385,17 @@
     color: var(--text-color);
     font-weight: 500;
 }
+
+/* Additional initiative card styles */
+.initiative-card, .dashboard-initiative {
+    background: #fff; border-radius: 12px; border: 1px solid rgba(8,12,10,0.04); box-shadow: 0 10px 30px rgba(8,12,10,0.04);
+}
+
+.initiative-card__title, .dashboard-initiative__title, .dashboard-initiative__info .dashboard-initiative__title {
+    color: #153c2a;
+    font-weight: 800;
+    font-size: 1.04rem;
+    line-height: 1.2;
+}
+
+.initiative-card__meta, .dashboard-initiative__meta { color: #5b6b60; font-size: 0.9rem; }

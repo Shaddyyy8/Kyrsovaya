@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обратная связь — Эко-Платформа ПМР</title>
+    <meta name="description" content="Свяжитесь с нами — ваши идеи и замечания важны для развития Эко-Платформы ПМР">
+
+    <!-- Общие стили -->
+    <link rel="stylesheet" href="../blocks/blocks.css">
+
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- AOS для анимаций -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="container">
+                <nav class="nav" aria-label="Основная навигация">
+                <a href="index.html" class="nav__logo" aria-label="На главную страницу">
+                    <img src="../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
+                    <span class="nav__logo-text">Эко-Платформа ПМР</span>
+                </a>
+                <ul class="nav__list" id="navList">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Дашборд</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="calculator.html" class="nav__link">Калькуляторы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Эко-товары</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="articles.html" class="nav__link">Статьи</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="map.html" class="nav__link">Карта</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="favorites.html" class="nav__link">Избранное</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link nav__link--active" aria-current="page">Обратная связь</a>
+                    </li>
+                </ul>
+                <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main" role="main">
+        <!-- Hero секция -->
+        <section class="hero-section hero-section--compact" data-aos="fade-up">
+            <div class="hero-content hero-content--center">
+                <h1 class="hero-title">Обратная связь</h1>
+                <p class="hero-description">
+                    Свяжитесь с нами — ваши идеи и замечания важны для развития Эко-Платформы ПМР.
+                </p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="contact-grid">
+                <div data-aos="fade-up">
+                    <form id="contactForm" class="card">
+                        <div class="form-group">
+                            <label for="name">Имя</label>
+                            <input id="name" name="name" type="text" class="input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input id="email" name="email" type="email" class="input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Тема</label>
+                            <input id="subject" name="subject" type="text" class="input">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" name="message" rows="8" class="input" required></textarea>
+                        </div>
+                        <div style="display:flex;gap:12px;align-items:center;">
+                            <button type="submit" class="btn btn--primary">Отправить</button>
+                            <div id="contactStatus" class="text-muted"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__info">
+                    <div class="footer__logo">
+                        <img src="../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
+                        <span class="footer__logo-text">Эко-Платформа ПМР</span>
+                    </div>
+                    <p class="footer__description">
+                        Платформа для продвижения устойчивого образа жизни 
+                        и экологически ответственного потребления в Приднестровье.
+                    </p>
+                </div>
+                
+                <div class="footer__contact">
+                    <h3 class="footer__contact-title">Контакты</h3>
+                    <ul class="footer__contact-list">
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📍</span>
+                            <span>г. Тирасполь, ул. Экологическая, 15</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📧</span>
+                            <span>info@ecopmr.ru</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📞</span>
+                            <span>+373 (777) 123-45</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">🕒</span>
+                            <span>Пн-Пт: 9:00-18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+                <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2025 Эко-Платформа ПМР. Все права защищены.
+                </p>
+                <p class="footer__note">Учебный проект. Выполнил Гасинец Дмитрий.</p>
+                <div class="footer__links">
+                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__link">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="../js/contact.js"></script>
+    <script src="../js/nav.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+        });
+    </script>
+</body>
+</html>

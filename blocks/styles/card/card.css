@@ -1,12 +1,13 @@
 .card {
-    background: var(--text-light);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(245, 245, 220, 0.2));
     border-radius: var(--border-radius-md);
-    padding: 1.5rem;
+    padding: 2rem;
     box-shadow: var(--shadow-light);
     transition: var(--transition);
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-light);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 
 .card::before {
@@ -15,20 +16,39 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light), var(--accent-color));
     transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(46, 139, 87, 0.05), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .card:hover::before {
     transform: scaleX(1);
 }
 
+.card:hover::after {
+    opacity: 1;
+}
+
 .card:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-8px) scale(1.01);
     box-shadow: var(--shadow-hover);
     border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(232, 245, 233, 0.3));
 }
 
 .card--interactive {
@@ -38,3 +58,5 @@
 .card--highlight {
     border-left: 5px solid var(--accent-color);
 }
+
+.card--clean { background: white; border-radius: 12px; box-shadow: var(--shadow-card); padding: 12px; }

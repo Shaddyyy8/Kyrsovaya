@@ -21,7 +21,7 @@
         }
     }
     </script>
-    
+
     <!-- Общие стили -->
     <link rel="stylesheet" href="../blocks/blocks.css">
     
@@ -35,7 +35,6 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
- 
 </head>
 <body>
     <!-- Хедер -->
@@ -43,7 +42,7 @@
         <div class="container">
             <nav class="nav" aria-label="Основная навигация">
                 <a href="index.html" class="nav__logo" aria-label="На главную страницу">
-                    <span class="nav__logo-icon">🌿</span>
+                    <img src="../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
                     <span class="nav__logo-text">Эко-Платформа ПМР</span>
                 </a>
                 <ul class="nav__list" id="navList">
@@ -56,6 +55,7 @@
                     <li class="nav__item">
                         <a href="products.html" class="nav__link">Эко-товары</a>
                     </li>
+                    <!-- Корзина удалена -->
                     <li class="nav__item">
                         <a href="articles.html" class="nav__link">Статьи</a>
                     </li>
@@ -68,6 +68,9 @@
                     <li class="nav__item">
                         <a href="favorites.html" class="nav__link">Избранное</a>
                     </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">Обратная связь</a>
+                    </li>
                 </ul>
                 <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
                     ☰
@@ -77,224 +80,276 @@
     </header>
 
     <main class="main" role="main">
-        <!-- Hero секция -->
-        <section class="hero" data-aos="fade-up">
+        <!-- Hero Section -->
+        <section class="hero-section" data-aos="fade-up">
             <div class="container">
-                <div class="hero__content">
-                    <h1 class="hero__title">Ваш путь к устойчивому образу жизни</h1>
-                    <p class="hero__description">
-                        Присоединяйтесь к сообществу, которое заботится о будущем нашей планеты. 
-                        Отслеживайте прогресс, участвуйте в инициативах и делайте осознанный выбор каждый день.
-                    </p>
-                    <div class="hero__actions">
-                        <a href="#dashboard" class="btn btn--primary hero__btn">
-                            <span>🚀</span>
-                            <span>Начать путешествие</span>
-                        </a>
-                        <a href="articles.html" class="btn btn--secondary hero__btn">
-                            <span>📚</span>
-                            <span>Изучить статьи</span>
-                        </a>
+                <div class="hero__grid">
+                    <div class="hero__content">
+                        <div class="hero__badge">
+                            🌿 Экология начинается с тебя
+                        </div>
+                        <h1 class="hero__title">
+                            Твой путь к <br>
+                            <span class="text-highlight">осознанной жизни</span>
+                        </h1>
+                        <p class="hero__description">
+                            Присоединяйся к сообществу, которое меняет мир. Отслеживай свои привычки, 
+                            считай эко-след и находи единомышленников в Приднестровье.
+                        </p>
+                        <div class="hero__actions">
+                            <a href="#statistics" class="btn btn--primary btn--large">
+                                Начать действовать
+                            </a>
+                            <a href="map.html" class="btn btn--outline btn--large">
+                                Найти эко-точки
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="hero__image" data-aos="fade-left" data-aos-delay="300">
-                    <div class="hero__image-placeholder">🌍</div>
-                </div>
-            </div>
-        </section>
+                    
+                    <div class="hero__image">
+                        <div class="hero-image__blob hero-image__blob--1"></div>
+                        <div class="hero-image__blob hero-image__blob--2"></div>
 
-        <!-- Быстрые статистики -->
-        <section class="quick-stats" data-aos="fade-up" data-aos-delay="100">
-            <div class="container">
-                <div class="quick-stats__grid">
-                    <div class="quick-stat">
-                        <div class="quick-stat__icon">🌱</div>
-                        <div class="quick-stat__content">
-                            <h3 class="quick-stat__title">Эко-баллы</h3>
-                            <div class="quick-stat__value" id="quickEcoPoints">0</div>
-                            <div class="quick-stat__meta" id="ecoLevelLabel">Эко-новичок</div>
-                            <div class="quick-stat__meta-small" id="ecoLevelProgress">До следующего уровня: 0 баллов</div>
+                        <!-- Main Image (более общее) -->
+                        <div class="hero__img-wrapper hero__img-wrapper--main">
+                            <img src="../images/article/article11.jpg" alt="Природа и сообщество" class="hero__img hero__img--main">
                         </div>
-                    </div>
-                    <div class="quick-stat">
-                        <div class="quick-stat__icon">🌍</div>
-                        <div class="quick-stat__content">
-                            <h3 class="quick-stat__title">CO₂ сэкономлено</h3>
-                            <div class="quick-stat__value" id="quickCO2Saved">0 кг</div>
+
+                        <!-- Small Images (локальные) -->
+                        <div class="hero__img-wrapper hero__img-wrapper--small-1">
+                            <img src="../images/article/article12.jpg" alt="Контейнеры для переработки" class="hero__img hero__img--small-1">
                         </div>
-                    </div>
-                    <div class="quick-stat">
-                        <div class="quick-stat__icon">💧</div>
-                        <div class="quick-stat__content">
-                            <h3 class="quick-stat__title">Вода сохранена</h3>
-                            <div class="quick-stat__value" id="quickWaterSaved">0 л</div>
-                        </div>
-                    </div>
-                    <div class="quick-stat">
-                        <div class="quick-stat__icon">♻️</div>
-                        <div class="quick-stat__content">
-                            <h3 class="quick-stat__title">Отходы переработано</h3>
-                            <div class="quick-stat__value" id="quickWasteRecycled">0 кг</div>
+                        <div class="hero__img-wrapper hero__img-wrapper--small-2">
+                            <img src="../images/article/article10.jpg" alt="Пейзаж" class="hero__img hero__img--small-2">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Дашборд -->
-        <section id="dashboard" class="dashboard" data-aos="fade-up" data-aos-delay="200">
+        <!-- Quick Stats Banner -->
+        <section class="quick-stats-section" id="statistics">
             <div class="container">
-                <div class="dashboard__header">
-                    <h2 class="dashboard__title">Ваш экологический дашборд</h2>
-                    <p class="dashboard__subtitle">Отслеживайте прогресс и достигайте новых целей</p>
-                </div>
-
-                <!-- Основные виджеты -->
-                <div class="dashboard__grid">
-                    <div class="quick-stat">
-    <div class="quick-stat__icon">📊</div>
-    <div class="quick-stat__content">
-        <h3 class="quick-stat__title">Привычек сегодня</h3>
-        <div class="quick-stat__value" id="todayHabitsCount">0</div>
-    </div>
-</div>
-
-<div class="quick-stat">
-    <div class="quick-stat__icon">🚀</div>
-    <div class="quick-stat__content">
-        <h3 class="quick-stat__title">Активных инициатив</h3>
-        <div class="quick-stat__value" id="activeInitiativesCount">0</div>
-    </div>
-</div>
-
-                    <!-- Быстрый ввод привычек -->
-                    <div class="dashboard-widget">
-                        <div class="dashboard-widget__header">
-                            <h3 class="dashboard-widget__title">Добавить привычку</h3>
-                        </div>
-                        <div class="dashboard-widget__content">
-                            <div class="habits-grid">
-                                <button class="habit-btn" data-habit="bike" data-co2="1.2">
-                                    <span class="habit-btn__icon">🚲</span>
-                                    <span class="habit-btn__text">Велосипед</span>
-                                    <span class="habit-btn__info">+1.2 кг CO₂</span>
-                                </button>
-                                <button class="habit-btn" data-habit="recycle" data-co2="0.5">
-                                    <span class="habit-btn__icon">♻️</span>
-                                    <span class="habit-btn__text">Переработка</span>
-                                    <span class="habit-btn__info">+0.5 кг CO₂</span>
-                                </button>
-                                <button class="habit-btn" data-habit="water" data-co2="0.3">
-                                    <span class="habit-btn__icon">💧</span>
-                                    <span class="habit-btn__text">Экономия воды</span>
-                                    <span class="habit-btn__info">+0.3 кг CO₂</span>
-                                </button>
-                                <button class="habit-btn" data-habit="energy" data-co2="0.8">
-                                    <span class="habit-btn__icon">💡</span>
-                                    <span class="habit-btn__text">Экономия энергии</span>
-                                    <span class="habit-btn__info">+0.8 кг CO₂</span>
-                                </button>
-                            </div>
-                            <div class="habits-history" id="habitsHistory">
-                                <!-- История привычек будет загружена через JS -->
-                            </div>
+                <div class="dashboard-quick-stats">
+                    <!-- Quick Stat 1 -->
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="dashboard-quick-stat__icon dashboard-quick-stat__icon--eco">🚴</div>
+                        <div class="dashboard-quick-stat__content">
+                            <h3 class="dashboard-quick-stat__title">Эко-баллы</h3>
+                            <div class="stat-value" id="quickEcoPoints">0</div>
                         </div>
                     </div>
-
-                    <!-- Активные инициативы -->
-                    <div class="dashboard-widget">
-                        <div class="dashboard-widget__header">
-                            <h3 class="dashboard-widget__title">Активные инициативы</h3>
-                            <a href="initiatives.html" class="dashboard-widget__link">Все →</a>
-                        </div>
-                        <div class="dashboard-widget__content">
-                            <div class="initiatives-list" id="activeInitiatives">
-                                <!-- Активные инициативы будут загружены через JS -->
-                            </div>
+                    <!-- Quick Stat 2 -->
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="dashboard-quick-stat__icon dashboard-quick-stat__icon--co2">♻️</div>
+                        <div class="dashboard-quick-stat__content">
+                            <h3 class="dashboard-quick-stat__title">CO₂ (кг)</h3>
+                            <div class="stat-value" id="quickCO2Saved">0</div>
                         </div>
                     </div>
-
-                    <!-- Настройки и управление -->
-                    <div class="dashboard-widget dashboard-widget--danger">
-                        <div class="dashboard-widget__header">
-                            <h3 class="dashboard-widget__title">Управление данными</h3>
-                        </div>
-                        <div class="dashboard-widget__content">
-                            <div class="settings-content">
-                                <p class="settings-description">
-                                    Вы можете сбросить все ваши данные: баллы, инициативы, привычки, 
-                                    достижения и избранное. Это действие нельзя отменить.
-                                </p>
-                                <button id="resetDataBtn" class="btn btn--danger btn--full">
-                                    <span>🗑️</span>
-                                    <span>Сбросить все данные</span>
-                                </button>
-                            </div>
+                    <!-- Quick Stat 3 -->
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="dashboard-quick-stat__icon dashboard-quick-stat__icon--water">🚰</div>
+                        <div class="dashboard-quick-stat__content">
+                            <h3 class="dashboard-quick-stat__title">Вода (л)</h3>
+                            <div class="stat-value" id="quickWaterSaved">0</div>
                         </div>
                     </div>
-
-                    <!-- Эко-товары рекомендации -->
-                    <div class="dashboard-widget">
-                        <div class="dashboard-widget__header">
-                            <h3 class="dashboard-widget__title">Рекомендуемые товары</h3>
-                            <a href="products.html" class="dashboard-widget__link">Все →</a>
-                        </div>
-                        <div class="dashboard-widget__content">
-                            <div class="products-list" id="recommendedProducts">
-                                <!-- Рекомендуемые товары будут загружены через JS -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Последние статьи -->
-                    <div class="dashboard-widget">
-                        <div class="dashboard-widget__header">
-                            <h3 class="dashboard-widget__title">Последние статьи</h3>
-                            <a href="articles.html" class="dashboard-widget__link">Все →</a>
-                        </div>
-                        <div class="dashboard-widget__content">
-                            <div class="articles-list" id="recentArticles">
-                                <!-- Последние статьи будут загружены через JS -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Достижения -->
-                    <div class="dashboard-widget">
-                        <div class="dashboard-widget__header">
-                            <h3 class="dashboard-widget__title">Ваши достижения</h3>
-                        </div>
-                        <div class="dashboard-widget__content">
-                            <div class="achievements-grid" id="achievementsList">
-                                <!-- Достижения будут загружены через JS -->
-                            </div>
+                    <!-- Quick Stat 4 -->
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="dashboard-quick-stat__icon dashboard-quick-stat__icon--waste">💡</div>
+                        <div class="dashboard-quick-stat__content">
+                            <h3 class="dashboard-quick-stat__title">Отходы (кг)</h3>
+                            <div class="stat-value" id="quickWasteRecycled">0</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Призыв к действию -->
-        <section class="cta" data-aos="fade-up" data-aos-delay="300">
-            <div class="container">
-                <div class="cta__content">
-                    <h2 class="cta__title">Готовы сделать больше?</h2>
-                    <p class="cta__description">
-                        Присоединяйтесь к нашему сообществу и вместе мы сможем изменить будущее нашей планеты.
-                    </p>
-                    <div class="cta__actions">
-                        <a href="initiatives.html" class="btn btn--primary cta__btn">
-                            <span>🎯</span>
-                            <span>Присоединиться к инициативам</span>
-                        </a>
-                        <a href="calculator.html" class="btn btn--secondary cta__btn">
-                            <span>🧮</span>
-                            <span>Рассчитать экослед</span>
-                        </a>
+        <!-- Main Dashboard Content -->
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-header__title">Ваш Эко-Дашборд</h2>
+                <p class="section-header__subtitle">Управляйте своими привычками и следите за прогрессом</p>
+            </div>
+            <div class="dashboard-main-grid">
+                    <!-- Left Column -->
+                    <div class="dashboard-col-main">
+                        <!-- Level Widget -->
+                        <div class="dashboard-card dashboard-card--margin-bottom" data-aos="fade-up">
+                            <div class="dashboard-card__header">
+                                <h3 class="dashboard-card__title">Мой уровень</h3>
+                                <span class="dashboard-card__badge" id="ecoLevelLabel">Загрузка...</span>
+                            </div>
+                            <div class="dashboard-card__body">
+                                <div class="level-progress-container">
+                                     <div class="level-progress-header">
+                                         <span class="level-progress-text" id="ecoLevelProgress">Загрузка данных...</span>
+                                     </div>
+                                     <div class="progress-bar">
+                                         <div class="progress-fill" id="ecoLevelProgressBar"></div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Habits Widget -->
+                        <div class="dashboard-card" data-aos="fade-up">
+                            <div class="dashboard-card__header">
+                                <!-- Блок 'Добавить привычку' -->
+                                    <h3 class="dashboard-card__title">Добавить привычку</h3>
+                                    <span class="dashboard-card__badge">Сегодня</span>
+                                    <p class="dashboard-card__text--small">Выберите действие, чтобы добавить достижение в ваш дашборд и заработать эко-баллы.</p>
+                            </div>
+                            <div class="dashboard-card__body">
+                                <div class="habits-grid-buttons habits-row">
+                                    <button class="habit-card-btn habit-item" data-habit="bike" data-co2="1.2">
+                                        <div class="habit-card-icon">🚴</div>
+                                        <div class="habit-card-info">
+                                            <span class="habit-name">Велосипед</span>
+                                        </div>
+                                        <div class="habit-card-score">+1.2 CO₂</div>
+                                    </button>
+                                    <button class="habit-card-btn habit-item" data-habit="recycle" data-co2="0.5">
+                                        <div class="habit-card-icon">♻️</div>
+                                        <div class="habit-card-info">
+                                            <span class="habit-name">Сдача отходов</span>
+                                        </div>
+                                        <div class="habit-card-score">+0.5 CO₂</div>
+                                    </button>
+                                    <button class="habit-card-btn habit-item" data-habit="water" data-co2="0.3">
+                                        <div class="habit-card-icon">🚰</div>
+                                        <div class="habit-card-info">
+                                            <span class="habit-name">Экономия воды</span>
+                                        </div>
+                                        <div class="habit-card-score">+0.3 CO₂</div>
+                                    </button>
+                                    <button class="habit-card-btn habit-item" data-habit="energy" data-co2="0.8">
+                                        <div class="habit-card-icon">💡</div>
+                                        <div class="habit-card-info">
+                                            <span class="habit-name">Энергия</span>
+                                        </div>
+                                        <div class="habit-card-score">+0.8 CO₂</div>
+                                    </button>
+                                </div>
+                                
+                                <div class="history-header">
+                                    <h4 class="history-title">История</h4>
+                                    <div class="history-filters">
+                                        <button class="filter-btn filter-btn--active" data-filter="all" title="Все">Все</button>
+                                        <button class="filter-btn" data-filter="bike" title="Велосипед">🚴</button>
+                                        <button class="filter-btn" data-filter="recycle" title="Переработка">♻️</button>
+                                        <button class="filter-btn" data-filter="water" title="Вода">🚰</button>
+                                        <button class="filter-btn" data-filter="energy" title="Энергия">💡</button>
+                                    </div>
+                                </div>
+
+                                <div class="habits-history" id="habitsHistory">
+                                    <!-- History loaded via JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Initiatives -->
+                        <div class="dashboard-card" data-aos="fade-up">
+                            <div class="dashboard-card__header">
+                                <h3 class="dashboard-card__title">Мои инициативы</h3>
+                                <a href="initiatives.html" class="link-more">Смотреть все →</a>
+                            </div>
+                            <div class="dashboard-card__body">
+                                <div class="initiatives-list" id="activeInitiatives">
+                                    <!-- Loaded via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="dashboard-col-side">
+                        <!-- Achievements -->
+                        <div class="dashboard-card" data-aos="fade-left">
+                            <div class="dashboard-card__header">
+                                <h3 class="dashboard-card__title">Достижения</h3>
+                            </div>
+                            <div class="dashboard-card__body">
+                                <div class="achievements-grid" id="achievementsList">
+                                    <!-- Loaded via JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Products -->
+                        <div class="dashboard-card" data-aos="fade-left" data-aos-delay="100">
+                            <div class="dashboard-card__header">
+                                <h3 class="dashboard-card__title">Рекомендуем</h3>
+                                <a href="products.html" class="link-more">Все →</a>
+                            </div>
+                            <div class="dashboard-card__body">
+                                <div class="products-list-compact" id="recommendedProducts">
+                                    <!-- Loaded via JS -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Articles -->
+                        <div class="dashboard-card" data-aos="fade-left" data-aos-delay="200">
+                            <div class="dashboard-card__header">
+                                <h3 class="dashboard-card__title">Полезное</h3>
+                                <a href="articles.html" class="link-more">Все →</a>
+                            </div>
+                            <div class="dashboard-card__body">
+                                <div class="articles-list-compact" id="recentArticles">
+                                    <!-- Loaded via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Zone -->
+                <div class="dashboard-settings" data-aos="fade-up">
+                    <div class="dashboard-card dashboard-card--danger">
+                        <div class="dashboard-card__header">
+                            <h3 class="dashboard-card__title">Управление данными</h3>
+                        </div>
+                        <div class="dashboard-card__body dashboard-card__body--actions">
+                            <p class="dashboard-card__text--small">Вы можете сбросить все ваши данные. Это действие необратимо.</p>
+                            <button id="resetDataBtn" class="btn btn--danger">
+                                <span>🗑️</span> Сбросить все
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <div class="cta-content-inner">
+                        <h2 class="cta-title">Готовы изменить мир?</h2>
+                        <p class="cta-text">Каждое ваше действие имеет значение. Начните свой путь к осознанности прямо сейчас.</p>
+                        <div class="cta-buttons">
+                            <a href="initiatives.html" class="btn btn--white btn--lg">Присоединиться</a>
+                            <a href="calculator.html" class="btn btn--outline-white btn--lg">Калькулятор экоследа</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- News Section -->
+        <section class="news-section">
+            <div class="container">
+                <div class="section-header section-header--with-actions">
+                    <h2 class="section-header__title">Последние новости</h2>
+                    <a href="articles.html" class="btn btn--outline">Все статьи</a>
+                </div>
+                <div class="news-grid" id="newsGrid"></div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Футер -->
@@ -303,7 +358,7 @@
             <div class="footer__content">
                 <div class="footer__info">
                     <div class="footer__logo">
-                        <span class="footer__logo-icon">🌿</span>
+                        <img src="../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
                         <span class="footer__logo-text">Эко-Платформа ПМР</span>
                     </div>
                     <p class="footer__description">
@@ -311,8 +366,6 @@
                         и экологически ответственного потребления в Приднестровье.
                     </p>
                 </div>
-                
-                
                 
                 <div class="footer__contact">
                     <h3 class="footer__contact-title">Контакты</h3>
@@ -337,10 +390,11 @@
                 </div>
             </div>
             
-            <div class="footer__bottom">
+                <div class="footer__bottom">
                 <p class="footer__copyright">
                     &copy; 2025 Эко-Платформа ПМР. Все права защищены.
                 </p>
+                <p class="footer__note">Учебный проект. Выполнил Гасинец Дмитрий.</p>
                 <div class="footer__links">
                     <a href="#" class="footer__link">Политика конфиденциальности</a>
                     <a href="#" class="footer__link">Пользовательское соглашение</a>
@@ -350,15 +404,12 @@
     </footer>
 
     <!-- Скрипты -->
-    <!-- Единый менеджер данных и инициативы подключаем ДО дашборда -->
     <script src="../js/data-manager.js"></script>
     <script src="../js/initiatives.js"></script>
-    <!-- Логика дашборда и навигации -->
     <script src="../js/products.js"></script>
     <script src="../js/dashboard.js"></script>
     <script src="../js/nav.js"></script>
     <script>
-        // Инициализация AOS и прочей логики страницы (логика мобильного меню вынесена в js/nav.js)
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init({
                 duration: 800,
@@ -366,14 +417,11 @@
                 offset: 100
             });
 
-            // Плавная прокрутка для якорных ссылок
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
-
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
@@ -383,6 +431,17 @@
                     }
                 });
             });
+
+            // Обработчик для кнопки "Начать действовать"
+            const startButton = document.querySelector('.hero__actions .btn--primary');
+            if (startButton) {
+                startButton.addEventListener('click', function() {
+                    const targetSection = document.querySelector('.dashboard-main-grid');
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
         });
     </script>
 
@@ -426,4 +485,3 @@
     </div>
 </body>
 </html>
-

@@ -1,27 +1,44 @@
 :root {
-    --primary-color: #2E8B57;      /* Зелёный - основной */
-    --primary-dark: #267349;       /* Темно-зеленый */
-    --primary-light: #3CB371;      /* Светло-зеленый */
-    --primary-lighter: #4FD68A;    /* Очень светло-зеленый */
-    --secondary-color: #F5F5DC;    /* Бежевый - дополнительный */
-    --accent-color: #8B4513;       /* Коричневый - акцентный */
-    --accent-dark: #6B2E0A;        /* Темно-коричневый */
-    --accent-light: #A0522D;       /* Светло-коричневый */
-    --background-color: #FAFAFA;   /* Светло-серый - фоновый */
-    --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    --text-color: #333333;         /* Цвет основного текста */
-    --text-light: #FFFFFF;         /* Цвет светлого текста */
+    /* Оригинальная палитра пользователя - улучшенная */
+    --primary-color: #2E8B57;          /* Зелёный - основной */
+    --primary-dark: #267349;           /* Темно-зеленый */
+    --primary-light: #3CB371;          /* Светло-зеленый */
+    --primary-lighter: #4FD68A;        /* Очень светло-зеленый */
+    --primary-ultra-light: #E8F5E9;    /* Сверхсветлый для фонов */
+
+    --secondary-color: #F5F5DC;        /* Бежевый - дополнительный */
+    --accent-color: #8B4513;            /* Коричневый - акцентный */
+    --accent-dark: #6B2E0A;            /* Темно-коричневый */
+    --accent-light: #A0522D;           /* Светло-коричневый */
+
+    --background-color: #FAFAFA;       /* Светло-серый - фоновый */
+    --background-muted: #F5F7FA;       /* Мягкий фон */
+    --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 50%, #f0f0f0 100%);
+
+    --text-color: #333333;             /* Цвет основного текста */
+    --text-muted: #666666;             /* Вторичный текст */
+    --text-light: #FFFFFF;              /* Цвет светлого текста */
+
     --border-color: rgba(139, 69, 19, 0.15);
-    --shadow-light: 0 4px 16px rgba(46, 139, 87, 0.1);
-    --shadow-medium: 0 8px 24px rgba(46, 139, 87, 0.15);
-    --shadow-hover: 0 12px 40px rgba(46, 139, 87, 0.2);
-    --shadow-glow: 0 0 20px rgba(46, 139, 87, 0.3);
-    --border-radius-sm: 10px;
-    --border-radius-md: 16px;
-    --border-radius-lg: 24px;
+    --border-light: rgba(46, 139, 87, 0.1);
+
+    --shadow-light: 0 4px 16px rgba(46, 139, 87, 0.08);
+    --shadow-medium: 0 8px 32px rgba(46, 139, 87, 0.12);
+    --shadow-hover: 0 12px 48px rgba(46, 139, 87, 0.18);
+    --shadow-soft: 0 6px 20px rgba(0, 0, 0, 0.06);
+    --shadow-glow: 0 0 24px rgba(46, 139, 87, 0.2);
+
+    --border-radius-sm: 12px;
+    --border-radius-md: 20px;
+    --border-radius-lg: 28px;
+    --border-radius-xl: 36px;
+    --border-radius-pill: 999px;
+
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s ease;
     --transition-slow: all 0.5s ease;
-    --font-heading: 'Raleway', 'Montserrat', sans-serif;
-    --font-body: 'Nunito', 'Open Sans', sans-serif;
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --font-heading: 'Raleway', 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Nunito', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }

@@ -65,7 +65,7 @@ const ECO_POINTS = [
         hours: 'Пн-Сб: 9:00-20:00, Вс: 10:00-18:00',
         description: 'Первый магазин без упаковки в Тирасполе. Крупы, орехи, специи на развес.',
         acceptedItems: ['Своя тара', 'Многоразовые контейнеры'],
-        rating: 4.9,
+        rating: 4.2,
         website: 'https://zerowaste.pmr',
         images: []
     },
@@ -81,7 +81,7 @@ const ECO_POINTS = [
         hours: 'Пн-Вс: 8:00-21:00',
         description: 'Органические продукты, крупы, чай, кофе на развес. Скидка при использовании своей тары.',
         acceptedItems: ['Своя тара', 'Эко-сумки'],
-        rating: 4.8,
+        rating: 3.7,
         website: 'https://natural.pmr',
         images: []
     },
@@ -97,7 +97,7 @@ const ECO_POINTS = [
         hours: 'Пн-Сб: 9:00-19:00',
         description: 'Продукты без упаковки, бытовая химия на разлив, эко-товары.',
         acceptedItems: ['Своя тара', 'Многоразовые бутылки'],
-        rating: 4.7,
+        rating: 4.6,
         website: 'https://ekoproduct.pmr',
         images: []
     },
@@ -136,6 +136,7 @@ const CATEGORY_COLORS = {
     compost: '#556B2F'
 };
 
+// Use small inline SVG icons for consistent rendering
 const CATEGORY_ICONS = {
     recycling: '♻️',
     shop: '🛍️',
@@ -151,7 +152,7 @@ const CATEGORY_ICONS = {
         const exists = document.querySelector('script[src$="data-manager.js"]');
         if (exists) return;
         const script = document.createElement('script');
-        // Путь относительно html-страницы (map.html лежит в html/, js — в ../js/)
+        // Путь относительно html-страницы (map.html лежит в docs/, js — в ../js/)
         script.src = '../js/data-manager.js';
         document.head.appendChild(script);
     } catch (e) {
@@ -200,7 +201,7 @@ function addMarkersToMap() {
     markers = [];
     
     const categoryFilter = document.getElementById('categoryFilter')?.value || 'all';
-    const distanceFilter = document.getElementById('distanceFilter')?.value || 'all';
+    const ratingFilter = document.getElementById('ratingFilter')?.value || 'all';
     
     let filteredPoints = ECO_POINTS;
     
@@ -209,17 +210,11 @@ function addMarkersToMap() {
         filteredPoints = filteredPoints.filter(point => point.category === categoryFilter);
     }
     
-    // Фильтрация по расстоянию (если есть местоположение пользователя)
-    if (userLocation && distanceFilter !== 'all') {
-        const maxDistance = parseFloat(distanceFilter);
+    // Фильтрация по рейтингу (по порогу)
+    if (ratingFilter !== 'all') {
+        const minRating = parseFloat(ratingFilter);
         filteredPoints = filteredPoints.filter(point => {
-            const distance = calculateDistance(
-                userLocation.lat,
-                userLocation.lng,
-                point.lat,
-                point.lng
-            );
-            return distance <= maxDistance;
+            return (point.rating || 0) >= minRating;
         });
     }
     
@@ -276,13 +271,6 @@ function createPopupContent(point, isFavorite) {
         ? '<button class="map__btn-favorite map__btn-favorite--active" onclick="toggleFavorite(' + point.id + ')">❤️ В избранном</button>'
         : '<button class="map__btn-favorite" onclick="toggleFavorite(' + point.id + ')">🤍 В избранное</button>';
 
-    // visited button (uses category-aware storage)
-    const visitedPoints = getVisitedPoints();
-    const isVisited = Object.values(visitedPoints).some(arr => arr.includes(point.id));
-    const visitedBtn = isVisited
-        ? '<button class="map__btn-visited map__btn-visited--active" onclick="toggleVisited(' + point.id + ')">✅ Посетил</button>'
-        : '<button class="map__btn-visited" onclick="toggleVisited(' + point.id + ')">📍 Отметить посещён</button>';
-    
     return `
         <div class="popup-content">
             <div class="popup-header">
@@ -295,7 +283,6 @@ function createPopupContent(point, isFavorite) {
             <p class="popup-description">${point.description}</p>
             <div class="popup-actions">
                 ${favoriteBtn}
-                ${visitedBtn}
                 <button class="btn-directions" onclick="getDirections(${point.id})">🗺️ Маршрут</button>
             </div>
         </div>
@@ -324,9 +311,9 @@ function initEventListeners() {
         categoryFilter.addEventListener('change', addMarkersToMap);
     }
     
-    const distanceFilter = document.getElementById('distanceFilter');
-    if (distanceFilter) {
-        distanceFilter.addEventListener('change', addMarkersToMap);
+    const ratingFilter = document.getElementById('ratingFilter');
+    if (ratingFilter) {
+        ratingFilter.addEventListener('change', addMarkersToMap);
     }
     
     // Кнопка определения местоположения
@@ -544,28 +531,25 @@ function updateSidebarList(points) {
     pointsList.innerHTML = points.map(point => {
         const isFavorite = favorites.includes(point.id);
         const distance = point.distance ? `${point.distance.toFixed(1)} км` : '';
-        const isVisited = visitedListIncludes(point.id);
-        
         return `
-            <div class="point-item ${isVisited ? 'point-item--visited' : ''}" onclick="showPointDetails(${JSON.stringify(point).replace(/"/g, '&quot;')})">
-                <div class="point-header">
-                    <h4 class="point-title">${point.name}</h4>
-                    ${distance ? `<span class="point-distance">${distance}</span>` : ''}
+            <div class="point-item" onclick="showPointDetails(${JSON.stringify(point).replace(/"/g, '&quot;')})">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="point-item__icon">${CATEGORY_ICONS[point.category]}</span>
+                    <div style="flex:1">
+                        <div class="point-header">
+                            <h4 class="point-title">${point.name}</h4>
+                            ${distance ? `<span class="point-distance">${distance}</span>` : ''}
+                        </div>
+                        <span class="point-category category-${point.category}">${point.type}</span>
+                        <p class="point-description">${point.description}</p>
+                    </div>
                 </div>
-                <span class="point-category category-${point.category}">
-                    ${CATEGORY_ICONS[point.category]} ${point.type}
-                </span>
-                <p class="point-description">${point.description}</p>
-                <div class="point-actions">
+                <div class="point-item__actions">
                     <button class="map__btn-favorite ${isFavorite ? 'map__btn-favorite--active' : ''}" 
-                            onclick="event.stopPropagation(); toggleFavorite(${point.id})">
+                            onclick="event.stopPropagation(); toggleFavorite(${point.id})" title="Добавить в избранное">
                         ${isFavorite ? '❤️' : '🤍'}
                     </button>
-                    <button class="map__btn-visited ${isVisited ? 'map__btn-visited--active' : ''}"
-                            onclick="event.stopPropagation(); toggleVisited(${point.id})">
-                        ${isVisited ? '✅' : '📍'}
-                    </button>
-                    <button class="btn-small btn-directions" 
+                    <button class="btn-small btn-directions" title="Построить маршрут" 
                             onclick="event.stopPropagation(); getDirections(${point.id})">
                         🗺️ Маршрут
                     </button>
@@ -629,6 +613,20 @@ function showPointDetails(point) {
     const getDirectionsBtn = document.getElementById('getDirections');
     if (getDirectionsBtn) {
         getDirectionsBtn.onclick = () => getDirections(point.id);
+    }
+
+    // Кнопка отметить посещенным: помечаем и также добавляем в избранное
+    const markVisitedBtn = document.getElementById('markVisited');
+    if (markVisitedBtn) {
+        markVisitedBtn.onclick = () => {
+            toggleVisited(point.id);
+            // также добавляем в избранное при отметке
+            if (!favorites.includes(point.id)) toggleFavorite(point.id);
+        };
+        // Установить текст по текущему состоянию
+        markVisitedBtn.innerHTML = visitedListIncludes(point.id)
+            ? '<i class="fas fa-check-circle"></i> Отмечено'
+            : '<i class="fas fa-check-circle"></i> Отметить посещенным';
     }
     
     modal.classList.add('map__modal--active');
@@ -726,6 +724,13 @@ function toggleVisited(pointId) {
     updateStats();
     addMarkersToMap();
     updateSidebarList(ECO_POINTS);
+
+    // при отметке посещенным — также обновляем избранное счётчик
+    if (!favorites.includes(pointId)) {
+        favorites.push(pointId);
+        localStorage.setItem('mapFavorites', JSON.stringify(favorites));
+        updateFavoritesCount();
+    }
 }
 
 // Загрузка избранного
@@ -816,9 +821,7 @@ function displayFavorites() {
                 <div class="favorite-content">
                     <div class="favorite-header">
                         <h3 class="favorite-title">${point.name}</h3>
-                        <button class="btn-remove-favorite" onclick="event.stopPropagation(); toggleFavorite(${point.id})">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        <!-- remove cross button per UX: favorites are toggled via heart -->
                     </div>
                     <p class="favorite-address">📍 ${point.address} ${distance ? `(${distance})` : ''}</p>
                     <p class="favorite-description">${point.description}</p>
