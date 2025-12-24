@@ -1,0 +1,13 @@
+.article-card__read-time {
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    opacity: 0.8;
+}
+
+.article-card__read-time::before {
+    content: '⏱️';
+    font-size: 0.9em;
+}

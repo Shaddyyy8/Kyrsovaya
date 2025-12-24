@@ -1,0 +1,6 @@
+.favorites-empty__icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.3;
+    animation: float 3s ease-in-out infinite;
+}

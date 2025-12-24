@@ -1,0 +1,27 @@
+.article-card__badge {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.article-card__badge--category {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--text-light);
+}
+
+.article-card__badge--date {
+    background: rgba(139, 69, 19, 0.1);
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.article-card__badge--date::before {
+    content: '📅';
+    font-size: 0.9em;
+}

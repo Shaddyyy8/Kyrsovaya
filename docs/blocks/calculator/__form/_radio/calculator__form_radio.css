@@ -1,0 +1,29 @@
+.calculator-form__radio-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.calculator-form__radio {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.calculator-form__radio input[type="radio"] {
+    display: none;
+}
+
+.calculator-form__radio-label {
+    padding: 0.5rem 1rem;
+    background: rgba(139, 69, 19, 0.1);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.calculator-form__radio input[type="radio"]:checked + .calculator-form__radio-label {
+    background: var(--primary-color);
+    color: var(--text-light);
+}

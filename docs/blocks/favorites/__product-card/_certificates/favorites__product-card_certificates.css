@@ -1,0 +1,13 @@
+.product-card__certificates {
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.8;
+}
+
+.product-card__certificates::before {
+    content: '🏅';
+    font-size: 1em;
+}

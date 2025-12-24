@@ -1,0 +1,19 @@
+.achievement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(245, 245, 220, 0.3);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    cursor: pointer;
+    text-align: center;
+}
+
+.achievement:hover {
+    background: rgba(46, 139, 87, 0.1);
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}

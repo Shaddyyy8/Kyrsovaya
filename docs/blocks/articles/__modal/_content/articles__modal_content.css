@@ -1,0 +1,12 @@
+.modal__content {
+    background: var(--text-light);
+    border-radius: var(--border-radius-lg);
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--shadow-hover);
+    animation: slideUp 0.4s ease-out;
+    border: 2px solid var(--border-color);
+}

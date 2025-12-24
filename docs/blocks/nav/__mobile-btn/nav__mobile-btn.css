@@ -1,0 +1,30 @@
+.nav__mobile-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.12);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.nav__mobile-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.nav__mobile-btn:active {
+    transform: scale(0.95);
+}
+
+.nav__mobile-btn[aria-expanded="true"] {
+    background-color: rgba(255, 255, 255, 0.25);
+}

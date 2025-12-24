@@ -1,0 +1,5 @@
+.modal__header {
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 2px solid rgba(139, 69, 19, 0.1);
+    text-align: center;
+}

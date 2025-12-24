@@ -1,0 +1,27 @@
+.header {
+    background: linear-gradient(90deg, #2f8b56 0%, #2c7a4d 50%, #1f6b3f 100%);
+    box-shadow: 0 8px 30px rgba(31,107,63,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    padding: 12px 20px;
+    backdrop-filter: saturate(120%) blur(6px);
+    transition: box-shadow .24s ease, background .24s ease, transform .18s ease;
+}
+
+.header.scrolled {
+    box-shadow: 0 6px 30px rgba(8,12,10,0.08);
+    transform: translateY(0);
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.header a { color: inherit; }
+
+
+

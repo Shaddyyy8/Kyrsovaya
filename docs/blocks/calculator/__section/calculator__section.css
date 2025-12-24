@@ -1,0 +1,25 @@
+.calculator-section {
+    background: var(--text-light);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+    display: none;
+    position: relative;
+    overflow: hidden;
+}
+.calculator-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+.calculator-section--active {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}

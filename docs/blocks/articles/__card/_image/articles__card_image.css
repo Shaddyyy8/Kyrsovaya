@@ -1,0 +1,5 @@
+.article-card__image {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}

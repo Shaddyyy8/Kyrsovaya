@@ -1,0 +1,79 @@
+.habit-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 245, 220, 0.3));
+    border: 2px solid rgba(139, 69, 19, 0.2);
+    border-radius: var(--border-radius-md);
+    padding: 1.75rem 1.4rem;
+    cursor: pointer;
+    transition: var(--transition-bounce);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    backdrop-filter: blur(10px);
+}
+
+.habit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light), var(--accent-color));
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.habit-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(46, 139, 87, 0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.habit-btn:hover::before {
+    transform: scaleX(1);
+}
+
+.habit-btn:hover::after {
+    opacity: 1;
+}
+
+.habit-btn:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(232, 245, 233, 0.4));
+    border-color: var(--primary-color);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+}
+
+.habit-btn[data-added="true"] {
+    background: rgba(46, 139, 87, 0.1);
+    border-color: var(--primary-color);
+    position: relative;
+}
+
+.habit-btn[data-added="true"]::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    color: var(--text-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}

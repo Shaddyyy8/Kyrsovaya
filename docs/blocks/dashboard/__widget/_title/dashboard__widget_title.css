@@ -1,0 +1,8 @@
+.dashboard-widget__title {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

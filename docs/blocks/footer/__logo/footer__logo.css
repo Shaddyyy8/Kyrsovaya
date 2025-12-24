@@ -1,0 +1,18 @@
+.footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.footer__logo-icon {
+    font-size: 1.8rem;
+}
+
+.footer__logo-text {
+    font-size: 1.4rem;
+}

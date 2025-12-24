@@ -1,0 +1,8 @@
+.map__empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--color-text-light);
+}
+
+.map__empty-state i { font-size: 4rem; margin-bottom: 20px; color: var(--color-border); }
+.map__empty-state p { font-size: 1.1rem; margin-bottom: 24px; }

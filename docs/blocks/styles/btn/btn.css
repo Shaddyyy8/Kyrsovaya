@@ -1,0 +1,91 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn--primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--text-light);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn--primary:hover {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn--primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-medium);
+}
+.btn--danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: var(--text-light);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.35);
+}
+
+.btn--danger:hover {
+    background: linear-gradient(135deg, #e4606d 0%, #dc3545 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(220, 53, 69, 0.45);
+}
+
+.btn--danger:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.35);
+}
+.btn--full { width: 100%; }
+
+.btn--secondary {
+    background: var(--secondary-color);
+    color: var(--accent-color);
+    border: 2px solid rgba(139, 69, 19, 0.3);
+}
+
+.btn--secondary:hover {
+    background: var(--accent-color);
+    color: var(--text-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+.btn--small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn--large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    min-width: 200px;
+}
+
+.btn { border-radius: 12px; padding: 10px 18px; font-weight:700; }
+
+.btn--secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px solid rgba(46, 139, 87, 0.14);
+}
+
+.btn--outline {
+    background: transparent;
+    border: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.btn--full {
+    width: 100%;
+}

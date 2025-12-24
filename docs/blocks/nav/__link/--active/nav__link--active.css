@@ -1,0 +1,16 @@
+.nav__link--active {
+    background: #fff;
+    color: var(--primary-dark, #1f6b3f);
+    box-shadow: 0 12px 36px rgba(31,107,63,0.12);
+    border: none;
+}
+
+.nav__link--active::after {
+    content: '';
+    display: block;
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    margin-left: 8px;
+}

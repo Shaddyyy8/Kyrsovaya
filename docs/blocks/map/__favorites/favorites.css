@@ -1,0 +1,74 @@
+.map__favorites-section {
+    margin-bottom: 40px;
+}
+
+.map__section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.map__favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.map__favorite-card {
+    background: var(--color-white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    border: 1px solid rgba(46, 139, 87, 0.1);
+}
+
+.map__favorite-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.map__favorite-card:hover::before { transform: scaleX(1); }
+
+.map__favorite-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.map__favorite-image { height: 160px; background: var(--color-background); position: relative; overflow: hidden; }
+.map__favorite-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.map__favorite-category {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.map__favorite-content { padding: 20px; }
+
+.map__favorite-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+
+.map__favorite-title { font-size: 1.2rem; font-weight: 600; color: var(--color-text); margin: 0; }
+
+.map__btn-remove-favorite { background: none; border: none; color: var(--color-danger); font-size: 1.2rem; cursor: pointer; padding: 4px; transition: color 0.2s; }
+.map__btn-remove-favorite:hover { color: #b30000; }
+
+.map__favorite-address { font-size: 0.95rem; color: var(--color-text-light); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+.map__favorite-actions { display: flex; gap: 12px; }
