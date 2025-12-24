@@ -1,9 +1,0 @@
-.modal__icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    display: block;
-}
-
-.modal__icon--danger {
-    animation: pulse 2s infinite;
-}

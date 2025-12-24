@@ -1,0 +1,118 @@
+
+@import "blocks/styles/normalize/normalize.css";
+@import "blocks/styles/root/root.css";
+@import "blocks/styles/base/base.css";
+@import "blocks/styles/typography/typography.css";
+@import "blocks/styles/utils/utils.css";
+@import "blocks/styles/btn/btn.css";
+@import "blocks/styles/animations/animations.css";
+@import "blocks/styles/accessibility/accessibility.css";
+@import "blocks/styles/scrollbar/scrollbar.css";
+@import "blocks/styles/card/card.css";
+@import "blocks/styles/decor/decor.css";
+@import "blocks/styles/form/form.css";
+
+@import "blocks/container/container.css";
+
+@import "blocks/header/header.css";
+@import "blocks/nav/nav.css";
+@import "blocks/nav/__logo/nav__logo.css";
+@import "blocks/nav/__logo-icon/nav__logo-icon.css";
+@import "blocks/nav/__logo-text/nav__logo-text.css";
+@import "blocks/nav/__list/nav__list.css";
+@import "blocks/nav/__item/nav__item.css";
+@import "blocks/nav/__link/nav__link.css";
+@import "blocks/nav/__mobile-btn/nav__mobile-btn.css";
+@import "blocks/nav/__link/--active/nav__link--active.css";
+
+@import "blocks/footer/footer.css";
+@import "blocks/footer/__logo/footer__logo.css";
+@import "blocks/footer/__content/footer__content.css";
+@import "blocks/footer/__info/footer__info.css";
+@import "blocks/footer/__contact/footer__contact.css";
+@import "blocks/footer/__links/footer__links.css";
+@import "blocks/footer/__description/footer__description.css";
+@import "blocks/footer/__bottom/footer__bottom.css";
+@import "blocks/footer/__copyright/footer__copyright.css";
+
+@import "blocks/hero/hero.css";
+
+@import "blocks/features/features.css";
+@import "blocks/features/__card/features__card.css";
+
+@import "blocks/news/news.css";
+@import "blocks/news/__card/news__card.css";
+
+@import "blocks/cta/cta.css";
+
+@import "blocks/stat-card/stat-card.css";
+@import "blocks/stat-card/__icon/stat-card__icon.css";
+@import "blocks/stat-card/__content/stat-card__content.css";
+@import "blocks/stat-card/__title/stat-card__title.css";
+@import "blocks/stat-card/__value/stat-card__value.css";
+
+@import "blocks/map/__legend/map__legend.css";
+
+@import "blocks/articles/__hero/articles__hero.css";
+@import "blocks/articles/__hero/_title/articles__hero_title.css";
+@import "blocks/articles/__hero/_description/articles__hero_description.css";
+@import "blocks/articles/__search/articles__search.css";
+@import "blocks/articles/__search/_input/articles__search_input.css";
+@import "blocks/articles/__search/_container/articles__search_container.css";
+@import "blocks/articles/__search/_button/articles__search_button.css";
+@import "blocks/articles/__filters/articles__filters.css";
+@import "blocks/articles/__filters/_grid/articles__filters_grid.css";
+@import "blocks/articles/__filters/_select/articles__filtes_select.css";
+@import "blocks/articles/__filters/_group/articles__filters_group.css";
+@import "blocks/articles/__filters/_label/articles__filters_label.css";
+@import "blocks/articles/__filters/_actions/articles__filters_actions.css";
+@import "blocks/articles/__filters/_reset/articles__filters_reset.css";
+@import "blocks/articles/__filters/_info/articles__filters_info.css";
+@import "blocks/articles/__grid/articles__grid.css";
+@import "blocks/articles/__grid/_section/articles__grid_section.css";
+@import "blocks/articles/__card/articles__card.css";
+@import "blocks/articles/__card/_content/articles__card_content.css";
+@import "blocks/articles/__card/_btn/articles__card_btn.css";
+@import "blocks/articles/__card/_expert/articles__card_expert.css";
+@import "blocks/articles/__card/_image/articles__card_image.css";
+@import "blocks/articles/__card/_img/articles__card_img.css";
+@import "blocks/articles/__card/_title/articles__card_title.css";
+@import "blocks/articles/__card/_badge/articles__card_badge.css";
+@import "blocks/articles/__card/_badges/articles__card_badges.css";
+@import "blocks/articles/__card/_actions/articles__card_actions.css";
+@import "blocks/articles/__card/_meta/articles__card_meta.css";
+@import "blocks/articles/__card/_read/articles__card_read.css";
+@import "blocks/articles/__modal/articles__modal.css";
+@import "blocks/articles/__modal/_content/articles__modal_content.css";
+@import "blocks/articles/__modal/_content-text/articles__modal_content-text.css";
+@import "blocks/articles/__modal/_header/articles__modal_header.css";
+@import "blocks/articles/__modal/_title/articles__modal_title.css";
+@import "blocks/articles/__modal/_img/articles__modal_img.css";
+@import "blocks/articles/__modal/_image/articles__modal_image.css";
+@import "blocks/articles/__modal/_info/articles__modal_info.css";
+@import "blocks/articles/__modal/_badge/articles__modal_badge.css";
+@import "blocks/articles/__modal/_badges/articles__modal_badges.css";
+@import "blocks/articles/__modal/_close/articles__modal_close.css";
+@import "blocks/articles/__modal/_text/articles__modal_text.css";
+@import "blocks/articles/__modal/_save/articles__modal_save.css";
+@import "blocks/articles/__modal/_share/articles__modal_share.css";
+@import "blocks/articles/__empty/articles__empty.css";
+@import "blocks/articles/__empty/_title/articles_empty_title.css";
+@import "blocks/articles/__empty/_description/articles__empty_description.css";
+@import "blocks/articles/__empty/_icon/articles__empty_icon.css";
+@import "blocks/articles/__keyframes/articles__keyframes.css";
+
+@import "blocks/products/__hero/hero.css";
+@import "blocks/products/__filters/filters.css";
+@import "blocks/products/__grid/grid.css";
+@import "blocks/products/__card/card.css";
+@import "blocks/products/__modal/modal.css";
+@import "blocks/products/__empty/empty.css";
+@import "blocks/products/__responsive/responsive.css";
+
+@import "blocks/favorites/__hero/hero.css";
+@import "blocks/favorites/__title/favorites__title.css";
+@import "blocks/favorites/__grid/grid.css";
+@import "blocks/favorites/__grid/favorites__grid.css";
+@import "blocks/favorites/__card/card.css";
+@import "blocks/favorites/__empty/favorites__empty.css";

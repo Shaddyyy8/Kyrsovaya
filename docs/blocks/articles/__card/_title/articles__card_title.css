@@ -1,8 +1,0 @@
-.article-card__title {
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--accent-color);
-    line-height: 1.4;
-    margin: 0;
-}

@@ -1,9 +1,0 @@
-.product-card__info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-color);
-    opacity: 0.8;
-    margin: 0.5rem 0;
-}

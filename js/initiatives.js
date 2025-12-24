@@ -674,9 +674,8 @@ function initApp() {
     if (!window.dataManager) {
         console.log('Загружаем DataManager...');
         const script = document.createElement('script');
-        // Путь указываем относительно HTML-страницы (папка html/)
-        // путь относительно HTML файла в docs/
-        script.src = '../js/data-manager.js';
+        // Загружаем DataManager из папки eco-platform/js
+        script.src = 'eco-platform/js/data-manager.js';
         script.onload = function() {
             console.log('DataManager загружен');
             initAfterDataManager();

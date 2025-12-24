@@ -1,8 +1,0 @@
-.favorites-empty {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: var(--text-light);
-    border-radius: var(--border-radius-md);
-    border: 2px dashed var(--border-color);
-    margin-top: 2rem;
-}

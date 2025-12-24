@@ -609,7 +609,7 @@ function updateRecentArticles() {
     }
     
     // Загружаем реальные статьи из JSON
-    fetch('../json/articles.json')
+    fetch('eco-platform/json/articles.json')
         .then(resp => resp.json())
         .then(raw => {
             // Преобразуем исходный массив, чтобы сохранить картинку и текст
@@ -621,7 +621,7 @@ function updateRecentArticles() {
                     image = '../' + image.replace(/^\/+/, '');
                 } else if (!image) {
                     // fallback к существующей картинке в наборе
-                    image = '../images/article/article1.jpg';
+                    image = 'eco-platform/images/article/article1.jpg';
                 }
 
                 return {
@@ -708,7 +708,7 @@ function renderNewsGrid(list) {
         const card = document.createElement('article');
         card.className = 'news-card';
         // Use either item.image or item.img (older JSON uses 'img')
-        let imageSrc = item.image || item.img || '../images/article/article1.jpg';
+        let imageSrc = item.image || item.img || 'eco-platform/images/article/article1.jpg';
         if (imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('../') && !imageSrc.startsWith('/')) {
             imageSrc = '../' + imageSrc.replace(/^\/+/, '');
         }

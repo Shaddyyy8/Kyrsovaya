@@ -152,8 +152,8 @@ const CATEGORY_ICONS = {
         const exists = document.querySelector('script[src$="data-manager.js"]');
         if (exists) return;
         const script = document.createElement('script');
-        // Путь относительно html-страницы (map.html лежит в docs/, js — в ../js/)
-        script.src = '../js/data-manager.js';
+        // Загружаем DataManager из папки eco-platform/js
+        script.src = 'eco-platform/js/data-manager.js';
         document.head.appendChild(script);
     } catch (e) {
         console.warn('Не удалось автоматически подключить DataManager для карты:', e);

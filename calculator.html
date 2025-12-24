@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эко-Калькуляторы | Эко-Платформа ПМР</title>
+    <meta name="description" content="Калькуляторы экологического следа, углеродного следа и экономии ресурсов для Приднестровья">
+    
+    <!-- Общие стили -->
+    <link rel="stylesheet" href="/eco-platform/blocks.css">    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header" role="banner">
+        <div class="container">
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="index.html" class="nav__logo" aria-label="На главную страницу">
+                    <img src="eco-platform/images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
+                    <span class="nav__logo-text">Эко-Платформа ПМР</span>
+                </a>
+                <ul class="nav__list" id="navList">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Дашборд</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="calculator.html" class="nav__link nav__link--active" aria-current="page">Калькуляторы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Эко-товары</a>
+                    </li>
+                    
+                    <li class="nav__item">
+                        <a href="articles.html" class="nav__link">Статьи</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="map.html" class="nav__link">Карта</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="favorites.html" class="nav__link">Избранное</a>
+                    </li>
+                    <li class="nav__item"><a href="contact.html" class="nav__link">Обратная связь</a></li>
+                </ul>
+                <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main" role="main">
+        <div class="container">
+            <!-- Hero секция -->
+            <section class="hero-section hero-section--compact" data-aos="fade-up">
+                <div class="hero-content hero-content--center">
+                    <h1 class="hero-title">Эко-Калькуляторы</h1>
+                    <p class="hero-description">
+                        Оцените ваш экологический след, углеродные выбросы и потенциальную экономию ресурсов. 
+                        Все расчеты производятся в рублях ПМР с учетом локальных тарифов.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Селектор калькуляторов -->
+            <section class="calculator-selector" aria-label="Выбор калькулятора" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="calculator-selector__title visually-hidden">Выберите калькулятор</h2>
+                <div class="calculator-selector__grid">
+                    <button class="calculator-selector__card js-calculator-tab" data-target="eco-calculator" aria-pressed="true">
+                        <div class="calculator-selector__icon">🌍</div>
+                        <h3 class="calculator-selector__card-title">Экологический след</h3>
+                        <p class="calculator-selector__card-description">
+                            Оценка общего воздействия на окружающую среду
+                        </p>
+                    </button>
+                    
+                    <button class="calculator-selector__card js-calculator-tab" data-target="carbon-calculator" aria-pressed="false">
+                        <div class="calculator-selector__icon">🏭</div>
+                        <h3 class="calculator-selector__card-title">Углеродный след</h3>
+                        <p class="calculator-selector__card-description">
+                            Расчет выбросов CO₂ от транспорта и энергии
+                        </p>
+                    </button>
+                    
+                    <button class="calculator-selector__card js-calculator-tab" data-target="saving-calculator" aria-pressed="false">
+                        <div class="calculator-selector__icon">💸</div>
+                        <h3 class="calculator-selector__card-title">Экономия ресурсов</h3>
+                        <p class="calculator-selector__card-description">
+                            Расчет экономии в рублях ПМР и эквивалентах
+                        </p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Калькулятор экологического следа -->
+            <section id="eco-calculator" class="calculator-section calculator-section--active" data-aos="fade-up" data-aos-delay="200">
+                <div class="calculator-section__header">
+                    <h2 class="calculator-section__title">
+                        <span class="calculator-section__icon">🌍</span>
+                        Калькулятор экологического следа
+                    </h2>
+                    <p class="calculator-section__description">
+                        Рассчитайте общее воздействие на окружающую среду на основе ваших ежедневных привычек
+                    </p>
+                </div>
+
+                <div class="calculator-section__content">
+                    <form class="calculator-form" id="ecoCalculatorForm">
+                        <div class="calculator-form__grid">
+                            <!-- Транспорт -->
+                            <div class="calculator-form__group">
+                                <label for="ecoTransport" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">🚗</span>
+                                    Транспорт (км/день)
+                                </label>
+                                <input type="number" 
+                                       id="ecoTransport" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="0.1"
+                                       aria-describedby="ecoTransportHelp">
+                                <div id="ecoTransportHelp" class="calculator-form__help">
+                                    Среднедневной пробег на автомобиле/общественном транспорте
+                                </div>
+                            </div>
+
+                            <!-- Питание -->
+                            <div class="calculator-form__group">
+                                <label for="ecoFood" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">🍎</span>
+                                    Питание (баллы 1-10)
+                                </label>
+                                <div class="calculator-form__range-container">
+                                    <input type="range" 
+                                           id="ecoFood" 
+                                           class="calculator-form__range" 
+                                           min="1" 
+                                           max="10" 
+                                           value="5"
+                                           aria-describedby="ecoFoodHelp">
+                                    <div class="calculator-form__range-value" id="ecoFoodValue">5</div>
+                                </div>
+                                <div id="ecoFoodHelp" class="calculator-form__help">
+                                    1 - преимущественно мясо, 10 - растительное питание
+                                </div>
+                            </div>
+
+                            <!-- Энергопотребление -->
+                            <div class="calculator-form__group">
+                                <label for="ecoEnergy" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">💡</span>
+                                    Энергия (кВт⋅ч/день)
+                                </label>
+                                <input type="number" 
+                                       id="ecoEnergy" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="0.1"
+                                       aria-describedby="ecoEnergyHelp">
+                                <div id="ecoEnergyHelp" class="calculator-form__help">
+                                    Среднедневное потребление электроэнергии
+                                </div>
+                            </div>
+
+                            <!-- Отходы -->
+                            <div class="calculator-form__group">
+                                <label for="ecoWaste" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">🗑️</span>
+                                    Отходы (кг/день)
+                                </label>
+                                <input type="number" 
+                                       id="ecoWaste" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="0.1"
+                                       aria-describedby="ecoWasteHelp">
+                                <div id="ecoWasteHelp" class="calculator-form__help">
+                                    Количество производимого бытового мусора
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="calculator-form__actions">
+                            <button type="button" 
+                                    class="btn btn--primary calculator-form__submit" 
+                                    id="ecoCalculateBtn">
+                                Рассчитать экослед
+                            </button>
+                            <button type="reset" 
+                                    class="btn btn--secondary calculator-form__reset">
+                                Сбросить
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Результаты -->
+                    <div class="calculator-results" id="ecoResults" aria-live="polite" hidden>
+                        <div class="calculator-results__header">
+                            <h3 class="calculator-results__title">Результаты расчета</h3>
+                            <div class="calculator-results__score" id="ecoScore">
+                                <span class="calculator-results__score-value">0</span>
+                                <span class="calculator-results__score-unit">баллов</span>
+                            </div>
+                        </div>
+
+                        <div class="calculator-results__content">
+                            <!-- Инфографика -->
+                            <div class="calculator-results__infographic">
+                                <canvas id="ecoChart" class="calculator-results__chart" 
+                                        aria-label="График распределения экологического следа по категориям"
+                                        role="img"></canvas>
+                            </div>
+
+                            <!-- Рекомендации -->
+                            <div class="calculator-results__recommendations">
+                                <h4 class="calculator-results__recommendations-title">
+                                    <span class="calculator-results__recommendations-icon">💡</span>
+                                    Персональные рекомендации
+                                </h4>
+                                <div class="calculator-results__recommendations-list" id="ecoRecommendations">
+                                    <!-- Рекомендации будут добавлены через JS -->
+                                </div>
+                            </div>
+
+                            <!-- Сохранение результатов -->
+                            <div class="calculator-results__save">
+                                <button class="btn btn--secondary calculator-results__save-btn" id="saveEcoResults">
+                                    💾 Сохранить результаты
+                                </button>
+                                <p class="calculator-results__save-note">
+                                    Результаты сохранятся в вашем личном кабинете
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Калькулятор углеродного следа -->
+            <section id="carbon-calculator" class="calculator-section" data-aos="fade-up" data-aos-delay="200" hidden>
+                <div class="calculator-section__header">
+                    <h2 class="calculator-section__title">
+                        <span class="calculator-section__icon">🏭</span>
+                        Калькулятор углеродного следа
+                    </h2>
+                    <p class="calculator-section__description">
+                        Рассчитайте ваши выбросы CO₂ и их эквивалент в рублях ПМР
+                    </p>
+                </div>
+
+                <div class="calculator-section__content">
+                    <form class="calculator-form" id="carbonCalculatorForm">
+                        <div class="calculator-form__grid">
+                            <!-- Транспорт -->
+                            <div class="calculator-form__group">
+                                <label for="carbonTransport" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">🚗</span>
+                                    Транспорт (км/день)
+                                </label>
+                                <select id="carbonTransportType" class="calculator-form__select" aria-describedby="carbonTransportHelp">
+                                    <option value="car">Автомобиль (бензин)</option>
+                                    <option value="diesel">Автомобиль (дизель)</option>
+                                    <option value="electric">Электромобиль</option>
+                                    <option value="bus">Автобус</option>
+                                </select>
+                                <input type="number" 
+                                       id="carbonTransport" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="0.1">
+                                <div id="carbonTransportHelp" class="calculator-form__help">
+                                    Выберите тип транспорта и укажите пробег
+                                </div>
+                            </div>
+
+                            <!-- Энергопотребление -->
+                            <div class="calculator-form__group">
+                                <label for="carbonEnergy" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">💡</span>
+                                    Энергия (кВт⋅ч/месяц)
+                                </label>
+                                <input type="number" 
+                                       id="carbonEnergy" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="1">
+                                <div class="calculator-form__help">
+                                    Среднемесячное потребление электроэнергии
+                                </div>
+                            </div>
+
+                            <!-- Отопление -->
+                            <div class="calculator-form__group">
+                                <label class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">🔥</span>
+                                    Отопление
+                                </label>
+                                <div class="calculator-form__radio-group">
+                                    <label class="calculator-form__radio">
+                                        <input type="radio" name="heating" value="gas" checked>
+                                        <span class="calculator-form__radio-label">Газовое</span>
+                                    </label>
+                                    <label class="calculator-form__radio">
+                                        <input type="radio" name="heating" value="electric">
+                                        <span class="calculator-form__radio-label">Электрическое</span>
+                                    </label>
+                                </div>
+                                <input type="number" 
+                                       id="carbonHeating" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="1"
+                                       placeholder="м³/месяц">
+                            </div>
+                        </div>
+
+                        <div class="calculator-form__actions">
+                            <button type="button" 
+                                    class="btn btn--primary calculator-form__submit" 
+                                    id="carbonCalculateBtn">
+                                Рассчитать CO₂
+                            </button>
+                            <button type="reset" 
+                                    class="btn btn--secondary calculator-form__reset">
+                                Сбросить
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Результаты -->
+                    <div class="calculator-results" id="carbonResults" aria-live="polite" hidden>
+                        <div class="calculator-results__header">
+                            <h3 class="calculator-results__title">Результаты расчета</h3>
+                            <div class="calculator-results__score">
+                                <span class="calculator-results__score-value" id="carbonScore">0</span>
+                                <span class="calculator-results__score-unit">кг CO₂/месяц</span>
+                            </div>
+                        </div>
+
+                        <div class="calculator-results__content">
+                            <!-- Эквиваленты -->
+                            <div class="calculator-results__equivalents">
+                                <h4 class="calculator-results__equivalents-title">Эквивалент выбросов:</h4>
+                                <div class="calculator-results__equivalents-grid">
+                                    <div class="calculator-results__equivalent">
+                                        <div class="calculator-results__equivalent-icon">🌳</div>
+                                        <div class="calculator-results__equivalent-value" id="carbonTrees">0</div>
+                                        <div class="calculator-results__equivalent-label">деревьев нужно</div>
+                                    </div>
+                                    <div class="calculator-results__equivalent">
+                                        <div class="calculator-results__equivalent-icon">🚗</div>
+                                        <div class="calculator-results__equivalent-value" id="carbonCars">0</div>
+                                        <div class="calculator-results__equivalent-label">км на авто</div>
+                                    </div>
+                                    <div class="calculator-results__equivalent">
+                                        <div class="calculator-results__equivalent-icon">💰</div>
+                                        <div class="calculator-results__equivalent-value" id="carbonPrice">0</div>
+                                        <div class="calculator-results__equivalent-label">руб. ПМР/мес</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- График -->
+                            <div class="calculator-results__infographic">
+                                <canvas id="carbonChart" class="calculator-results__chart"></canvas>
+                            </div>
+
+                            <!-- Рекомендации -->
+                            <div class="calculator-results__recommendations">
+                                <h4 class="calculator-results__recommendations-title">Рекомендации по снижению</h4>
+                                <div class="calculator-results__recommendations-list" id="carbonRecommendations"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Калькулятор экономии ресурсов -->
+            <section id="saving-calculator" class="calculator-section" data-aos="fade-up" data-aos-delay="200" hidden>
+                <div class="calculator-section__header">
+                    <h2 class="calculator-section__title">
+                        <span class="calculator-section__icon">💸</span>
+                        Калькулятор экономии ресурсов
+                    </h2>
+                    <p class="calculator-section__description">
+                        Рассчитайте экономию в рублях ПМР от внедрения эко-привычек
+                    </p>
+                </div>
+
+                <div class="calculator-section__content">
+                    <form class="calculator-form" id="savingCalculatorForm">
+                        <div class="calculator-form__grid">
+                            <!-- Вода -->
+                            <div class="calculator-form__group">
+                                <label for="saveWater" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">💧</span>
+                                    Экономия воды (л/день)
+                                </label>
+                                <input type="number" 
+                                       id="saveWater" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="1">
+                                <div class="calculator-form__help">
+                                    Например: кран с аэратором экономит 50 л/день
+                                </div>
+                            </div>
+
+                            <!-- Электричество -->
+                            <div class="calculator-form__group">
+                                <label for="saveEnergy" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">⚡</span>
+                                    Экономия энергии (кВт⋅ч/месяц)
+                                </label>
+                                <input type="number" 
+                                       id="saveEnergy" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="0.1">
+                                <div class="calculator-form__help">
+                                    LED лампы экономят до 85% энергии
+                                </div>
+                            </div>
+
+                            <!-- Бумага -->
+                            <div class="calculator-form__group">
+                                <label for="savePaper" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">📄</span>
+                                    Экономия бумаги (листов/месяц)
+                                </label>
+                                <input type="number" 
+                                       id="savePaper" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="1">
+                                <div class="calculator-form__help">
+                                    Цифровые документы вместо печати
+                                </div>
+                            </div>
+
+                            <!-- Транспорт -->
+                            <div class="calculator-form__group">
+                                <label for="saveTransport" class="calculator-form__label">
+                                    <span class="calculator-form__label-icon">🚲</span>
+                                    Велосипед вместо авто (км/месяц)
+                                </label>
+                                <input type="number" 
+                                       id="saveTransport" 
+                                       class="calculator-form__input" 
+                                       min="0" 
+                                       value="0"
+                                       step="1">
+                                <div class="calculator-form__help">
+                                    Экономия на бензине и обслуживании
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="calculator-form__actions">
+                            <button type="button" 
+                                    class="btn btn--primary calculator-form__submit" 
+                                    id="saveCalculateBtn">
+                                Рассчитать экономию
+                            </button>
+                            <button type="reset" 
+                                    class="btn btn--secondary calculator-form__reset">
+                                Сбросить
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Результаты -->
+                    <div class="calculator-results" id="saveResults" aria-live="polite" hidden>
+                        <div class="calculator-results__header">
+                            <h3 class="calculator-results__title">Экономия в рублях ПМР</h3>
+                            <div class="calculator-results__score">
+                                <span class="calculator-results__score-value" id="saveTotal">0</span>
+                                <span class="calculator-results__score-unit">руб./месяц</span>
+                            </div>
+                        </div>
+
+                        <div class="calculator-results__content">
+                            <!-- Детализация -->
+                            <div class="calculator-results__details">
+                                <h4 class="calculator-results__details-title">Детализация экономии:</h4>
+                                <div class="calculator-results__details-grid">
+                                    <div class="calculator-results__detail">
+                                        <div class="calculator-results__detail-category">Вода</div>
+                                        <div class="calculator-results__detail-value" id="saveWaterValue">0 руб.</div>
+                                    </div>
+                                    <div class="calculator-results__detail">
+                                        <div class="calculator-results__detail-category">Энергия</div>
+                                        <div class="calculator-results__detail-value" id="saveEnergyValue">0 руб.</div>
+                                    </div>
+                                    <div class="calculator-results__detail">
+                                        <div class="calculator-results__detail-category">Бумага</div>
+                                        <div class="calculator-results__detail-value" id="savePaperValue">0 руб.</div>
+                                    </div>
+                                    <div class="calculator-results__detail">
+                                        <div class="calculator-results__detail-category">Транспорт</div>
+                                        <div class="calculator-results__detail-value" id="saveTransportValue">0 руб.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Эквиваленты -->
+                            <div class="calculator-results__equivalents">
+                                <h4 class="calculator-results__equivalents-title">Эквивалент экономии:</h4>
+                                <div class="calculator-results__equivalents-list">
+                                    <div class="calculator-results__equivalent-item" id="saveEquivalents">
+                                        <!-- Эквиваленты будут добавлены через JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- График -->
+                            <div class="calculator-results__infographic">
+                                <canvas id="saveChart" class="calculator-results__chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Информация о расчетах -->
+            <section class="calculator-info" data-aos="fade-up" data-aos-delay="300">
+                <h2 class="calculator-info__title">Методика расчетов</h2>
+                <div class="calculator-info__content">
+                    <div class="calculator-info__item">
+                        <h3 class="calculator-info__item-title">📊 Коэффициенты</h3>
+                        <p class="calculator-info__item-text">
+                            Все расчеты основаны на официальных данных для ПМР: 
+                            тарифы на воду - 45 руб./м³, электроэнергию - 5.5 руб./кВт⋅ч, 
+                            бензин - 45 руб./литр.
+                        </p>
+                    </div>
+                    <div class="calculator-info__item">
+                        <h3 class="calculator-info__item-title">🌿 Эквиваленты</h3>
+                        <p class="calculator-info__item-text">
+                            1 кг CO₂ = посадка 0.05 дерева. 1000 литров воды = 20 душевых. 
+                            Экономия 100 кВт⋅ч = работа 10 LED ламп в течение месяца.
+                        </p>
+                    </div>
+                    <div class="calculator-info__item">
+                        <h3 class="calculator-info__item-title">💾 Сохранение данных</h3>
+                        <p class="calculator-info__item-text">
+                            Все ваши расчеты сохраняются локально в браузере и доступны 
+                            в личном кабинете для отслеживания прогресса.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- История расчетов -->
+            <section class="calculator-history" data-aos="fade-up" data-aos-delay="350">
+                <h2 class="calculator-history__title">
+                    📊 История расчетов
+                </h2>
+                <div class="calculator-history__tabs" role="tablist" aria-label="Тип расчетов">
+                    <button class="calculator-history__tab calculator-history__tab--active"
+                            data-type="eco" role="tab">
+                        Экослед
+                    </button>
+                    <button class="calculator-history__tab" data-type="carbon" role="tab">
+                        Углеродный след
+                    </button>
+                    <button class="calculator-history__tab" data-type="savings" role="tab">
+                        Экономия
+                    </button>
+                </div>
+                <div class="calculator-history__list" id="calculatorHistoryList">
+                    <!-- Пункты истории будут подставлены через JS -->
+                    <p class="calculator-history__empty">
+                        Пока нет сохранённых расчетов. Выполните расчёт и нажмите «Сохранить результаты».
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Футер -->
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__info">
+                <div class="footer__logo">
+                    <img src="eco-platform/images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
+                    <span class="footer__logo-text">Эко-Платформа ПМР</span>
+                </div>
+                <p class="footer__description">
+                    Платформа для продвижения устойчивого образа жизни 
+                    и экологически ответственного потребления в Приднестровье.
+                </p>
+            </div>
+            
+            <div class="footer__contact">
+                <h3 class="footer__contact-title">Контакты</h3>
+                <ul class="footer__contact-list">
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📍</span>
+                            <span>г. Тирасполь, ул. Экологическая, 15</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📧</span>
+                            <span>info@ecopmr.ru</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📞</span>
+                            <span>+373 (777) 123-45</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">🕒</span>
+                            <span>Пн-Пт: 9:00-18:00</span>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        
+        <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2025 Эко-Платформа ПМР. Все права защищены.
+                </p>
+                <p class="footer__note">Учебный проект. Выполнил Гасинец Дмитрий.</p>
+                <div class="footer__links">
+                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__link">Пользовательское соглашение</a>
+                </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Скрипты -->
+    <script src="eco-platform/js/data-manager.js"></script>
+    <script src="eco-platform/js/calculator.js"></script>
+    <script src="eco-platform/js/nav.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

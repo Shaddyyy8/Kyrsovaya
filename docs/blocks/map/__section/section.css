@@ -1,8 +1,0 @@
-.map__section {
-    background: var(--text-light);
-    border-radius: var(--border-radius-md);
-    padding: 2rem;
-    margin-bottom: 3rem;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--border-color);
-}

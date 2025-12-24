@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта эко-точек | Эко-платформа</title>
+    <meta name="description" content="Карта пунктов приема вторсырья, эко-магазинов и других экологических точек в вашем городе">
+    
+        <!-- Основные стили сайта -->
+    <link rel="stylesheet" href="/eco-platform/blocks.css">        <!-- Unified block styles -->
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+
+        <!-- Иконки -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+        <!-- Шрифты (совместимо с остальными страницами) -->
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header" role="banner">
+        <div class="container">
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="index.html" class="nav__logo" aria-label="На главную страницу">
+                    <img src="eco-platform/images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
+                    <span class="nav__logo-text">Эко-Платформа ПМР</span>
+                </a>
+                <ul class="nav__list" id="navList">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Дашборд</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="calculator.html" class="nav__link">Калькуляторы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Эко-товары</a>
+                    </li>
+                    
+                    <li class="nav__item">
+                        <a href="articles.html" class="nav__link">Статьи</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="map.html" class="nav__link nav__link--active" aria-current="page">Карта</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="favorites.html" class="nav__link">Избранное</a>
+                    </li>
+                    <li class="nav__item"><a href="contact.html" class="nav__link">Обратная связь</a></li>
+                    
+                </ul>
+                <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main" role="main">
+        <!-- Hero Section -->
+        <section class="hero-section hero-section--compact" data-aos="fade-up">
+            <div class="container">
+                <div class="hero-content hero-content--center">
+                    <h1 class="hero-title">Карта эко-точек</h1>
+                    <p class="hero-description">
+                        Найдите ближайшие пункты приема батареек, магазины без упаковки 
+                        и другие экологические объекты в вашем городе.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="map-section">
+                <div class="map-controls">
+                        <div class="map-controls__search">
+                            <i class="fas fa-search map-controls__icon"></i>
+                            <input type="text" 
+                                   class="map-controls__input"
+                                   id="searchInput" 
+                                   placeholder="Поиск по адресу или названию..."
+                                   aria-label="Поиск точек на карте">
+                        </div>
+                    
+                    <div class="map-controls__filters">
+                        <div class="filter-group">
+                            <label for="categoryFilter" class="filter-group__label">
+                                <i class="fas fa-filter"></i> Категория:
+                            </label>
+                            <select id="categoryFilter" class="filter-group__select">
+                                <option value="all">Все точки</option>
+                                <option value="recycling">Пункты приема</option>
+                                <option value="shop">Эко-магазины</option>
+                                <option value="compost">Компостирование</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="ratingFilter" class="filter-group__label">
+                                <i class="fas fa-star"></i> Рейтинг:
+                            </label>
+                            <select id="ratingFilter" class="filter-group__select">
+                                <option value="all">Все рейтинги</option>
+                                <option value="4.5">4.5+</option>
+                                <option value="4.0">4.0+</option>
+                                <option value="3.5">3.5+</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn--secondary" id="locateBtn">
+                            <i class="fas fa-location-arrow"></i> Мое местоположение
+                        </button>
+                    </div>
+                </div>
+
+                <div class="map__wrapper">
+                    <div id="map" class="map__map" role="application" aria-label="Интерактивная карта экологических точек">
+                        <div class="map-loader" id="mapLoader">
+                            <div class="map-loader__spinner"></div>
+                            <p class="map-loader__text">Загрузка карты...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="map__sidebar" id="mapSidebar">
+                        <div class="map__sidebar-header">
+                            <h3 class="map-sidebar__title">Эко-точки поблизости</h3>
+                        </div>
+                        
+                        <div class="map__sidebar-content" id="pointsList">
+                            <!-- Список точек будет загружен через JavaScript -->
+                            <div class="map-empty-state">
+                                <i class="fas fa-map-pin map-empty-state__icon"></i>
+                                <p class="map-empty-state__text">Выберите категорию или найдите точку на карте</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-legend">
+                    <div class="map-legend__title">
+                        <i class="fas fa-key"></i> Легенда карты
+                    </div>
+                    <div class="map-legend__items">
+                        <div class="map-legend__item">
+                            <span class="map-legend__icon map-legend__icon--recycling"></span>
+                            <span class="map-legend__text">Пункты приема</span>
+                        </div>
+                        <div class="map-legend__item">
+                            <span class="map-legend__icon map-legend__icon--shop"></span>
+                            <span class="map-legend__text">Эко-магазины</span>
+                        </div>
+                        <div class="map-legend__item">
+                            <span class="map-legend__icon map-legend__icon--compost"></span>
+                            <span class="map-legend__text">Компостирование</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Секция статистики -->
+            <section class="stats-section">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Ваша экологическая активность
+                </h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card__icon stat-card__icon--recycling">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Посещено пунктов приема</h3>
+                            <p class="stat-card__value" id="visitedRecycling">0</p>
+                            <p class="stat-card__desc">из <span id="totalRecycling">0</span> в вашем городе</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon stat-card__icon--shop">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Поддержано эко-магазинов</h3>
+                            <p class="stat-card__value" id="visitedShops">0</p>
+                            <p class="stat-card__desc">Сэкономлено пластика: <span id="plasticSaved">0</span> кг</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon stat-card__icon--overall">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Эко-баллов заработано</h3>
+                            <p class="stat-card__value" id="ecoPoints">0</p>
+                            <p class="stat-card__desc">Следующий уровень через: <span id="pointsToNext">100</span> баллов</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- Модальное окно информации о точке -->
+        <div class="map__modal" id="pointModal">
+            <div class="map__modal-content">
+                <button class="map__modal-close" id="modalClose" aria-label="Закрыть">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <div class="map__modal-header">
+                    <div class="map__point-category" id="modalCategory"></div>
+                    <h2 class="map__modal-title" id="modalTitle"></h2>
+                    <div class="map__point-rating" id="modalRating"></div>
+                </div>
+
+                <div class="map__modal-body">
+                    <div class="map__point-images" id="modalImages"></div>
+
+                    <div class="map__info">
+                        <div class="info-row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Адрес:</strong>
+                                <span id="modalAddress"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-row">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Часы работы:</strong>
+                                <span id="modalHours"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-row">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Телефон:</strong>
+                                <span id="modalPhone"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-row">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <strong>Сайт:</strong>
+                                <a href="#" id="modalWebsite" target="_blank" class="website-link"></a>
+                            </div>
+                        </div>
+                        
+                        <div class="point-description" id="modalDescription"></div>
+                        
+                        <div class="map__accepted-items" id="modalItems"></div>
+                    </div>
+                </div>
+                
+                <div class="map__modal-footer">
+                    <button class="btn btn--primary" id="addToFavorites">
+                        <i class="fas fa-heart"></i> В избранное
+                    </button>
+                    <button class="btn btn--secondary" id="getDirections">
+                        <i class="fas fa-route"></i> Построить маршрут
+                    </button>
+                    <button class="btn btn--secondary btn--outline" id="markVisited">
+                        <i class="fas fa-check-circle"></i> Отметить посещенным
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__info">
+                    <div class="footer__logo">
+                        <img src="eco-platform/images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
+                        <span class="footer__logo-text">Эко-Платформа ПМР</span>
+                    </div>
+                    <p class="footer__description">
+                        Платформа для продвижения устойчивого образа жизни 
+                        и экологически ответственного потребления в Приднестровье.
+                    </p>
+                </div>
+                
+                <div class="footer__contact">
+                    <h3 class="footer__contact-title">Контакты</h3>
+                    <ul class="footer__contact-list">
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📍</span>
+                            <span>г. Тирасполь, ул. Экологическая, 15</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📧</span>
+                            <span>info@ecopmr.ru</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📞</span>
+                            <span>+373 (777) 123-45</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">🕒</span>
+                            <span>Пн-Пт: 9:00-18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2025 Эко-Платформа ПМР. Все права защищены.
+                </p>
+                <p class="footer__note">Учебный проект. Выполнил Гасинец Дмитрий.</p>
+                <div class="footer__links">
+                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__link">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    
+    <!-- Скрипты -->
+    <script src="eco-platform/js/data-manager.js"></script>
+    <script src="eco-platform/js/map.js"></script>
+    <script src="eco-platform/js/nav.js"></script>
+</body>
+</html>

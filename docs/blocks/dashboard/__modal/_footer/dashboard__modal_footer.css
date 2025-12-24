@@ -1,7 +1,0 @@
-.modal__footer {
-    padding: 1.5rem 2rem;
-    border-top: 2px solid rgba(139, 69, 19, 0.1);
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}

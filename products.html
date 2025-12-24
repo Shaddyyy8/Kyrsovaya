@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эко-Товары | Эко-Платформа ПМР</title>
+    <meta name="description" content="Каталог экологичных товаров с фильтрацией по категориям, сертификатам и цене">
+    
+    <!-- Schema.org для товаров -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Эко-Товары",
+        "description": "Каталог экологичных товаров для устойчивого образа жизни",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": []
+        }
+    }
+    </script>
+    
+    <!-- Общие стили -->
+    <link rel="stylesheet" href="/eco-platform/blocks.css">    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header" role="banner">
+        <div class="container">
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="index.html" class="nav__logo" aria-label="На главную страницу">
+                    <img src="eco-platform/images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
+                    <span class="nav__logo-text">Эко-Платформа ПМР</span>
+                </a>
+                <ul class="nav__list" id="navList">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Дашборд</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="calculator.html" class="nav__link">Калькуляторы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link nav__link--active" aria-current="page">Эко-товары</a>
+                    </li>
+                    
+                    <li class="nav__item">
+                        <a href="articles.html" class="nav__link">Статьи</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="map.html" class="nav__link">Карта</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="favorites.html" class="nav__link">Избранное</a>
+                    </li>
+                    <li class="nav__item"><a href="contact.html" class="nav__link">Обратная связь</a></li>
+                </ul>
+                <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main" role="main">
+        <div class="container">
+            <!-- Hero секция -->
+            <section class="hero-section hero-section--compact" data-aos="fade-up">
+                <div class="hero-content hero-content--center">
+                    <h1 class="hero-title">Эко-Товары</h1>
+                    <p class="hero-description">
+                        Откройте для себя экологичные товары, которые помогут сделать ваш образ жизни 
+                        более устойчивым. Все товары проходят строгий отбор по экологическим критериям.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Фильтры -->
+            <section class="products-filters" aria-label="Фильтры товаров" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="products-filters__title visually-hidden">Фильтры</h2>
+                <div class="products-filters__grid">
+                    <div class="products-filters__group">
+                        <label for="filterCategory" class="products-filters__label">
+                            <span class="products-filters__label-icon">📁</span>
+                            Категория
+                        </label>
+                        <select id="filterCategory" class="products-filters__select">
+                            <option value="">Все категории</option>
+                            <option value="Сумки">Сумки</option>
+                            <option value="Уход">Уход</option>
+                            <option value="Кухня">Кухня</option>
+                            <option value="Ткани">Ткани</option>
+                        </select>
+                    </div>
+                    
+                    <div class="products-filters__group">
+                        <label for="filterCertificate" class="products-filters__label">
+                            <span class="products-filters__label-icon">🏅</span>
+                            Сертификат
+                        </label>
+                        <select id="filterCertificate" class="products-filters__select">
+                            <option value="">Все сертификаты</option>
+                            <option value="Органик">Органик</option>
+                            <option value="Безотходный">Безотходный</option>
+                            <option value="Веган">Веган</option>
+                        </select>
+                    </div>
+                    
+                    <div class="products-filters__group">
+                        <label for="filterCountry" class="products-filters__label">
+                            <span class="products-filters__label-icon">🌍</span>
+                            Страна
+                        </label>
+                        <select id="filterCountry" class="products-filters__select">
+                            <option value="">Все страны</option>
+                            <option value="Россия">Россия</option>
+                            <option value="Германия">Германия</option>
+                            <option value="Китай">Китай</option>
+                        </select>
+                    </div>
+                    
+                    <div class="products-filters__group">
+                        <label for="filterPrice" class="products-filters__label">
+                            <span class="products-filters__label-icon">💰</span>
+                            Цена
+                        </label>
+                        <select id="filterPrice" class="products-filters__select">
+                            <option value="">Любая цена</option>
+                            <option value="0-200">До 200 ₽</option>
+                            <option value="201-500">201–500 ₽</option>
+                            <option value="501-1000">501–1000 ₽</option>
+                            <option value="1001-2000">1001–2000 ₽</option>
+                        </select>
+                    </div>
+                    
+                    <div class="products-filters__actions">
+                        <button id="resetFilters" class="btn btn--secondary products-filters__reset">
+                            Сбросить фильтры
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="products-filters__info" aria-live="polite">
+                    Найдено товаров: <span id="productsCount">8</span>
+                </div>
+            </section>
+
+            <!-- Сетка товаров -->
+            <section class="products-grid-section" data-aos="fade-up" data-aos-delay="200">
+                <div id="productsContainer" class="products-grid"></div>
+                
+                <!-- Пустое состояние -->
+                <div id="emptyState" class="products-empty" hidden>
+                    <div class="products-empty__icon">🛒</div>
+                    <h3 class="products-empty__title">Товары не найдены</h3>
+                    <p class="products-empty__description">
+                        Попробуйте изменить параметры фильтров или выбрать другую категорию.
+                    </p>
+                    <button id="resetEmptyFilters" class="btn btn--primary">Сбросить все фильтры</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Модальное окно товара (BEM: product-modal) -->
+    <div id="productModal" class="product-modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+        <div class="product-modal__content">
+            <button id="modalClose" class="product-modal__close" aria-label="Закрыть окно">&times;</button>
+
+            <div class="product-modal__image">
+                <img id="modalImg" class="product-modal__img" src="" alt="" loading="lazy">
+            </div>
+
+            <div class="product-modal__info">
+                <h2 id="modalTitle" class="product-modal__title"></h2>
+
+                <div class="product-modal__badges">
+                    <span id="modalCategory" class="product-modal__badge product-modal__badge--category"></span>
+                    <span id="modalCert" class="product-modal__badge product-modal__badge--cert"></span>
+                    <span id="modalCountry" class="product-modal__badge product-modal__badge--country"></span>
+                </div>
+
+                <div class="product-modal__price-section">
+                    <span id="modalPrice" class="product-modal__price"></span>
+                    <span class="product-modal__currency">руб. ПМР</span>
+                </div>
+
+                <div class="product-modal__description">
+                    <p>Этот экологичный товар соответствует самым высоким стандартам устойчивости и помогает снизить воздействие на окружающую среду.</p>
+                </div>
+
+                <!-- Отзывы -->
+                <div class="product-modal__reviews">
+                    <h3 class="product-modal__reviews-title">
+                        <span class="product-modal__reviews-icon">💬</span>
+                        Отзывы покупателей
+                    </h3>
+
+                    <div id="reviewsList" class="product-modal__reviews-list">
+                        <!-- Отзывы будут добавляться через JS -->
+                    </div>
+
+                    <!-- Форма отзыва -->
+                    <div class="product-modal__review-form">
+                        <h4 class="product-modal__review-form-title">Оставить отзыв</h4>
+                        <textarea id="reviewInput" 
+                                  class="product-modal__review-input" 
+                                  placeholder="Поделитесь вашим мнением о товаре..."
+                                  rows="3"></textarea>
+
+                        <div class="product-modal__review-rating">
+                            <label for="reviewRating" class="product-modal__review-rating-label">Оценка:</label>
+                            <select id="reviewRating" class="product-modal__review-select">
+                                <option value="5">⭐⭐⭐⭐⭐ Отлично</option>
+                                <option value="4">⭐⭐⭐⭐ Хорошо</option>
+                                <option value="3">⭐⭐⭐ Удовлетворительно</option>
+                                <option value="2">⭐⭐ Плохо</option>
+                                <option value="1">⭐ Очень плохо</option>
+                            </select>
+                        </div>
+
+                        <button id="addReviewBtn" class="btn btn--primary product-modal__review-submit">
+                            Отправить отзыв
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Кнопки действий -->
+                <div class="product-modal__actions">
+                    <button id="modalFavBtn" class="btn btn--primary product-modal__action-btn">
+                        <span class="product-modal__action-icon">❤️</span>
+                        <span class="product-modal__action-text">Добавить в избранное</span>
+                    </button>
+                    <button id="modalShareBtn" class="btn btn--secondary product-modal__action-btn">
+                        <span class="product-modal__action-icon">📤</span>
+                        <span class="product-modal__action-text">Поделиться</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__info">
+                    <div class="footer__logo">
+                        <img src="eco-platform/images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
+                        <span class="footer__logo-text">Эко-Платформа ПМР</span>
+                    </div>
+                    <p class="footer__description">
+                        Платформа для продвижения устойчивого образа жизни 
+                        и экологически ответственного потребления в Приднестровье.
+                    </p>
+                </div>
+                
+                <div class="footer__contact">
+                    <h3 class="footer__contact-title">Контакты</h3>
+                    <ul class="footer__contact-list">
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📍</span>
+                            <span>г. Тирасполь, ул. Экологическая, 15</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📧</span>
+                            <span>info@ecopmr.ru</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">📞</span>
+                            <span>+373 (777) 123-45</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <span class="footer__contact-icon">🕒</span>
+                            <span>Пн-Пт: 9:00-18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                    <p class="footer__copyright">
+                    &copy; 2025 Эко-Платформа ПМР. Все права защищены.
+                </p>
+                <p class="footer__note">Учебный проект. Выполнил Гасинец Дмитрий.</p>
+                <div class="footer__links">
+                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__link">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="eco-platform/js/data-manager.js"></script>
+    <script src="eco-platform/js/products.js"></script>
+    <script src="eco-platform/js/nav.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

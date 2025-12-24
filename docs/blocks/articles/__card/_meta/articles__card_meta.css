@@ -1,7 +1,0 @@
-.article-card__meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(139, 69, 19, 0.1);
-}

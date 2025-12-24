@@ -55,7 +55,7 @@ async function init() {
 async function loadArticles() {
     try {
         // Загружаем JSON-файл из папки json относительно html/страницы
-        const response = await fetch('../json/articles.json');
+        const response = await fetch('eco-platform/json/articles.json');
         if (!response.ok) throw new Error('Не удалось загрузить статьи');
         
         const rawData = await response.json();
@@ -100,7 +100,7 @@ async function loadArticles() {
  */
 function resolveArticleImagePath(rawPath) {
     if (!rawPath) {
-        return '../images/article/default.jpg';
+        return 'eco-platform/images/article/default.jpg';
     }
 
     // Если путь уже абсолютный или начинается с ../ или ./ — не трогаем
