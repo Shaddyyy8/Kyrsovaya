@@ -42,7 +42,7 @@
                 const nav = btn.closest('.nav');
                 const navList = nav?.querySelector('.nav__list');
                 if (!navList) return;
-                if (window.innerWidth > 900 && navList.classList.contains('nav__list--open')) {
+                if (window.innerWidth > 1024 && navList.classList.contains('nav__list--open')) {
                     navList.classList.remove('nav__list--open');
                     btn.setAttribute('aria-expanded', 'false');
                     btn.textContent = '☰';

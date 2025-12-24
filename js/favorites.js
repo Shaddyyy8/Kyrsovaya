@@ -9,7 +9,7 @@ const PRODUCTS_DATA = [
         price: 350, 
         certificate: "Органик", 
         country: "Россия", 
-        img: "eco-platform/images/product/product1.jpg",
+        img: "images/product/product1.jpg",
         description: "Прочная многоразовая сумка из органического хлопка."
     },
     { 
@@ -19,7 +19,7 @@ const PRODUCTS_DATA = [
         price: 100, 
         certificate: "Безотходный", 
         country: "Россия", 
-        img: "eco-platform/images/product/product2.jpg",
+        img: "images/product/product2.jpg",
         description: "Экологичная зубная щетка с бамбуковой ручкой."
     },
     { 
@@ -29,7 +29,7 @@ const PRODUCTS_DATA = [
         price: 125, 
         certificate: "Безотходный", 
         country: "Китай", 
-        img: "eco-platform/images/product/product3.jpg",
+        img: "images/product/product3.jpg",
         description: "Бутылка из пищевой нержавеющей стали."
     },
     { 
@@ -39,7 +39,7 @@ const PRODUCTS_DATA = [
         price: 75, 
         certificate: "Веган", 
         country: "Германия", 
-        img: "eco-platform/images/product/product4.jpg",
+        img: "images/product/product4.jpg",
         description: "Мыло ручной работы из натуральных ингредиентов."
     },
     { 
@@ -49,7 +49,7 @@ const PRODUCTS_DATA = [
         price: 65, 
         certificate: "Безотходный", 
         country: "Россия", 
-        img: "eco-platform/images/product/product5.jpg",
+        img: "images/product/product5.jpg",
         description: "Экологичная замена пищевой пленке."
     },
     { 
@@ -59,7 +59,7 @@ const PRODUCTS_DATA = [
         price: 150, 
         certificate: "Безотходный", 
         country: "Китай", 
-        img: "eco-platform/images/product/product6.jpg",
+        img: "images/product/product6.jpg",
         description: "Набор столовых приборов из бамбука."
     },
     { 
@@ -69,7 +69,7 @@ const PRODUCTS_DATA = [
         price: 350, 
         certificate: "Органик", 
         country: "Россия", 
-        img: "eco-platform/images/product/product7.jpg",
+        img: "images/product/product7.jpg",
         description: "Натуральные ткани без химических удобрений."
     },
     { 
@@ -79,7 +79,7 @@ const PRODUCTS_DATA = [
         price: 50, 
         certificate: "Безотходный", 
         country: "Германия", 
-        img: "eco-platform/images/product/product8.jpg",
+        img: "images/product/product8.jpg",
         description: "Набор многоразовых сетчатых пакетов."
     }
 ];
@@ -310,7 +310,7 @@ async function getFavoriteArticles() {
 
     try {
         // Загружаем JSON с учетом того, что HTML-страница лежит в папке html/
-        const resp = await fetch('eco-platform/json/articles.json');
+        const resp = await fetch('json/articles.json');
         const raw = await resp.json();
         // raw ожидается в формате массива статей с полем id
         const articles = raw.map(a => {
@@ -372,14 +372,14 @@ function createArticleCard(article) {
 // чтобы корректно работать из папки html/ и с JSON-путями вида "images/article/...".
 function resolveArticleImagePath(rawPath) {
     if (!rawPath) {
-        return 'eco-platform/images/article/default.jpg';
+        return 'images/article/default.jpg';
     }
 
-    if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('../') || rawPath.startsWith('./')) {
+    if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('/')) {
         return rawPath;
     }
 
-    return '../' + rawPath;
+    return rawPath.replace(/^\/+/, '');
 }
 
 // Создание карточки товара

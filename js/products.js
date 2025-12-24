@@ -9,7 +9,7 @@ const PRODUCTS = [
         price: 350, 
         certificate: "Органик", 
         country: "Россия", 
-        img: "eco-platform/images/product/product1.jpg",
+        img: "images/product/product1.jpg",
         description: "Прочная многоразовая сумка из органического хлопка. Заменяет сотни пластиковых пакетов."
     },
     { 
@@ -19,7 +19,7 @@ const PRODUCTS = [
         price: 100, 
         certificate: "Безотходный", 
         country: "Россия", 
-        img: "eco-platform/images/product/product2.jpg",
+        img: "images/product/product2.jpg",
         description: "Экологичная зубная щетка с бамбуковой ручкой. Полностью биоразлагаемая."
     },
     { 
@@ -29,7 +29,7 @@ const PRODUCTS = [
         price: 125, 
         certificate: "Безотходный", 
         country: "Китай", 
-        img: "eco-platform/images/product/product3.jpg",
+        img: "images/product/product3.jpg",
         description: "Бутылка из пищевой нержавеющей стали. Сохраняет температуру напитков до 12 часов."
     },
     { 
@@ -39,7 +39,7 @@ const PRODUCTS = [
         price: 75, 
         certificate: "Веган", 
         country: "Германия", 
-        img: "eco-platform/images/product/product4.jpg",
+        img: "images/product/product4.jpg",
         description: "Мыло ручной работы из натуральных ингредиентов. Без парабенов и сульфатов."
     },
     { 
@@ -49,7 +49,7 @@ const PRODUCTS = [
         price: 65, 
         certificate: "Безотходный", 
         country: "Россия", 
-        img: "eco-platform/images/product/product5.jpg",
+        img: "images/product/product5.jpg",
         description: "Экологичная замена пищевой пленке. Многоразовые и биоразлагаемые."
     },
     { 
@@ -59,7 +59,7 @@ const PRODUCTS = [
         price: 150, 
         certificate: "Безотходный", 
         country: "Китай", 
-        img: "eco-platform/images/product/product6.jpg",
+        img: "images/product/product6.jpg",
         description: "Набор столовых приборов из бамбука для пикников и путешествий."
     },
     { 
@@ -69,7 +69,7 @@ const PRODUCTS = [
         price: 350, 
         certificate: "Органик", 
         country: "Россия", 
-        img: "eco-platform/images/product/product7.jpg",
+        img: "images/product/product7.jpg",
         description: "Натуральные ткани, произведенные без использования химических удобрений."
     },
     { 
@@ -79,7 +79,7 @@ const PRODUCTS = [
         price: 50, 
         certificate: "Безотходный", 
         country: "Германия", 
-        img: "eco-platform/images/product/product8.jpg",
+        img: "images/product/product8.jpg",
         description: "Набор многоразовых сетчатых пакетов для фруктов и овощей."
     }
 ];

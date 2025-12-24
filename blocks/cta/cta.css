@@ -64,3 +64,22 @@
     line-height: 1.7;
     font-weight: 400;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cta-section {
+        padding: 4rem 0;
+    }
+
+    .cta-container {
+        padding: 3rem 2rem;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    .cta-description {
+        font-size: 1rem;
+    }
+}

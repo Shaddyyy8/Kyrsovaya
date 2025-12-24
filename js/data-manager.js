@@ -46,9 +46,10 @@ class DataManager {
                 stats: userData.stats || this.getDefaultStats()
             };
             
-            // Загружаем демо-данные при первом запуске
-            if (Object.keys(userData).length === 0) {
+            // Загружаем демо-данные при первом запуске, но не после сброса
+            if (Object.keys(userData).length === 0 && !localStorage.getItem('reset_done')) {
                 this.loadDemoData();
+                localStorage.removeItem('reset_done');
             }
             
             console.log('Данные загружены:', this.userData);
@@ -591,7 +592,10 @@ class DataManager {
         localStorage.removeItem('ecoCalculations');
         localStorage.removeItem('carbonCalculations');
         localStorage.removeItem('savingsCalculations');
-        
+
+        // Устанавливаем флаг сброса, чтобы не загружать демо-данные
+        localStorage.setItem('reset_done', 'true');
+
         // Удаляем отзывы
         const keys = Object.keys(localStorage);
         keys.forEach(key => {
@@ -599,14 +603,14 @@ class DataManager {
                 localStorage.removeItem(key);
             }
         });
-        
+
         // Сбрасываем данные к начальным значениям
         this.userData = this.getDefaultData();
         this.saveData();
-        
+
         // Триггерим событие обновления
         this.triggerDataUpdate();
-        
+
         return this.userData;
     }
     

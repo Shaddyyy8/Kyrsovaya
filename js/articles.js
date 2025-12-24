@@ -54,8 +54,8 @@ async function init() {
  */
 async function loadArticles() {
     try {
-        // Загружаем JSON-файл из папки json относительно html/страницы
-        const response = await fetch('eco-platform/json/articles.json');
+        // Загружаем JSON-файл
+        const response = await fetch('json/articles.json');
         if (!response.ok) throw new Error('Не удалось загрузить статьи');
         
         const rawData = await response.json();
@@ -100,15 +100,14 @@ async function loadArticles() {
  */
 function resolveArticleImagePath(rawPath) {
     if (!rawPath) {
-        return 'eco-platform/images/article/default.jpg';
+        return 'images/article/default.jpg';
     }
 
-    // Если путь уже абсолютный или начинается с ../ или ./ — не трогаем
-    if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('../') || rawPath.startsWith('./')) {
+    if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('/')) {
         return rawPath;
     }
 
-    return '../' + rawPath;
+    return rawPath.replace(/^\/+/, '');
 }
 
 /**

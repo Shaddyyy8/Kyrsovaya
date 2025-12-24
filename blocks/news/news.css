@@ -24,3 +24,15 @@
     position: relative;
     z-index: 1;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .news-section {
+        padding: 4rem 0;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}

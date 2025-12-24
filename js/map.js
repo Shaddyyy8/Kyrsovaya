@@ -153,7 +153,7 @@ const CATEGORY_ICONS = {
         if (exists) return;
         const script = document.createElement('script');
         // Загружаем DataManager из папки eco-platform/js
-        script.src = 'eco-platform/js/data-manager.js';
+        script.src = 'js/data-manager.js';
         document.head.appendChild(script);
     } catch (e) {
         console.warn('Не удалось автоматически подключить DataManager для карты:', e);

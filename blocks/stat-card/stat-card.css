@@ -35,3 +35,11 @@
 .stat-card:hover::before {
     transform: scaleX(1);
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+}

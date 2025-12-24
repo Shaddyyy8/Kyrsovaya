@@ -1,3 +1,10 @@
 .calculator-form {
     margin-bottom: 3rem;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calculator-form {
+        margin-bottom: 2rem;
+    }
+}

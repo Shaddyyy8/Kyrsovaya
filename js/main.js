@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!window.dataManager) {
         console.log('Загружаем DataManager для дашборда...');
         const script = document.createElement('script');
-        script.src = 'eco-platform/js/data-manager.js';
+        script.src = 'js/data-manager.js';
         script.onload = function() {
             console.log('DataManager загружен для дашборда');
             initializeDashboard();

@@ -43,3 +43,10 @@
 .leaflet-popup-content-wrapper {
     border: 1px solid rgba(0,0,0,0.06);
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .leaflet-popup-content {
+        min-width: 240px;
+    }
+}

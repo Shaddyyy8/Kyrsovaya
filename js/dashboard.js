@@ -74,13 +74,13 @@ function initializePage() {
     // Синхронизируем иконки привычек в кнопках с теми, что используются в истории
     if (typeof syncHabitIcons === 'function') syncHabitIcons();
     if (typeof applyIconsToFilters === 'function') applyIconsToFilters();
-    
+
     // Обновление при изменении данных из других частей приложения
     document.addEventListener('ecodata-updated', function() {
         loadUserData();
         updateDashboard();
     });
-    
+
     // Инициализация кнопки сброса данных
     initResetButton();
 }
@@ -99,7 +99,7 @@ function initResetButton() {
     const resetModalClose = document.getElementById('resetModalClose');
     const resetModalCancel = document.getElementById('resetModalCancel');
     const resetModalConfirm = document.getElementById('resetModalConfirm');
-    
+
     if (!resetBtn || !resetModal) return;
     
     // Открытие модального окна
@@ -136,23 +136,18 @@ function initResetButton() {
                 showNotification('Ошибка: DataManager не загружен', 'error');
                 return;
             }
-            
+
             // Сброс данных
             window.dataManager.resetAllData();
-            
+
             // Закрываем модальное окно
             closeModal();
-            
+
             // Показываем уведомление
             showNotification('Все данные успешно сброшены', 'success');
-            
-            // Обновляем дашборд
-            setTimeout(() => {
-                loadUserData();
-                updateDashboard();
-                // Перезагружаем страницу для полного обновления
-                window.location.reload();
-            }, 1000);
+
+            // Перезагружаем страницу для полного обновления
+            location.href = location.href;
         });
     }
 }
@@ -609,7 +604,7 @@ function updateRecentArticles() {
     }
     
     // Загружаем реальные статьи из JSON
-    fetch('eco-platform/json/articles.json')
+    fetch('json/articles.json')
         .then(resp => resp.json())
         .then(raw => {
             // Преобразуем исходный массив, чтобы сохранить картинку и текст
@@ -617,11 +612,9 @@ function updateRecentArticles() {
                 // Выбираем поле с изображением
                 const rawImage = a.img || a.image || '';
                 let image = rawImage || '';
-                if (image && !image.startsWith('http') && !image.startsWith('../') && !image.startsWith('/')) {
-                    image = '../' + image.replace(/^\/+/, '');
-                } else if (!image) {
+                if (!image) {
                     // fallback к существующей картинке в наборе
-                    image = 'eco-platform/images/article/article1.jpg';
+                    image = 'images/article/article1.jpg';
                 }
 
                 return {
@@ -708,10 +701,7 @@ function renderNewsGrid(list) {
         const card = document.createElement('article');
         card.className = 'news-card';
         // Use either item.image or item.img (older JSON uses 'img')
-        let imageSrc = item.image || item.img || 'eco-platform/images/article/article1.jpg';
-        if (imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('../') && !imageSrc.startsWith('/')) {
-            imageSrc = '../' + imageSrc.replace(/^\/+/, '');
-        }
+        let imageSrc = item.image || item.img || 'images/article/article1.jpg';
         const excerpt = (item.excerpt || item.text || '').slice(0, 160);
         card.innerHTML = `
             <div class="news-image-wrapper">
