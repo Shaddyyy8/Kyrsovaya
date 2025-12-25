@@ -4,39 +4,38 @@
 let allArticles = []; // Все статьи
 let filteredArticles = []; // Отфильтрованные статьи
 let favorites = JSON.parse(localStorage.getItem('articleFavorites')) || []; // Избранные статьи
+let currentArticleId = null; // Текущая открытая статья
 
 // ========== DOM ЭЛЕМЕНТЫ ==========
-const articlesContainer = document.getElementById('articlesContainer');
-const emptyState = document.getElementById('emptyState');
-const articlesCount = document.getElementById('articlesCount');
+// Инициализируются в init()
+let articlesContainer;
+let emptyState;
+let articlesCount;
 
 // Фильтры
-const filterCategory = document.getElementById('filterCategory');
-const filterDate = document.getElementById('filterDate');
-const resetFiltersBtn = document.getElementById('resetFilters');
-const resetEmptyFiltersBtn = document.getElementById('resetEmptyFilters');
+let filterCategory;
+let filterDate;
+let resetFiltersBtn;
+let resetEmptyFiltersBtn;
 
 // Поиск
-const searchInput = document.getElementById('searchInput');
-const searchButton = document.getElementById('searchButton');
+let searchInput;
+let searchButton;
 
 // Модальное окно
-const articleModal = document.getElementById('articleModal');
-const modalClose = document.getElementById('modalClose');
-const modalImg = document.getElementById('modalImg');
-const modalCategory = document.getElementById('modalCategory');
-const modalDate = document.getElementById('modalDate');
-const modalTitle = document.getElementById('modalTitle');
-const modalText = document.getElementById('modalText');
-const modalSaveBtn = document.getElementById('modalSaveBtn');
+let articleModal;
+let modalClose;
+let modalImg;
+let modalCategory;
+let modalDate;
+let modalTitle;
+let modalText;
+let modalSaveBtn;
 
 // Кнопки поделиться
-const shareVk = document.getElementById('shareVk');
-const shareTelegram = document.getElementById('shareTelegram');
-const shareWhatsApp = document.getElementById('shareWhatsApp');
-
-// Текущая открытая статья
-let currentArticleId = null;
+let shareVk;
+let shareTelegram;
+let shareWhatsApp;
 
 // ========== ФУНКЦИИ ==========
 
@@ -44,9 +43,38 @@ let currentArticleId = null;
  * Инициализация приложения
  */
 async function init() {
+    // Инициализация DOM элементов
+    articlesContainer = document.getElementById('articlesContainer');
+    emptyState = document.getElementById('emptyState');
+    articlesCount = document.getElementById('articlesCount');
+
+    filterCategory = document.getElementById('filterCategory');
+    filterDate = document.getElementById('filterDate');
+    resetFiltersBtn = document.getElementById('resetFilters');
+    resetEmptyFiltersBtn = document.getElementById('resetEmptyFilters');
+
+    searchInput = document.getElementById('searchInput');
+    searchButton = document.getElementById('searchButton');
+
+    articleModal = document.getElementById('articleModal');
+    modalClose = document.getElementById('modalClose');
+    modalImg = document.getElementById('modalImg');
+    modalCategory = document.getElementById('modalCategory');
+    modalDate = document.getElementById('modalDate');
+    modalTitle = document.getElementById('modalTitle');
+    modalText = document.getElementById('modalText');
+    modalSaveBtn = document.getElementById('modalSaveBtn');
+
+    shareVk = document.getElementById('shareVk');
+    shareTelegram = document.getElementById('shareTelegram');
+    shareWhatsApp = document.getElementById('shareWhatsApp');
+
+    // Настройка слушателей событий (до загрузки данных)
+    setupEventListeners();
+
+    // Загрузка и рендер
     await loadArticles();
     renderArticles();
-    setupEventListeners();
 }
 
 /**
@@ -54,17 +82,14 @@ async function init() {
  */
 async function loadArticles() {
     try {
-        // Загружаем JSON-файл
         const response = await fetch('json/articles.json');
         if (!response.ok) throw new Error('Не удалось загрузить статьи');
         
         const rawData = await response.json();
         
-        // Нормализуем данные - добавляем отсутствующие поля
         allArticles = rawData.map(article => {
             const rawImage = article.img || article.image;
             const resolvedImage = resolveArticleImagePath(rawImage);
-
             const fullText = article.text || article.content || '';
 
             return {
@@ -75,15 +100,12 @@ async function loadArticles() {
                 content: fullText,
                 excerpt: fullText.substring(0, 150) + '...',
                 date: article.date,
-                // Добавляем время чтения
                 readTime: calculateReadTime(fullText),
                 share: article.share || { vk: true, telegram: true, whatsapp: true }
             };
         });
         
-        filteredArticles = [...allArticles]; // ИСПРАВЛЕНО: было [allArticles]
-        
-        // Обновляем счетчик
+        filteredArticles = [...allArticles];
         updateArticlesCount();
         
     } catch (error) {
@@ -94,19 +116,10 @@ async function loadArticles() {
 
 /**
  * Корректное построение пути к изображению статьи
- * JSON хранит пути вроде "images/article/article1.jpg",
- * а HTML-страницы находятся в папке html/, поэтому
- * добавляем ../ при необходимости.
  */
 function resolveArticleImagePath(rawPath) {
-    if (!rawPath) {
-        return 'images/article/default.jpg';
-    }
-
-    if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('/')) {
-        return rawPath;
-    }
-
+    if (!rawPath) return 'images/article/default.jpg';
+    if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('/')) return rawPath;
     return rawPath.replace(/^\/+/, '');
 }
 
@@ -114,13 +127,15 @@ function resolveArticleImagePath(rawPath) {
  * Отображение статей в сетке
  */
 function renderArticles() {
+    if (!articlesContainer) return;
+
     if (filteredArticles.length === 0) {
         articlesContainer.innerHTML = '';
-        emptyState.hidden = false;
+        if (emptyState) emptyState.hidden = false;
         return;
     }
     
-    emptyState.hidden = true;
+    if (emptyState) emptyState.hidden = true;
     
     const articlesHTML = filteredArticles.map(article => {
         return `
@@ -168,14 +183,16 @@ function renderArticles() {
     
     articlesContainer.innerHTML = articlesHTML;
     
-    // Добавляем обработчики для кнопок в карточках
+    // Кнопки внутри карточек (для надежности, хотя делегирование тоже работает)
     setupCardEventListeners();
 }
 
 /**
- * Настройка обработчиков событий для карточек
+ * Настройка обработчиков событий для кнопок внутри карточек
  */
 function setupCardEventListeners() {
+    if (!articlesContainer) return;
+
     // Читать статью
     articlesContainer.querySelectorAll('[data-action="read"]').forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -193,17 +210,7 @@ function setupCardEventListeners() {
             const card = this.closest('.article-card');
             const articleId = parseInt(card.dataset.id);
             const article = allArticles.find(a => a.id === articleId);
-            shareArticle(article);
-        });
-    });
-    
-    // Открытие по клику на карточку
-    articlesContainer.querySelectorAll('.article-card').forEach(card => {
-        card.addEventListener('click', function(e) {
-            if (!e.target.closest('button')) {
-                const articleId = parseInt(this.dataset.id);
-                openArticleModal(articleId);
-            }
+            if (article) shareArticle(article);
         });
     });
 }
@@ -212,30 +219,55 @@ function setupCardEventListeners() {
  * Открытие модального окна со статьей
  */
 function openArticleModal(articleId) {
-    const article = allArticles.find(a => a.id === articleId);
-    if (!article) return;
+    console.log('openArticleModal called for ID:', articleId);
+    // Ищем статью по ID (сравнение с приведением типов для надежности)
+    const article = allArticles.find(a => a.id == articleId);
+    if (!article) {
+        console.error('Статья не найдена для ID:', articleId);
+        return;
+    }
+    console.log('Статья найдена:', article.title);
     
     currentArticleId = articleId;
     
-    // Заполняем модальное окно
-    modalImg.src = article.image;
-    modalImg.alt = article.title;
-    modalCategory.textContent = article.category;
-    modalDate.textContent = formatDate(article.date);
-    modalTitle.textContent = article.title;
-    modalText.innerHTML = formatArticleContent(article.content);
+    // Безопасное обновление элементов модального окна
+    if (modalImg) {
+        modalImg.src = article.image;
+        modalImg.alt = article.title;
+    } else {
+        console.warn('modalImg element not found');
+    }
+
+    if (modalCategory) modalCategory.textContent = article.category;
+    if (modalDate) modalDate.textContent = formatDate(article.date);
+    if (modalTitle) modalTitle.textContent = article.title;
+    if (modalText) modalText.innerHTML = formatArticleContent(article.content);
     
     // Настройка кнопки сохранения
-    const isFavorite = favorites.includes(articleId);
-    modalSaveBtn.innerHTML = isFavorite 
-        ? '<span class="modal__save-btn-icon">💚</span><span class="modal__save-btn-text">Убрать из сохраненных</span>'
-        : '<span class="modal__save-btn-icon">💾</span><span class="modal__save-btn-text">Сохранить статью</span>';
+    if (modalSaveBtn) {
+        const isFavorite = favorites.includes(articleId);
+        modalSaveBtn.innerHTML = isFavorite 
+            ? '<span class="modal__save-btn-icon">💚</span><span class="modal__save-btn-text">Убрать из сохраненных</span>'
+            : '<span class="modal__save-btn-icon">💾</span><span class="modal__save-btn-text">Сохранить статью</span>';
+    }
     
     // Настройка кнопок поделиться
     setupShareButtons(article);
     
     // Показываем модальное окно
-    articleModal.setAttribute('aria-hidden', 'false');
+    if (articleModal) {
+        console.log('Попытка открыть модальное окно...');
+        articleModal.setAttribute('aria-hidden', 'false');
+        articleModal.classList.add('modal--open'); 
+        // Принудительно показываем, если CSS класс не срабатывает
+        articleModal.style.display = 'flex';
+        articleModal.style.zIndex = '9999';
+        articleModal.style.visibility = 'visible';
+        articleModal.style.opacity = '1';
+        console.log('Стили модального окна после открытия:', articleModal.style.display, articleModal.classList);
+    } else {
+        console.error('articleModal element not found');
+    }
     document.body.style.overflow = 'hidden';
 }
 
@@ -245,12 +277,10 @@ function openArticleModal(articleId) {
 function formatArticleContent(content) {
     if (!content) return '<p>Содержание статьи отсутствует</p>';
     
-    // Разбиваем текст на абзацы по точкам
     const paragraphs = content.split('. ').filter(p => p.trim().length > 0);
     
     if (paragraphs.length > 0) {
         return paragraphs.map(paragraph => {
-            // Добавляем точку в конце, если ее нет
             const text = paragraph.endsWith('.') ? paragraph : paragraph + '.';
             return `<p>${text}</p>`;
         }).join('');
@@ -267,23 +297,26 @@ function setupShareButtons(article) {
     const title = encodeURIComponent(article.title);
     const description = encodeURIComponent(article.excerpt);
     
-    // ВКонтакте
-    shareVk.onclick = () => {
-        const url = `https://vk.com/share.php?url=${pageUrl}&title=${title}&description=${description}`;
-        openShareWindow(url, 650, 350);
-    };
+    if (shareVk) {
+        shareVk.onclick = () => {
+            const url = `https://vk.com/share.php?url=${pageUrl}&title=${title}&description=${description}`;
+            openShareWindow(url, 650, 350);
+        };
+    }
     
-    // Telegram
-    shareTelegram.onclick = () => {
-        const url = `https://t.me/share/url?url=${pageUrl}&text=${title}`;
-        openShareWindow(url, 600, 400);
-    };
+    if (shareTelegram) {
+        shareTelegram.onclick = () => {
+            const url = `https://t.me/share/url?url=${pageUrl}&text=${title}`;
+            openShareWindow(url, 600, 400);
+        };
+    }
     
-    // WhatsApp
-    shareWhatsApp.onclick = () => {
-        const url = `https://wa.me/?text=${title}%20${pageUrl}`;
-        openShareWindow(url, 600, 400);
-    };
+    if (shareWhatsApp) {
+        shareWhatsApp.onclick = () => {
+            const url = `https://wa.me/?text=${title}%20${pageUrl}`;
+            openShareWindow(url, 600, 400);
+        };
+    }
 }
 
 /**
@@ -308,11 +341,10 @@ function openShareWindow(url, width, height) {
 }
 
 /**
- * Поделиться статьей
+ * Поделиться статьей (Web Share API)
  */
 function shareArticle(article) {
     if (navigator.share) {
-        // Используем Web Share API
         navigator.share({
             title: article.title,
             text: article.excerpt,
@@ -320,7 +352,6 @@ function shareArticle(article) {
         })
         .catch(error => console.log('Ошибка шаринга:', error));
     } else {
-        // Fallback: копирование ссылки
         const shareUrl = `${window.location.origin}/articles.html?article=${article.id}`;
         navigator.clipboard.writeText(shareUrl)
             .then(() => {
@@ -341,25 +372,22 @@ function toggleSaveArticle() {
     const index = favorites.indexOf(currentArticleId);
     
     if (index === -1) {
-        // Добавляем в избранное
         favorites.push(currentArticleId);
         showNotification('Статья добавлена в избранное!');
     } else {
-        // Убираем из избранного
         favorites.splice(index, 1);
         showNotification('Статья убрана из избранного');
     }
     
-    // Сохраняем в localStorage
     localStorage.setItem('articleFavorites', JSON.stringify(favorites));
     
-    // Обновляем кнопку в модалке
-    const isFavorite = favorites.includes(currentArticleId);
-    modalSaveBtn.innerHTML = isFavorite 
-        ? '<span class="modal__save-btn-icon">💚</span><span class="modal__save-btn-text">Убрать из сохраненных</span>'
-        : '<span class="modal__save-btn-icon">💾</span><span class="modal__save-btn-text">Сохранить статью</span>';
+    if (modalSaveBtn) {
+        const isFavorite = favorites.includes(currentArticleId);
+        modalSaveBtn.innerHTML = isFavorite 
+            ? '<span class="modal__save-btn-icon">💚</span><span class="modal__save-btn-text">Убрать из сохраненных</span>'
+            : '<span class="modal__save-btn-icon">💾</span><span class="modal__save-btn-text">Сохранить статью</span>';
+    }
     
-    // Обновляем отображение статей
     renderArticles();
 }
 
@@ -367,6 +395,8 @@ function toggleSaveArticle() {
  * Фильтрация статей
  */
 function filterArticles() {
+    if (!filterCategory || !filterDate || !searchInput) return;
+
     const category = filterCategory.value;
     const dateFilter = filterDate.value;
     const searchTerm = searchInput.value.toLowerCase().trim();
@@ -382,17 +412,10 @@ function filterArticles() {
             let daysDiff;
             
             switch(dateFilter) {
-                case 'week':
-                    daysDiff = 7;
-                    break;
-                case 'month':
-                    daysDiff = 30;
-                    break;
-                case 'quarter':
-                    daysDiff = 90;
-                    break;
-                default:
-                    daysDiff = 0;
+                case 'week': daysDiff = 7; break;
+                case 'month': daysDiff = 30; break;
+                case 'quarter': daysDiff = 90; break;
+                default: daysDiff = 0;
             }
             
             if (daysDiff > 0) {
@@ -421,9 +444,12 @@ function filterArticles() {
  * Сброс фильтров
  */
 function resetFilters() {
-    filterCategory.value = '';
-    filterDate.value = '';
-    searchInput.value = '';
+    if (filterCategory) filterCategory.value = '';
+    if (filterDate) filterDate.value = '';
+    if (searchInput) searchInput.value = '';
+    
+    console.log('Filters reset. Articles count:', allArticles.length);
+    
     filteredArticles = [...allArticles];
     updateArticlesCount();
     renderArticles();
@@ -433,7 +459,9 @@ function resetFilters() {
  * Обновление счетчика статей
  */
 function updateArticlesCount() {
-    articlesCount.textContent = filteredArticles.length;
+    if (articlesCount) {
+        articlesCount.textContent = filteredArticles.length;
+    }
 }
 
 /**
@@ -466,7 +494,6 @@ function calculateReadTime(text) {
  * Показать уведомление
  */
 function showNotification(message) {
-    // Создаем элемент уведомления
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
@@ -482,44 +509,29 @@ function showNotification(message) {
         animation: slideIn 0.3s ease-out;
     `;
     
-    // Добавляем стили для анимации
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
+    const styleId = 'notification-styles';
+    if (!document.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
             }
-        }
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+        `;
+        document.head.appendChild(style);
+    }
     
     document.body.appendChild(notification);
     
-    // Удаляем уведомление через 3 секунды
     setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease-out';
         setTimeout(() => {
-            if (notification.parentNode) {
-                document.body.removeChild(notification);
-            }
-            if (style.parentNode) {
-                document.head.removeChild(style);
-            }
+            if (notification.parentNode) document.body.removeChild(notification);
         }, 300);
     }, 3000);
 }
@@ -531,23 +543,38 @@ function showErrorMessage(message) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.innerHTML = `
-        <div style="
-            background: #fee;
-            border: 2px solid #f66;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-            color: #c00;
-        ">
+        <div style="background: #fee; border: 2px solid #f66; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center; color: #c00;">
             <strong>Ошибка:</strong> ${message}
         </div>
     `;
     
     const container = document.querySelector('.container');
-    if (container) {
-        container.prepend(errorDiv);
+    if (container) container.prepend(errorDiv);
+}
+
+/**
+ * Закрытие модального окна
+ */
+function closeModal() {
+    console.log('closeModal called');
+    if (articleModal) {
+        articleModal.setAttribute('aria-hidden', 'true');
+        articleModal.classList.remove('modal--open');
+        articleModal.style.display = '';
     }
+    document.body.style.overflow = '';
+    currentArticleId = null;
+}
+
+/**
+ * Дебаунс для поиска
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
 }
 
 /**
@@ -566,17 +593,63 @@ function setupEventListeners() {
     });
     
     // Сброс фильтров
-    if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', resetFilters);
-    if (resetEmptyFiltersBtn) resetEmptyFiltersBtn.addEventListener('click', resetFilters);
+    if (resetFiltersBtn) {
+        resetFiltersBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Сброс фильтров активирован');
+            resetFilters();
+        });
+    }
+    if (resetEmptyFiltersBtn) {
+        resetEmptyFiltersBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetFilters();
+        });
+    }
     
     // Модальное окно
-    if (modalClose) modalClose.addEventListener('click', closeModal);
-    if (articleModal) articleModal.addEventListener('click', (e) => {
-        if (e.target === articleModal) closeModal();
-    });
+    if (modalClose) {
+        modalClose.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Клик по кнопке закрытия');
+            closeModal();
+        });
+    }
+    if (articleModal) {
+        articleModal.addEventListener('click', (e) => {
+            if (e.target === articleModal) {
+                console.log('Клик по фону модального окна');
+                closeModal();
+            }
+        });
+    }
     
     // Кнопка сохранения
-    if (modalSaveBtn) modalSaveBtn.addEventListener('click', toggleSaveArticle);
+    if (modalSaveBtn) {
+        modalSaveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleSaveArticle();
+        });
+    }
+    
+    // Делегирование события клика по карточке статьи (используем document для надежности)
+    document.addEventListener('click', (e) => {
+        // Игнорируем клики по кнопкам внутри карточки
+        if (e.target.closest('button')) return;
+
+        const card = e.target.closest('.article-card');
+        if (card) {
+            console.log('Найдена карточка:', card);
+            const articleId = card.dataset.id;
+            if (articleId) {
+                // Пробуем как число, затем как строку
+                const idNum = parseInt(articleId);
+                openArticleModal(isNaN(idNum) ? articleId : idNum);
+            } else {
+                console.error('ID статьи не найден в dataset');
+            }
+        }
+    });
     
     // Закрытие по ESC
     document.addEventListener('keydown', (e) => {
@@ -586,32 +659,9 @@ function setupEventListeners() {
     });
 }
 
-/**
- * Закрытие модального окна
- */
-function closeModal() {
-    if (articleModal) {
-        articleModal.setAttribute('aria-hidden', 'true');
-    }
-    document.body.style.overflow = 'auto';
-    currentArticleId = null;
-}
-
-/**
- * Дебаунс для поиска
- */
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
 // ========== ЗАПУСК ПРИЛОЖЕНИЯ ==========
-document.addEventListener('DOMContentLoaded', init);
-
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}

@@ -159,7 +159,6 @@ function createProductCard(product) {
                 </button>
                 <button class="product-card__btn product-card__btn--fav ${isFavorite ? 'product-card__btn--fav--active' : ''}" data-id="${product.id}" title="${isFavorite ? 'В избранном' : 'В избранное'}">
                     <span class="product-card__btn-icon">${isFavorite ? '❤️' : '🤍'}</span>
-                    <span class="product-card__btn-text">${isFavorite ? 'В избранном' : 'В избранное'}</span>
                 </button>
             </div>
         </div>
@@ -236,7 +235,7 @@ function toggleFavorite(productId, button) {
     if (isFavorite) {
         favorites = favorites.filter(id => id !== productId);
         if (button) {
-            button.innerHTML = '<span class="product-card__btn-icon">🤍</span><span class="product-card__btn-text"> В избранное</span>';
+            button.innerHTML = '<span class="product-card__btn-icon">🤍</span>';
             button.classList.remove('product-card__btn--fav--active');
         }
         if (modalFavBtn.dataset.id == productId) {
@@ -245,7 +244,7 @@ function toggleFavorite(productId, button) {
     } else {
         favorites.push(productId);
         if (button) {
-            button.innerHTML = '<span class="product-card__btn-icon">❤️</span><span class="product-card__btn-text"> В избранном</span>';
+            button.innerHTML = '<span class="product-card__btn-icon">❤️</span>';
             button.classList.add('product-card__btn--fav--active');
         }
         if (modalFavBtn.dataset.id == productId) {

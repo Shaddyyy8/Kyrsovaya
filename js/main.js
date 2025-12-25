@@ -15,7 +15,8 @@ const elements = {
     timeRange: document.getElementById('timeRange'),
     habitButtons: document.querySelectorAll('.habit-btn'),
     todayHabitsCount: document.getElementById('todayHabitsCount'),
-    activeInitiativesCount: document.getElementById('activeInitiativesCount')
+    activeInitiativesCount: document.getElementById('activeInitiativesCount'),
+    resetDataBtn: document.getElementById('resetDataBtn')
 };
 
 // Демо-данные
@@ -342,6 +343,56 @@ function setupEventListeners() {
         elements.timeRange.addEventListener('change', function() {
             updateChart(this.value);
         });
+    }
+
+    // Сброс данных
+    if (elements.resetDataBtn) {
+        const resetModal = document.getElementById('resetModal');
+        const resetModalClose = document.getElementById('resetModalClose');
+        const resetModalCancel = document.getElementById('resetModalCancel');
+        const resetModalConfirm = document.getElementById('resetModalConfirm');
+
+        const resetData = () => {
+            if (window.dataManager) {
+                window.dataManager.resetAllData();
+                showNotification('Все данные успешно сброшены', 'success');
+                // Небольшая задержка перед обновлением интерфейса
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        };
+
+        const closeModal = () => {
+            if (resetModal) {
+                resetModal.setAttribute('aria-hidden', 'true');
+            }
+        };
+
+        elements.resetDataBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (resetModal) {
+                resetModal.setAttribute('aria-hidden', 'false');
+            } else if (confirm('Вы уверены, что хотите сбросить все данные? Это действие нельзя отменить.')) {
+                resetData();
+            }
+        });
+
+        if (resetModalClose) resetModalClose.addEventListener('click', closeModal);
+        if (resetModalCancel) resetModalCancel.addEventListener('click', closeModal);
+        
+        if (resetModal) {
+            resetModal.addEventListener('click', (e) => {
+                if (e.target === resetModal) closeModal();
+            });
+        }
+
+        if (resetModalConfirm) {
+            resetModalConfirm.addEventListener('click', function() {
+                resetData();
+                closeModal();
+            });
+        }
     }
 }
 

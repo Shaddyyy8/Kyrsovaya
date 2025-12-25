@@ -336,6 +336,7 @@ function initEventListeners() {
     if (modalClose) {
         modalClose.addEventListener('click', () => {
             modal?.classList.remove('map__modal--active');
+            modal?.setAttribute('aria-hidden', 'true');
         });
     }
     
@@ -343,6 +344,15 @@ function initEventListeners() {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('map__modal--active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        // Закрытие по ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('map__modal--active')) {
+                modal.classList.remove('map__modal--active');
+                modal.setAttribute('aria-hidden', 'true');
             }
         });
     }

@@ -326,10 +326,10 @@
         <!-- CTA Section -->
         <section class="cta-section">
             <div class="container">
-                <div class="cta-box">
-                    <div class="cta-content-inner">
+                <div class="cta-container">
+                    <div class="cta-content">
                         <h2 class="cta-title">Готовы изменить мир?</h2>
-                        <p class="cta-text">Каждое ваше действие имеет значение. Начните свой путь к осознанности прямо сейчас.</p>
+                        <p class="cta-description">Каждое ваше действие имеет значение. Начните свой путь к осознанности прямо сейчас.</p>
                         <div class="cta-buttons">
                             <a href="initiatives.html" class="btn btn--white btn--lg">Присоединиться</a>
                             <a href="calculator.html" class="btn btn--outline-white btn--lg">Калькулятор экоследа</a>
@@ -402,6 +402,29 @@
         </div>
     </footer>
 
+    <!-- Reset Data Modal -->
+    <div id="resetModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="resetModalTitle">
+        <div class="modal__content">
+            <button id="resetModalClose" class="modal__close" aria-label="Закрыть">&times;</button>
+            <div class="modal__header">
+                <div class="modal__icon modal__icon--warning">⚠️</div>
+                <h2 id="resetModalTitle" class="modal__title">Сброс всех данных</h2>
+            </div>
+            <div class="modal__body">
+                <p class="modal__text">
+                    Вы уверены, что хотите сбросить все данные?
+                </p>
+                <p class="modal__text modal__text--secondary">
+                    Все ваши привычки, инициативы, достижения и настройки будут удалены безвозвратно.
+                </p>
+            </div>
+            <div class="modal__footer">
+                <button id="resetModalCancel" class="btn btn--secondary">Отмена</button>
+                <button id="resetModalConfirm" class="btn btn--danger">Сбросить данные</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Скрипты -->
     <script src="js/data-manager.js"></script>
     <script src="js/initiatives.js"></script>
@@ -445,7 +468,7 @@
     </script>
 
     <!-- Модальное окно подтверждения сброса -->
-    <div id="resetModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="resetModalTitle">
+    <div id="resetModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="resetModalTitle" style="z-index: 9999;">
         <div class="modal__content modal__content--small">
             <button id="resetModalClose" class="modal__close" aria-label="Закрыть окно">&times;</button>
             
@@ -479,6 +502,64 @@
                     <span>🗑️</span>
                     <span>Да, сбросить все</span>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно статьи -->
+    <div id="articleModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal__content">
+            <button id="modalClose" class="modal__close" aria-label="Закрыть окно">&times;</button>
+            
+            <div class="modal__image">
+                <img id="modalImg" class="modal__img" src="" alt="" loading="lazy">
+            </div>
+            
+            <div class="modal__info">
+                <div class="modal__header">
+                    <div class="modal__badges">
+                        <span id="modalCategory" class="modal__badge modal__badge--category"></span>
+                        <span id="modalDate" class="modal__badge modal__badge--date"></span>
+                    </div>
+                    <h2 id="modalTitle" class="modal__title"></h2>
+                </div>
+                
+                <div class="modal__content-text">
+                    <div id="modalText" class="modal__text"></div>
+                </div>
+                
+                <!-- Кнопки поделиться -->
+                <div class="modal__share">
+                    <h3 class="modal__share-title">
+                        <span class="modal__share-icon">📤</span>
+                        Поделиться статьей
+                    </h3>
+                    <div class="modal__share-buttons">
+                        <button id="shareVk" class="btn btn--share modal__share-btn" data-network="vk">
+                            <span class="modal__share-btn-icon">VK</span>
+                            <span class="modal__share-btn-text">ВКонтакте</span>
+                        </button>
+                        <button id="shareTelegram" class="btn btn--share modal__share-btn" data-network="telegram">
+                            <span class="modal__share-btn-icon">TG</span>
+                            <span class="modal__share-btn-text">Telegram</span>
+                        </button>
+                        <button id="shareWhatsApp" class="btn btn--share modal__share-btn" data-network="whatsapp">
+                            <span class="modal__share-btn-icon">WA</span>
+                            <span class="modal__share-btn-text">WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Сохранение статьи -->
+                <div class="modal__save">
+                    <button id="modalSaveBtn" class="btn btn--secondary modal__save-btn">
+                        <span class="modal__save-btn-icon">💾</span>
+                        <span class="modal__save-btn-text">Сохранить статью</span>
+                    </button>
+                    <p class="modal__save-note">
+                        Статья будет сохранена в вашем личном кабинете
+                    </p>
+                </div>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@
         overflow-x: auto;
         scrollbar-width: thin;
         -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
     }
     
     .nav__link {
@@ -20,7 +21,7 @@
         flex-direction: column;
         gap: 2rem;
     }
-    
+
     .footer__info,
     .footer__contact {
         min-width: 100%;
@@ -30,50 +31,41 @@
 
 @media (max-width: 1024px) {
     .nav__mobile-btn {
-        display: flex;
-        position: relative;
-        z-index: 1001;
+        display: none;
     }
 
     .nav__list {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100vw;
+        display: flex;
+        position: static;
+        width: 100%;
         height: auto;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
+        background: transparent;
         flex-direction: row;
-        padding: 1rem;
-        gap: 0.5rem;
-        border-radius: 0 0 12px 12px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        padding: 0;
+        gap: 0.4rem;
+        border-radius: 0;
+        box-shadow: none;
         overflow-x: auto;
         overflow-y: hidden;
-        z-index: 1000;
+        z-index: auto;
         scrollbar-width: thin;
         -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
     }
 
     .nav__list--open {
         display: flex;
-        animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
     }
 
     .nav__link {
         color: var(--text-color);
-        padding: 0.8rem 1rem;
+        padding: 0.6rem 0.8rem;
         border-radius: 8px;
-        min-width: 120px;
+        min-width: 100px;
         display: block;
         text-align: center;
         white-space: nowrap;
+        font-size: 0.9rem;
     }
 
     .nav__link:hover {

@@ -66,11 +66,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Инициализация страницы
 function initializePage() {
+    console.log('initializePage called');
+    
+    // Инициализация кнопки сброса данных (делаем это в первую очередь)
+    try {
+        console.log('Инициализация кнопки сброса...');
+        initResetButton();
+        if (typeof initArticleModalListeners === 'function') {
+            initArticleModalListeners();
+        }
+    } catch (e) {
+        console.error('Error initializing reset button:', e);
+    }
+
     // DataManager и INITIATIVES_DATA теперь подключаются напрямую в HTML,
     // поэтому просто загружаем данные и отрисовываем дашборд.
-    loadUserData();
-    loadProductsData();
-    updateDashboard();
+    try {
+        loadUserData();
+        loadProductsData();
+        updateDashboard();
+    } catch (e) {
+        console.error('Error updating dashboard:', e);
+    }
+
     // Синхронизируем иконки привычек в кнопках с теми, что используются в истории
     if (typeof syncHabitIcons === 'function') syncHabitIcons();
     if (typeof applyIconsToFilters === 'function') applyIconsToFilters();
@@ -80,9 +98,6 @@ function initializePage() {
         loadUserData();
         updateDashboard();
     });
-
-    // Инициализация кнопки сброса данных
-    initResetButton();
 }
 
 // Загрузка данных товаров для рекомендаций
@@ -90,6 +105,15 @@ function initializePage() {
 // дополнительная логика ожидания PRODUCTS не нужна.
 function loadProductsData() {
     updateRecommendedProducts();
+}
+
+// Загрузка данных инициатив для отображения на дашборде
+// (инициативы подключаются в HTML через ../js/initiatives.js,
+// поэтому дополнительная динамическая загрузка здесь не нужна)
+function loadInitiativesData() {
+    // Оставляем функцию-пустышку для совместимости, на случай,
+    // если она где-то вызывается. Все данные уже есть в window.INITIATIVES_DATA.
+    return;
 }
 
 // Инициализация кнопки сброса данных
@@ -100,65 +124,91 @@ function initResetButton() {
     const resetModalCancel = document.getElementById('resetModalCancel');
     const resetModalConfirm = document.getElementById('resetModalConfirm');
 
-    if (!resetBtn || !resetModal) return;
-    
+    console.log('Поиск элементов кнопки сброса:', {
+        resetBtn,
+        resetModal,
+        resetModalClose,
+        resetModalCancel,
+        resetModalConfirm
+    });
+
+    if (!resetBtn || !resetModal) {
+        console.log('resetBtn or resetModal not found');
+        return;
+    }
+
     // Открытие модального окна
-    resetBtn.addEventListener('click', () => {
+    resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Кнопка сброса нажата');
         resetModal.setAttribute('aria-hidden', 'false');
+        resetModal.classList.add('modal--open'); // Добавляем класс для уверенности
+        resetModal.style.display = 'flex'; // Принудительно показываем
         document.body.style.overflow = 'hidden';
     });
-    
+
     // Закрытие модального окна
     const closeModal = () => {
         resetModal.setAttribute('aria-hidden', 'true');
+        resetModal.classList.remove('modal--open');
+        resetModal.style.display = '';
         document.body.style.overflow = '';
     };
-    
+
     if (resetModalClose) {
-        resetModalClose.addEventListener('click', closeModal);
+        resetModalClose.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal();
+        });
     }
-    
+
     if (resetModalCancel) {
-        resetModalCancel.addEventListener('click', closeModal);
+        resetModalCancel.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal();
+        });
     }
-    
+
     // Клик вне модального окна
     resetModal.addEventListener('click', (e) => {
         if (e.target === resetModal) {
             closeModal();
         }
     });
-    
+
     // Подтверждение сброса
     if (resetModalConfirm) {
-        resetModalConfirm.addEventListener('click', () => {
-            if (!window.dataManager) {
-                showNotification('Ошибка: DataManager не загружен', 'error');
-                return;
+        resetModalConfirm.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Подтверждение сброса нажато');
+            try {
+                if (!window.dataManager) {
+                    console.error('DataManager не загружен');
+                    showNotification('Ошибка: DataManager не загружен', 'error');
+                    return;
+                }
+
+                // Сброс данных
+                window.dataManager.resetAllData();
+                console.log('Данные сброшены через DataManager');
+
+                // Закрываем модальное окно
+                closeModal();
+
+                // Показываем уведомление
+                showNotification('Все данные успешно сброшены', 'success');
+
+                // Перезагружаем страницу через 1 секунду для полного сброса
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } catch (error) {
+                console.error('Ошибка при сбросе данных:', error);
+                showNotification('Ошибка при сбросе данных', 'error');
+                closeModal();
             }
-
-            // Сброс данных
-            window.dataManager.resetAllData();
-
-            // Закрываем модальное окно
-            closeModal();
-
-            // Показываем уведомление
-            showNotification('Все данные успешно сброшены', 'success');
-
-            // Перезагружаем страницу для полного обновления
-            location.href = location.href;
         });
     }
-}
-
-// Загрузка данных инициатив для отображения на дашборде
-// (инициативы подключаются в HTML через ../js/initiatives.js,
-// поэтому дополнительная динамическая загрузка здесь не нужна)
-function loadInitiativesData() {
-    // Оставляем функцию-пустышку для совместимости, на случай,
-    // если она где-то вызывается. Все данные уже есть в window.INITIATIVES_DATA.
-    return;
 }
 
 // Загрузка данных пользователя
@@ -519,53 +569,18 @@ function updateActiveInitiatives() {
 // Обновление рекомендаций товаров
 function updateRecommendedProducts() {
     if (!elements.recommendedProducts) return;
-    
-    // Show loading state
-    elements.recommendedProducts.innerHTML = `
-        <div class="loading-state">
-            <div class="spinner"></div>
-            <p class="text-muted mt-2">Подбираем эко-товары...</p>
-        </div>
-    `;
-    
-    // Simulate recommendation engine delay
-    setTimeout(() => {
-        elements.recommendedProducts.innerHTML = '';
-        
-        // Если есть реальные товары из products.js — используем их
-        if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length > 0) {
-            const topProducts = window.PRODUCTS.slice(0, 4);
-            
-            topProducts.forEach(product => {
-                const productElement = document.createElement('div');
-                productElement.className = 'product-item';
-                productElement.innerHTML = `
-                    <span class="product-item__icon">🛍️</span>
-                    <div class="product-item__content">
-                        <div class="product-item__title">${product.title}</div>
-                        <div class="product-item__info">
-                            <span>${product.category}</span>
-                            <span>${product.price} руб.</span>
-                        </div>
-                    </div>
-                `;
-                
-                // Переход к товару по клику
-                productElement.addEventListener('click', () => {
-                    window.location.href = `products.html#product-${product.id}`;
-                });
-                
-                elements.recommendedProducts.appendChild(productElement);
-            });
-            return;
-        }
-        
-        // Fallback: демо-данные
-        demoData.recommendedProducts.forEach(product => {
+
+    elements.recommendedProducts.innerHTML = '';
+
+    // Если есть реальные товары из products.js — используем их
+    if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length > 0) {
+        const topProducts = window.PRODUCTS.slice(0, 4);
+
+        topProducts.forEach(product => {
             const productElement = document.createElement('div');
             productElement.className = 'product-item';
             productElement.innerHTML = `
-                <span class="product-item__icon">${product.icon}</span>
+                <span class="product-item__icon">🛍️</span>
                 <div class="product-item__content">
                     <div class="product-item__title">${product.title}</div>
                     <div class="product-item__info">
@@ -574,10 +589,34 @@ function updateRecommendedProducts() {
                     </div>
                 </div>
             `;
-            
+
+            // Переход к товару по клику
+            productElement.addEventListener('click', () => {
+                window.location.href = `products.html#product-${product.id}`;
+            });
+
             elements.recommendedProducts.appendChild(productElement);
         });
-    }, 800);
+        return;
+    }
+
+    // Fallback: демо-данные
+    demoData.recommendedProducts.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.className = 'product-item';
+        productElement.innerHTML = `
+            <span class="product-item__icon">${product.icon}</span>
+            <div class="product-item__content">
+                <div class="product-item__title">${product.title}</div>
+                <div class="product-item__info">
+                    <span>${product.category}</span>
+                    <span>${product.price} руб.</span>
+                </div>
+            </div>
+        `;
+
+        elements.recommendedProducts.appendChild(productElement);
+    });
 }
 
 
@@ -670,8 +709,9 @@ function renderRecentArticles(list) {
             </div>
         `;
         
-        articleElement.addEventListener('click', () => {
-            window.location.href = `articles.html?article=${article.id}`;
+        articleElement.addEventListener('click', (e) => {
+            e.preventDefault();
+            openArticleModal(article);
         });
         
         elements.recentArticles.appendChild(articleElement);
@@ -712,9 +752,25 @@ function renderNewsGrid(list) {
                 <div class="news-date">${formattedDate}</div>
                 <h3 class="news-title">${item.title}</h3>
                 <p class="news-excerpt">${excerpt}</p>
-                <a href="articles.html?article=${item.id}" class="news-link">Читать далее →</a>
+                <a href="#" class="news-link" data-id="${item.id}">Читать далее →</a>
             </div>
         `;
+        
+        // Добавляем обработчики клика
+        const link = card.querySelector('.news-link');
+        if (link) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                openArticleModal(item);
+            });
+        }
+        
+        const imgWrapper = card.querySelector('.news-image-wrapper');
+        if (imgWrapper) {
+            imgWrapper.style.cursor = 'pointer';
+            imgWrapper.addEventListener('click', () => openArticleModal(item));
+        }
+
         newsGrid.appendChild(card);
     });
 }
@@ -983,3 +1039,82 @@ function showNotification(message, type = 'info') {
 `;
     document.head.appendChild(ns);
 })();
+
+// Новые функции для работы с модальным окном статьи
+function initArticleModalListeners() {
+    const modal = document.getElementById('articleModal');
+    const closeBtn = document.getElementById('modalClose');
+    
+    if (!modal) return;
+    
+    const closeModal = () => {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    // ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+            closeModal();
+        }
+    });
+}
+
+function openArticleModal(article) {
+    const modal = document.getElementById('articleModal');
+    if (!modal) return;
+    
+    // Fill data
+    const img = document.getElementById('modalImg');
+    if (img) {
+        // Проверяем оба варианта ключа картинки
+        img.src = article.image || article.img || 'images/article/article1.jpg';
+        img.alt = article.title;
+    }
+    
+    const title = document.getElementById('modalTitle');
+    if (title) title.textContent = article.title;
+    
+    const category = document.getElementById('modalCategory');
+    if (category) category.textContent = article.category || 'Статья';
+    
+    const dateEl = document.getElementById('modalDate');
+    if (dateEl) {
+        const date = article.date ? new Date(article.date) : new Date();
+        dateEl.textContent = date.toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    }
+    
+    const text = document.getElementById('modalText');
+    if (text) {
+        // Simple formatting
+        let content = article.content || article.text || article.excerpt || '';
+        
+        if (!content.includes('<p>')) {
+             content = `<p>${content}</p>`;
+        }
+        
+        // Если это демо-статья, добавим "рыбу" если текста мало
+        if (content.length < 100) {
+            content += `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>`;
+        }
+        
+        text.innerHTML = content;
+    }
+    
+    // Show modal
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
