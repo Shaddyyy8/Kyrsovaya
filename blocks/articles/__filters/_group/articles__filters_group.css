@@ -1,4 +1,4 @@
-.articles-filters__group {
+﻿.articles__filters__group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

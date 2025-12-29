@@ -1,4 +1,4 @@
-.article-card__btn {
+﻿.articles__card__btn {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: var(--border-radius-sm);
@@ -12,24 +12,24 @@
     gap: 0.5rem;
 }
 
-.article-card__btn--read {
+.articles__card__btn--read {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: var(--text-light);
 }
 
-.article-card__btn--read:hover {
+.articles__card__btn--read:hover {
     background: linear-gradient(135deg, var(--primary-dark) 0%, #1e5c3a 100%);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
 }
 
-.article-card__btn--share {
+.articles__card__btn--share {
     background: rgba(139, 69, 19, 0.1);
     color: var(--accent-color);
     border: 1px solid rgba(139, 69, 19, 0.3);
 }
 
-.article-card__btn--share:hover {
+.articles__card__btn--share:hover {
     background: var(--accent-color);
     color: var(--text-light);
     transform: translateY(-2px);

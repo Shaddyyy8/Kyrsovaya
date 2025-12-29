@@ -82,7 +82,7 @@ async function init() {
  */
 async function loadArticles() {
     try {
-        const response = await fetch('json/articles.json');
+        const response = await fetch('../../json/articles.json');
         if (!response.ok) throw new Error('Не удалось загрузить статьи');
         
         const rawData = await response.json();
@@ -118,9 +118,10 @@ async function loadArticles() {
  * Корректное построение пути к изображению статьи
  */
 function resolveArticleImagePath(rawPath) {
-    if (!rawPath) return 'images/article/default.jpg';
+    if (!rawPath) return '../../images/article/default.jpg';
     if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('/')) return rawPath;
-    return rawPath.replace(/^\/+/, '');
+    const cleanPath = rawPath.replace(/^\/+/, '');
+    return '../../' + cleanPath;
 }
 
 /**
@@ -139,37 +140,37 @@ function renderArticles() {
     
     const articlesHTML = filteredArticles.map(article => {
         return `
-            <article class="article-card" data-id="${article.id}">
-                <div class="article-card__image">
+            <article class="articles__card" data-id="${article.id}">
+                <div class="articles__card__image">
                     <img src="${article.image}" 
                          alt="${article.title}" 
-                         class="article-card__img" 
+                         class="articles__card__img" 
                          loading="lazy">
-                    <div class="article-card__badges">
-                        <span class="article-card__badge article-card__badge--category">
+                    <div class="articles__card__badges">
+                        <span class="articles__card__badge articles__card__badge--category">
                             ${article.category}
                         </span>
-                        <span class="article-card__badge article-card__badge--date">
+                        <span class="articles__card__badge articles__card__badge--date">
                             ${formatDate(article.date)}
                         </span>
                     </div>
                 </div>
                 
-                <div class="article-card__content">
-                    <h3 class="article-card__title">${article.title}</h3>
-                    <p class="article-card__excerpt">${article.excerpt}</p>
+                <div class="articles__card__content">
+                    <h3 class="articles__card__title">${article.title}</h3>
+                    <p class="articles__card__excerpt">${article.excerpt}</p>
                     
-                    <div class="article-card__meta">
-                        <span class="article-card__read-time">
+                    <div class="articles__card__meta">
+                        <span class="articles__card__read-time">
                             ${article.readTime} мин чтения
                         </span>
-                        <div class="article-card__actions">
-                            <button class="article-card__btn article-card__btn--read" 
+                        <div class="articles__card__actions">
+                            <button class="articles__card__btn articles__card__btn--read" 
                                     data-action="read"
                                     aria-label="Читать статью: ${article.title}">
                                 📖 Читать
                             </button>
-                            <button class="article-card__btn article-card__btn--share"
+                            <button class="articles__card__btn articles__card__btn--share"
                                     data-action="share"
                                     aria-label="Поделиться статьей: ${article.title}">
                                 📤 Поделиться
@@ -197,7 +198,7 @@ function setupCardEventListeners() {
     articlesContainer.querySelectorAll('[data-action="read"]').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
-            const card = this.closest('.article-card');
+            const card = this.closest('.articles__card');
             const articleId = parseInt(card.dataset.id);
             openArticleModal(articleId);
         });
@@ -207,7 +208,7 @@ function setupCardEventListeners() {
     articlesContainer.querySelectorAll('[data-action="share"]').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
-            const card = this.closest('.article-card');
+            const card = this.closest('.articles__card');
             const articleId = parseInt(card.dataset.id);
             const article = allArticles.find(a => a.id === articleId);
             if (article) shareArticle(article);
@@ -637,7 +638,7 @@ function setupEventListeners() {
         // Игнорируем клики по кнопкам внутри карточки
         if (e.target.closest('button')) return;
 
-        const card = e.target.closest('.article-card');
+        const card = e.target.closest('.articles__card');
         if (card) {
             console.log('Найдена карточка:', card);
             const articleId = card.dataset.id;

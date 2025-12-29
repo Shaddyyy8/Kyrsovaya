@@ -1,4 +1,4 @@
-.article-card {
+﻿.articles__card {
     background: var(--text-light);
     border-radius: var(--border-radius-md);
     overflow: hidden;
@@ -12,7 +12,7 @@
     cursor: pointer;
 }
 
-.article-card::after {
+.articles__card::after {
     content: '';
     position: absolute;
     top: 0;
@@ -25,17 +25,17 @@
     pointer-events: none;
 }
 
-.article-card:hover::after {
+.articles__card:hover::after {
     opacity: 1;
 }
 
-.article-card:hover {
+.articles__card:hover {
     transform: translateY(-10px) scale(1.02);
     box-shadow: var(--shadow-hover);
     border-color: var(--primary-color);
 }
 
-.article-card::before {
+.articles__card::before {
     content: '';
     position: absolute;
     top: 0;

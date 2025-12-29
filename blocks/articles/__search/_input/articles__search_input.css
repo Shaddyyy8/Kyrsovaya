@@ -1,4 +1,4 @@
-.articles-search__input {
+﻿.articles__search__input {
     flex: 1;
     padding: 0.75rem 1.5rem;
     border: 2px solid rgba(139, 69, 19, 0.2);
@@ -8,12 +8,12 @@
     background: var(--text-light);
 }
 
-.articles-search__input:focus {
+.articles__search__input:focus {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
 }
 
-.articles-search__input:hover {
+.articles__search__input:hover {
     border-color: rgba(139, 69, 19, 0.4);
 }

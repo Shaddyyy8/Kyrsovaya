@@ -1,4 +1,4 @@
-.articles-filters__grid {
+﻿.articles__filters__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;

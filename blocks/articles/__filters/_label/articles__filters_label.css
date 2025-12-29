@@ -1,4 +1,4 @@
-.articles-filters__label {
+﻿.articles__filters__label {
     font-weight: 600;
     color: var(--accent-color);
     display: flex;
@@ -7,6 +7,6 @@
     font-size: 0.95rem;
 }
 
-.articles-filters__label-icon {
+.articles__filters__label-icon {
     font-size: 1.1em;
 }

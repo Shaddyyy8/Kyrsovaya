@@ -31,6 +31,7 @@
 @import "blocks/footer/__content/footer__content.css";
 @import "blocks/footer/__info/footer__info.css";
 @import "blocks/footer/__contact/footer__contact.css";
+@import "blocks/footer/__nav/footer__nav.css";
 @import "blocks/footer/__links/footer__links.css";
 @import "blocks/footer/__description/footer__description.css";
 @import "blocks/footer/__bottom/footer__bottom.css";
@@ -63,7 +64,7 @@
 @import "blocks/articles/__search/_button/articles__search_button.css";
 @import "blocks/articles/__filters/articles__filters.css";
 @import "blocks/articles/__filters/_grid/articles__filters_grid.css";
-@import "blocks/articles/__filters/_select/articles__filtes_select.css";
+@import "blocks/articles/__filters/_select/articles__filters_select.css";
 @import "blocks/articles/__filters/_group/articles__filters_group.css";
 @import "blocks/articles/__filters/_label/articles__filters_label.css";
 @import "blocks/articles/__filters/_actions/articles__filters_actions.css";
@@ -98,24 +99,22 @@
 @import "blocks/articles/__modal/_save/articles__modal_save.css";
 @import "blocks/articles/__modal/_share/articles__modal_share.css";
 @import "blocks/articles/__empty/articles__empty.css";
-@import "blocks/articles/__empty/_title/articles_empty_title.css";
+@import "blocks/articles/__empty/_title/articles__empty-title.css";
 @import "blocks/articles/__empty/_description/articles__empty_description.css";
 @import "blocks/articles/__empty/_icon/articles__empty_icon.css";
 @import "blocks/articles/__keyframes/articles__keyframes.css";
 
 @import "blocks/products/__hero/hero.css";
 @import "blocks/products/__filters/filters.css";
-@import "blocks/products/__grid/grid.css";
-@import "blocks/products/__card/card.css";
+@import "blocks/products/__grid/products__grid.css";
+@import "blocks/products/__card/products__card.css";
 @import "blocks/products/__modal/modal.css";
 @import "blocks/products/__empty/empty.css";
 @import "blocks/products/__responsive/responsive.css";
 
 @import "blocks/favorites/__hero/hero.css";
 @import "blocks/favorites/__title/favorites__title.css";
-@import "blocks/favorites/__grid/grid.css";
 @import "blocks/favorites/__grid/favorites__grid.css";
-@import "blocks/favorites/__card/card.css";
 @import "blocks/favorites/__empty/favorites__empty.css";
 @import "blocks/favorites/__empty/_description/favorites__empty_description.css";
 @import "blocks/favorites/__empty/_icon/favorites__empty_icon.css";
@@ -146,7 +145,7 @@
 @import "blocks/dashboard/__quick-stats/dashboard__quick-stats.css";
 @import "blocks/dashboard/__widget/dashboard__widget.css";
 @import "blocks/dashboard/__achievements/_grid/dashboard__achievements_grid.css";
-@import "blocks/dashboard/__achievement/dashboard_achievement.css";
+@import "blocks/dashboard/__achievement/dashboard__achievement.css";
 @import "blocks/dashboard/__achievement/_date/dashboard__achievement_date.css";
 @import "blocks/dashboard/__achievement/_icon/dashboard__achievement_icon.css";
 @import "blocks/dashboard/__achievement/_title/dashboard__achievement_title.css";
@@ -195,7 +194,7 @@
 @import "blocks/dashboard/__widget/_title/dashboard__widget_title.css";
 
 @import "blocks/calculator/__hero/calculator__hero.css";
-@import "blocks/calculator/__form/calculator_form.css";
+@import "blocks/calculator/__form/calculator__form.css";
 @import "blocks/calculator/__history/calculator__history.css";
 @import "blocks/calculator/__info/calculator__form_info.css";
 @import "blocks/calculator/__section/calculator__section.css";
@@ -223,8 +222,8 @@
 @import "blocks/calculator/__form/_submit/calculator__form_submit.css";
 
 @import "blocks/initiatives/__hero/hero.css";
-@import "blocks/initiatives/__grid/grid.css";
-@import "blocks/initiatives/__card/card.css";
+@import "blocks/initiatives/__grid/initiatives__grid.css";
+@import "blocks/initiatives/__card/initiatives__card.css";
 @import "blocks/initiatives/__modal/modal.css";
 @import "blocks/initiatives/__more/more.css";
 @import "blocks/initiatives/__stats/stats.css";

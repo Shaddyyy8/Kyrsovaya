@@ -7,7 +7,7 @@
     <meta name="description" content="Карта пунктов приема вторсырья, эко-магазинов и других экологических точек в вашем городе">
     
         <!-- Основные стили сайта -->
-    <link rel="stylesheet" href="blocks.css">        <!-- Unified block styles -->
+    <link rel="stylesheet" href="map.css">        <!-- Unified block styles -->
         <!-- Leaflet CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
             integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -24,34 +24,34 @@
     <header class="header" role="banner">
         <div class="container">
             <nav class="nav" aria-label="Основная навигация">
-                <a href="index.html" class="nav__logo" aria-label="На главную страницу">
-                    <img src="images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
+                <a href="../../index.html" class="nav__logo" aria-label="На главную страницу">
+                    <img src="../../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
                     <span class="nav__logo-text">Эко-Платформа ПМР</span>
                 </a>
                 <ul class="nav__list" id="navList">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link">Дашборд</a>
+                        <a href="../../index.html" class="nav__link">Дашборд</a>
                     </li>
                     <li class="nav__item">
-                        <a href="calculator.html" class="nav__link">Калькуляторы</a>
+                        <a href="../calculator/calculator.html" class="nav__link">Калькуляторы</a>
                     </li>
                     <li class="nav__item">
-                        <a href="products.html" class="nav__link">Эко-товары</a>
+                        <a href="../products/products.html" class="nav__link">Эко-товары</a>
                     </li>
                     
                     <li class="nav__item">
-                        <a href="articles.html" class="nav__link">Статьи</a>
+                        <a href="../articles/articles.html" class="nav__link">Статьи</a>
                     </li>
                     <li class="nav__item">
-                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                        <a href="../initiatives/initiatives.html" class="nav__link">Инициативы</a>
                     </li>
                     <li class="nav__item">
-                        <a href="map.html" class="nav__link nav__link--active" aria-current="page">Карта</a>
+                        <a href="../map/map.html" class="nav__link nav__link--active" aria-current="page">Карта</a>
                     </li>
                     <li class="nav__item">
-                        <a href="favorites.html" class="nav__link">Избранное</a>
+                        <a href="../favorites/favorites.html" class="nav__link">Избранное</a>
                     </li>
-                    <li class="nav__item"><a href="contact.html" class="nav__link">Обратная связь</a></li>
+                    <li class="nav__item"><a href="../contact/contact.html" class="nav__link">Обратная связь</a></li>
                     
                 </ul>
                 <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
@@ -283,7 +283,7 @@
             <div class="footer__content">
                 <div class="footer__info">
                     <div class="footer__logo">
-                        <img src="images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
+                        <img src="../../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
                         <span class="footer__logo-text">Эко-Платформа ПМР</span>
                     </div>
                     <p class="footer__description">
@@ -292,6 +292,17 @@
                     </p>
                 </div>
                 
+                <div class="footer__partners">
+                    <h3 class="footer__partners-title">Наши партнеры</h3>
+                    <ul class="footer__partners-list">
+                        <li class="footer__partners-item">🌍 Министерство экологии ПМР</li>
+                        <li class="footer__partners-item">♻️ ООО "ЭкоСервис"</li>
+                        <li class="footer__partners-item">🌱 Фонд "Зеленый ПМР"</li>
+                        <li class="footer__partners-item">🚴 Велосипедный клуб "ЭкоТранспорт"</li>
+                        <li class="footer__partners-item">💚 Ассоциация "ЭкоЖизнь"</li>
+                    </ul>
+                </div>
+
                 <div class="footer__contact">
                     <h3 class="footer__contact-title">Контакты</h3>
                     <ul class="footer__contact-list">
@@ -334,8 +345,9 @@
             crossorigin=""></script>
     
     <!-- Скрипты -->
-    <script src="js/data-manager.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/nav.js"></script>
+    <script src="../../js/data-manager.js"></script>
+    <script src="../../js/map.js"></script>
+    <script src="../../js/nav.js"></script>
 </body>
 </html>
+

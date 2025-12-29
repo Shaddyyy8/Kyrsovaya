@@ -1,4 +1,4 @@
-.articles-empty__description {
+﻿.articles__empty__description {
     color: var(--text-color);
     opacity: 0.7;
     max-width: 500px;

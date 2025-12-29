@@ -8,7 +8,7 @@
     
     
     <!-- Общие стили -->
-    <link rel="stylesheet" href="blocks.css">    
+    <link rel="stylesheet" href="articles.css">    
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
     
@@ -21,34 +21,34 @@
     <header class="header" role="banner">
         <div class="container">
             <nav class="nav" aria-label="Основная навигация">
-                    <a href="index.html" class="nav__logo" aria-label="На главную страницу">
-                    <img src="images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
+                    <a href="../../index.html" class="nav__logo" aria-label="На главную страницу">
+                    <img src="../../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="nav__logo-img">
                     <span class="nav__logo-text">Эко-Платформа ПМР</span>
                 </a>
                 <ul class="nav__list" id="navList">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link">Дашборд</a>
+                        <a href="../../index.html" class="nav__link">Дашборд</a>
                     </li>
                     <li class="nav__item">
-                        <a href="calculator.html" class="nav__link">Калькуляторы</a>
+                        <a href="../calculator/calculator.html" class="nav__link">Калькуляторы</a>
                     </li>
                     <li class="nav__item">
-                        <a href="products.html" class="nav__link">Эко-товары</a>
+                        <a href="../products/products.html" class="nav__link">Эко-товары</a>
                     </li>
                     
                     <li class="nav__item">
-                        <a href="articles.html" class="nav__link nav__link--active" aria-current="page">Статьи</a>
+                        <a href="../articles/articles.html" class="nav__link nav__link--active" aria-current="page">Статьи</a>
                     </li>
                     <li class="nav__item">
-                        <a href="initiatives.html" class="nav__link">Инициативы</a>
+                        <a href="../initiatives/initiatives.html" class="nav__link">Инициативы</a>
                     </li>
                     <li class="nav__item">
-                        <a href="map.html" class="nav__link">Карта</a>
+                        <a href="../map/map.html" class="nav__link">Карта</a>
                     </li>
                     <li class="nav__item">
-                        <a href="favorites.html" class="nav__link">Избранное</a>
+                        <a href="../favorites/favorites.html" class="nav__link">Избранное</a>
                     </li>
-                    <li class="nav__item"><a href="contact.html" class="nav__link">Обратная связь</a></li>
+                    <li class="nav__item"><a href="../contact/contact.html" class="nav__link">Обратная связь</a></li>
                 </ul>
                 <button class="nav__mobile-btn" id="mobileMenuBtn" aria-label="Открыть меню" aria-expanded="false">
                     ☰
@@ -72,15 +72,15 @@
             </section>
 
             <!-- Фильтры статей -->
-            <section class="articles-filters" aria-label="Фильтры статей" data-aos="fade-up" data-aos-delay="100">
-                <h2 class="articles-filters__title visually-hidden">Фильтры статей</h2>
-                <div class="articles-filters__grid">
-                    <div class="articles-filters__group">
-                        <label for="filterCategory" class="articles-filters__label">
-                            <span class="articles-filters__label-icon">📁</span>
+            <section class="articles__filters" aria-label="Фильтры статей" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="articles__filters__title visually-hidden">Фильтры статей</h2>
+                <div class="articles__filters__grid">
+                    <div class="articles__filters__group">
+                        <label for="filterCategory" class="articles__filters__label">
+                            <span class="articles__filters__label-icon">📁</span>
                             Категория
                         </label>
-                        <select id="filterCategory" class="articles-filters__select">
+                        <select id="filterCategory" class="articles__filters__select">
                             <option value="">Все категории</option>
                             <option value="Питание">Питание</option>
                             <option value="Энергия">Энергия</option>
@@ -93,12 +93,12 @@
                         </select>
                     </div>
                     
-                    <div class="articles-filters__group">
-                        <label for="filterDate" class="articles-filters__label">
-                            <span class="articles-filters__label-icon">📅</span>
+                    <div class="articles__filters__group">
+                        <label for="filterDate" class="articles__filters__label">
+                            <span class="articles__filters__label-icon">📅</span>
                             Дата
                         </label>
-                        <select id="filterDate" class="articles-filters__select">
+                        <select id="filterDate" class="articles__filters__select">
                             <option value="">Все время</option>
                             <option value="week">За неделю</option>
                             <option value="month">За месяц</option>
@@ -106,42 +106,42 @@
                         </select>
                     </div>
                     
-                    <div class="articles-filters__actions">
-                        <button id="resetFilters" class="btn btn--secondary articles-filters__reset">
+                    <div class="articles__filters__actions">
+                        <button id="resetFilters" class="btn btn--secondary articles__filters__reset">
                             Сбросить фильтры
                         </button>
                     </div>
                 </div>
                 
-                <div class="articles-filters__info" aria-live="polite">
+                <div class="articles__filters__info" aria-live="polite">
                     Найдено статей: <span id="articlesCount">12</span>
                 </div>
             </section>
 
             <!-- Поиск статей -->
-            <section class="articles-search" data-aos="fade-up" data-aos-delay="150">
-                <div class="articles-search__container">
+            <section class="articles__search" data-aos="fade-up" data-aos-delay="150">
+                <div class="articles__search__container">
                     <input type="text" 
                            id="searchInput" 
-                           class="articles-search__input" 
+                           class="articles__search__input" 
                            placeholder="Поиск по статьям..."
                            aria-label="Поиск по статьям">
-                    <button id="searchButton" class="btn btn--primary articles-search__button">
-                        <span class="articles-search__button-icon">🔍</span>
+                    <button id="searchButton" class="btn btn--primary articles__search__button">
+                        <span class="articles__search__button-icon">🔍</span>
                         Найти
                     </button>
                 </div>
             </section>
 
             <!-- Сетка статей -->
-            <section class="articles-grid-section" data-aos="fade-up" data-aos-delay="200">
-                <div id="articlesContainer" class="articles-grid"></div>
+            <section class="articles__grid-section" data-aos="fade-up" data-aos-delay="200">
+                <div id="articlesContainer" class="articles__grid"></div>
                 
                 <!-- Пустое состояние -->
-                <div id="emptyState" class="articles-empty" hidden>
-                    <div class="articles-empty__icon">📚</div>
-                    <h3 class="articles-empty__title">Статьи не найдены</h3>
-                    <p class="articles-empty__description">
+                <div id="emptyState" class="articles__empty" hidden>
+                    <div class="articles__empty__icon">📚</div>
+                    <h3 class="articles__empty__title">Статьи не найдены</h3>
+                    <p class="articles__empty__description">
                         Попробуйте изменить параметры поиска или выбрать другую категорию.
                     </p>
                     <button id="resetEmptyFilters" class="btn btn--primary">Показать все статьи</button>
@@ -214,7 +214,7 @@
             <div class="footer__content">
                 <div class="footer__info">
                     <div class="footer__logo">
-                        <img src="images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
+                        <img src="../../images/site-symbol-2.svg" alt="Эко-Платформа ПМР" class="footer__logo-img">
                         <span class="footer__logo-text">Эко-Платформа ПМР</span>
                     </div>
                     <p class="footer__description">
@@ -223,6 +223,17 @@
                     </p>
                 </div>
                 
+                <div class="footer__partners">
+                    <h3 class="footer__partners-title">Наши партнеры</h3>
+                    <ul class="footer__partners-list">
+                        <li class="footer__partners-item">🌍 Министерство экологии ПМР</li>
+                        <li class="footer__partners-item">♻️ ООО "ЭкоСервис"</li>
+                        <li class="footer__partners-item">🌱 Фонд "Зеленый ПМР"</li>
+                        <li class="footer__partners-item">🚴 Велосипедный клуб "ЭкоТранспорт"</li>
+                        <li class="footer__partners-item">💚 Ассоциация "ЭкоЖизнь"</li>
+                    </ul>
+                </div>
+
                 <div class="footer__contact">
                     <h3 class="footer__contact-title">Контакты</h3>
                     <ul class="footer__contact-list">
@@ -259,9 +270,9 @@
         </div>
     </footer>
     <!-- Скрипты -->
-    <script src="js/data-manager.js"></script>
-    <script src="js/articles.js"></script>
-    <script src="js/nav.js"></script>
+    <script src="../../js/data-manager.js"></script>
+    <script src="../../js/articles.js"></script>
+    <script src="../../js/nav.js"></script>
     <script>
         AOS.init({
             duration: 800,
@@ -271,3 +282,4 @@
     </script>
     </body>
 </html>
+

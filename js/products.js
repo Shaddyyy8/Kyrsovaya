@@ -113,6 +113,16 @@ const reviewRating = document.getElementById('reviewRating');
 const addReviewBtn = document.getElementById('addReviewBtn');
 const modalShareBtn = document.getElementById('modalShareBtn');
 
+// Helper to resolve image paths based on current location
+function resolveProductImagePath(imagePath) {
+    if (!imagePath) return '';
+    // Check if we are in a subdirectory (pages/...)
+    if (window.location.pathname.includes('/pages/')) {
+        return '../../' + imagePath;
+    }
+    return imagePath;
+}
+
 // Вспомогательные функции для работы с localStorage
 function getFavoritesIds() { 
     return JSON.parse(localStorage.getItem('favorites')) || []; 
@@ -141,7 +151,7 @@ function createProductCard(product) {
     
     card.innerHTML = `
         <div class="product-card__image">
-            <img class="product-card__img" src="${product.img}" alt="${product.title}" loading="lazy">
+            <img class="product-card__img" src="${resolveProductImagePath(product.img)}" alt="${product.title}" loading="lazy">
             <div class="product-card__badges">
                 <span class="product-card__badge product-card__badge--category">${product.category}</span>
                 <span class="product-card__badge product-card__badge--cert">${product.certificate}</span>
@@ -261,7 +271,7 @@ function toggleFavorite(productId, button) {
 // Открытие модального окна товара
 function openProductModal(product) {
     // Заполнение информации о товаре
-    modalImg.src = product.img;
+    modalImg.src = resolveProductImagePath(product.img);
     modalImg.alt = product.title;
     modalTitle.textContent = product.title;
     modalCategory.textContent = product.category;

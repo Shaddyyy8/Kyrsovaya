@@ -1,4 +1,4 @@
-.articles-filters__select {
+﻿.articles__filters__select {
     padding: 0.75rem 1rem;
     border: 2px solid rgba(139, 69, 19, 0.2);
     border-radius: var(--border-radius-sm);
@@ -16,12 +16,12 @@
     background-size: 16px;
 }
 
-.articles-filters__select:focus {
+.articles__filters__select:focus {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
 }
 
-.articles-filters__select:hover {
+.articles__filters__select:hover {
     border-color: rgba(139, 69, 19, 0.4);
 }

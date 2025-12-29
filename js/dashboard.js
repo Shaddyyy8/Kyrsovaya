@@ -1,4 +1,4 @@
-// main.js - Функциональность главной страницы (в стиле калькулятора и товаров)
+// dashboard.js - Функциональность главной страницы (в стиле калькулятора и товаров)
 
 // Данные пользователя
 const userData = {
@@ -34,12 +34,12 @@ const demoData = {
         { id: 4, title: 'Водный хранитель', icon: '💧', date: '2025-01-20' }
     ],
     recommendedProducts: [
-        { id: 1, title: 'Многоразовая эко-бутылка', icon: '💧', price: 125, category: 'Кухня' },
-        { id: 2, title: 'Эко-сумка', icon: '🛍️', price: 350, category: 'Сумки' }
+        { id: 1, title: 'Многоразовая эко-бутылка', icon: '💧', price: 125, category: 'Кухня', image: 'images/product/product3.jpg' },
+        { id: 2, title: 'Эко-сумка', icon: '🛍️', price: 350, category: 'Сумки', image: 'images/product/product1.jpg' }
     ],
     recentArticles: [
-        { id: 1, title: 'Переход на локальные продукты', icon: '📝', date: '2025-10-19', readTime: '1 мин' },
-        { id: 2, title: 'Рациональное использование воды', icon: '💧', date: '2025-10-18', readTime: '1 мин' }
+        { id: 1, title: 'Переход на локальные продукты', icon: '📝', date: '2025-10-19', readTime: '1 мин', image: 'images/article/article1.jpg' },
+        { id: 2, title: 'Рациональное использование воды', icon: '💧', date: '2025-10-18', readTime: '1 мин', image: 'images/article/article2.jpg' }
     ]
 };
 
@@ -481,7 +481,7 @@ function updateActiveInitiatives() {
         elements.activeInitiatives.innerHTML = `
             <div class="text-center p-3">
                 <div class="text-muted">Нет активных инициатив</div>
-                <a href="initiatives.html" class="btn btn--secondary btn--small mt-2" style="display: inline-block;">
+                <a href="pages/initiatives/initiatives.html" class="btn btn--secondary btn--small mt-2" style="display: inline-block;">
                     Начать инициативу
                 </a>
             </div>
@@ -498,66 +498,66 @@ function updateActiveInitiatives() {
         return;
     }
     
-    activeInitiatives.forEach(initiativeProgress => {
-        const initiativeData = INITIATIVES_DATA.find(i => i.id === initiativeProgress.id);
-        if (!initiativeData) {
-            // Если данных нет, используем данные из прогресса
+        activeInitiatives.forEach(initiativeProgress => {
+            const initiativeData = INITIATIVES_DATA.find(i => i.id === initiativeProgress.id);
+            if (!initiativeData) {
+                // Если данных нет, используем данные из прогресса
+                const initiativeElement = document.createElement('div');
+                initiativeElement.className = 'initiative-item';
+                initiativeElement.setAttribute('data-id', initiativeProgress.id);
+                initiativeElement.style.cursor = 'pointer';
+                initiativeElement.innerHTML = `
+                    <span class="initiative-item__icon">🎯</span>
+                    <div class="initiative-item__content">
+                        <div class="initiative-item__title">${initiativeProgress.title || 'Инициатива'}</div>
+                        <div class="initiative-item__info">
+                            <span>Прогресс: ${initiativeProgress.progress || 0}%</span>
+                            <div style="flex: 1; max-width: 120px; height: 6px; background: rgba(139, 69, 19, 0.1); border-radius: 3px; overflow: hidden; margin-left: 0.5rem;">
+                                <div style="width: ${initiativeProgress.progress || 0}%; height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); transition: width 0.3s ease;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="initiative-item__progress">${initiativeProgress.progress || 0}%</div>
+                `;
+                initiativeElement.addEventListener('click', () => {
+                    window.location.href = `pages/initiatives/initiatives.html#initiative-${initiativeProgress.id}`;
+                });
+                elements.activeInitiatives.appendChild(initiativeElement);
+                return;
+            }
+            
+            const progressPercent = initiativeProgress.progress || 0;
+            const completedTasks = initiativeProgress.completedTasks?.length || 0;
+            const totalTasks = initiativeProgress.totalTasks || initiativeData.checklist?.length || 0;
+            const currentDay = initiativeProgress.currentDay || 1;
+            
             const initiativeElement = document.createElement('div');
             initiativeElement.className = 'initiative-item';
             initiativeElement.setAttribute('data-id', initiativeProgress.id);
             initiativeElement.style.cursor = 'pointer';
             initiativeElement.innerHTML = `
-                <span class="initiative-item__icon">🎯</span>
+                <span class="initiative-item__icon">${initiativeData.image || '🎯'}</span>
                 <div class="initiative-item__content">
-                    <div class="initiative-item__title">${initiativeProgress.title || 'Инициатива'}</div>
+                    <div class="initiative-item__title">${initiativeData.title || initiativeProgress.title}</div>
                     <div class="initiative-item__info">
-                        <span>Прогресс: ${initiativeProgress.progress || 0}%</span>
+                        <span>День ${currentDay} из ${initiativeProgress.totalDays || initiativeData.duration || '?'}</span>
+                        <span>•</span>
+                        <span>${completedTasks}/${totalTasks} задач</span>
                         <div style="flex: 1; max-width: 120px; height: 6px; background: rgba(139, 69, 19, 0.1); border-radius: 3px; overflow: hidden; margin-left: 0.5rem;">
-                            <div style="width: ${initiativeProgress.progress || 0}%; height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); transition: width 0.3s ease;"></div>
+                            <div style="width: ${progressPercent}%; height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); transition: width 0.3s ease;"></div>
                         </div>
                     </div>
                 </div>
-                <div class="initiative-item__progress">${initiativeProgress.progress || 0}%</div>
+                <div class="initiative-item__progress">${progressPercent}%</div>
             `;
+            
+            // Клик для перехода к инициативе
             initiativeElement.addEventListener('click', () => {
-                window.location.href = `initiatives.html#initiative-${initiativeProgress.id}`;
+                window.location.href = `pages/initiatives/initiatives.html#initiative-${initiativeProgress.id}`;
             });
+            
             elements.activeInitiatives.appendChild(initiativeElement);
-            return;
-        }
-        
-        const progressPercent = initiativeProgress.progress || 0;
-        const completedTasks = initiativeProgress.completedTasks?.length || 0;
-        const totalTasks = initiativeProgress.totalTasks || initiativeData.checklist?.length || 0;
-        const currentDay = initiativeProgress.currentDay || 1;
-        
-        const initiativeElement = document.createElement('div');
-        initiativeElement.className = 'initiative-item';
-        initiativeElement.setAttribute('data-id', initiativeProgress.id);
-        initiativeElement.style.cursor = 'pointer';
-        initiativeElement.innerHTML = `
-            <span class="initiative-item__icon">${initiativeData.image || '🎯'}</span>
-            <div class="initiative-item__content">
-                <div class="initiative-item__title">${initiativeData.title || initiativeProgress.title}</div>
-                <div class="initiative-item__info">
-                    <span>День ${currentDay} из ${initiativeProgress.totalDays || initiativeData.duration || '?'}</span>
-                    <span>•</span>
-                    <span>${completedTasks}/${totalTasks} задач</span>
-                    <div style="flex: 1; max-width: 120px; height: 6px; background: rgba(139, 69, 19, 0.1); border-radius: 3px; overflow: hidden; margin-left: 0.5rem;">
-                        <div style="width: ${progressPercent}%; height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); transition: width 0.3s ease;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="initiative-item__progress">${progressPercent}%</div>
-        `;
-        
-        // Клик для перехода к инициативе
-        initiativeElement.addEventListener('click', () => {
-            window.location.href = `initiatives.html#initiative-${initiativeProgress.id}`;
         });
-        
-        elements.activeInitiatives.appendChild(initiativeElement);
-    });
     
     // Обновляем счетчик активных инициатив
     const activeInitiativesCount = document.getElementById('activeInitiativesCount');
@@ -579,8 +579,14 @@ function updateRecommendedProducts() {
         topProducts.forEach(product => {
             const productElement = document.createElement('div');
             productElement.className = 'product-item';
+            const image = product.img || product.image;
+            const icon = product.icon || '🛍️';
+            const visual = image 
+                ? `<img src="${image}" class="product-item__img" alt="${product.title}">` 
+                : `<span class="product-item__icon">${icon}</span>`;
+
             productElement.innerHTML = `
-                <span class="product-item__icon">🛍️</span>
+                ${visual}
                 <div class="product-item__content">
                     <div class="product-item__title">${product.title}</div>
                     <div class="product-item__info">
@@ -592,7 +598,7 @@ function updateRecommendedProducts() {
 
             // Переход к товару по клику
             productElement.addEventListener('click', () => {
-                window.location.href = `products.html#product-${product.id}`;
+                window.location.href = `pages/products/products.html#product-${product.id}`;
             });
 
             elements.recommendedProducts.appendChild(productElement);
@@ -692,17 +698,19 @@ function renderRecentArticles(list) {
     
     list.forEach(article => {
         const articleElement = document.createElement('div');
-        articleElement.className = 'article-item';
+        articleElement.className = 'product-item';
         const displayDate = article.date ? new Date(article.date) : null;
         const formattedDate = displayDate
             ? displayDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })
             : '';
 
+        const imageSrc = article.image || 'images/article/article1.jpg';
+
         articleElement.innerHTML = `
-            <span class="article-item__icon">${article.icon || '📝'}</span>
-            <div class="article-item__content">
-                <div class="article-item__title">${article.title}</div>
-                <div class="article-item__info">
+            <img src="${imageSrc}" class="product-item__img" alt="${article.title}">
+            <div class="product-item__content">
+                <div class="product-item__title">${article.title}</div>
+                <div class="product-item__info">
                     <span>${formattedDate}</span>
                     <span>${article.readTime || '1 мин'}</span>
                 </div>

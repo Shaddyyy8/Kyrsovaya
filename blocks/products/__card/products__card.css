@@ -210,3 +210,27 @@
 .product-card__actions { margin-top: 12px; }
 .product-card__btn { padding: 0.65rem 0.8rem; }
 
+.product-card__btn--view {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--text-light);
+}
+
+.product-card__btn--view:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #1e5c3a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
+}
+
+.product-card__btn--remove {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.product-card__btn--remove:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+

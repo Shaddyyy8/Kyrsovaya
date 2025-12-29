@@ -310,7 +310,7 @@ async function getFavoriteArticles() {
 
     try {
         // Загружаем JSON с учетом того, что HTML-страница лежит в папке html/
-        const resp = await fetch('json/articles.json');
+        const resp = await fetch('../../json/articles.json');
         const raw = await resp.json();
         // raw ожидается в формате массива статей с полем id
         const articles = raw.map(a => {
@@ -362,7 +362,7 @@ function createArticleCard(article) {
 
     const viewBtn = card.querySelector('.product-card__btn--view');
     viewBtn.addEventListener('click', () => {
-        window.location.href = `articles.html?article=${article.id}`;
+        window.location.href = `../articles/articles.html?article=${article.id}`;
     });
 
     return card;
@@ -372,14 +372,30 @@ function createArticleCard(article) {
 // чтобы корректно работать из папки html/ и с JSON-путями вида "images/article/...".
 function resolveArticleImagePath(rawPath) {
     if (!rawPath) {
-        return 'images/article/default.jpg';
+        return '../../images/article/default.jpg';
     }
 
     if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('/')) {
         return rawPath;
     }
 
-    return rawPath.replace(/^\/+/, '');
+    const cleanPath = rawPath.replace(/^\/+/, '');
+    return '../../' + cleanPath;
+}
+
+// Унифицированное построение пути к изображению товара
+function resolveProductImagePath(rawPath) {
+    if (!rawPath) {
+        return '../../images/product/default.jpg';
+    }
+
+    if (/^https?:\/\//.test(rawPath) || rawPath.startsWith('/')) {
+        return rawPath;
+    }
+
+    // Если мы уже в подпапке (а favorites.js всегда там), добавляем ../../
+    const cleanPath = rawPath.replace(/^\/+/, '');
+    return '../../' + cleanPath;
 }
 
 // Создание карточки товара
@@ -389,9 +405,12 @@ function createProductCard(product) {
     card.setAttribute('data-id', product.id);
     card.setAttribute('data-type', 'product');
     
+    // Используем функцию для разрешения пути
+    const imgSrc = resolveProductImagePath(product.img);
+    
     card.innerHTML = `
         <div class="product-card__image">
-            <img class="product-card__img" src="${product.img}" alt="${product.title}" loading="lazy">
+            <img class="product-card__img" src="${imgSrc}" alt="${product.title}" loading="lazy">
             <div class="product-card__badges">
                 <span class="product-card__badge product-card__badge--category">${product.category}</span>
                 <span class="product-card__badge product-card__badge--cert">${product.certificate}</span>
@@ -401,7 +420,7 @@ function createProductCard(product) {
             <h3 class="product-card__title">${product.title}</h3>
             <p class="product-card__description">${product.description}</p>
             <div class="product-card__country">📍 ${product.country}</div>
-            <div class="product-card__price">${product.price} руб. ПМР</div>
+            <div class="product-card__price">${product.price}</div>
             <div class="product-card__actions">
                 <button class="product-card__btn product-card__btn--view" data-id="${product.id}" data-type="product">
                     <span>🔍</span> Подробнее
@@ -419,7 +438,7 @@ function createProductCard(product) {
     
     const viewBtn = card.querySelector('.product-card__btn--view');
     viewBtn.addEventListener('click', () => {
-        window.location.href = `products.html#product-${product.id}`;
+        window.location.href = `../products/products.html#product-${product.id}`;
     });
     
     return card;
@@ -468,7 +487,7 @@ function createMapPointCard(point) {
     
     const viewBtn = card.querySelector('.product-card__btn--view');
     viewBtn.addEventListener('click', () => {
-        window.location.href = `map.html#point-${point.id}`;
+        window.location.href = `../map/map.html#point-${point.id}`;
     });
     
     return card;

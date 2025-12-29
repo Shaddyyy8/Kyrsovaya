@@ -1,4 +1,4 @@
-.articles-filters {
+﻿.articles__filters {
     background: var(--secondary-color);
     border-radius: var(--border-radius-md);
     padding: 1.5rem;
@@ -6,3 +6,4 @@
     border: 2px solid var(--border-color);
     box-shadow: var(--shadow-light);
 }
+
