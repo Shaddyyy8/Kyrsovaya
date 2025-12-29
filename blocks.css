@@ -9,7 +9,6 @@
 @import "blocks/styles/accessibility/accessibility.css";
 @import "blocks/styles/scrollbar/scrollbar.css";
 @import "blocks/styles/card/card.css";
-@import "blocks/styles/decor/decor.css";
 @import "blocks/styles/form/form.css";
 @import "blocks/styles/responsive/responsive.css";
 
@@ -138,7 +137,6 @@
 @import "blocks/favorites/__section/favorites__section.css";
 @import "blocks/favorites/__section/_group/favorites__section_group.css";
 
-/* Additional imports: dashboard, calculator, initiatives, full map components */
 @import "blocks/dashboard/dashboard.css";
 @import "blocks/dashboard/__hero/dashboard__hero.css";
 @import "blocks/dashboard/__grid/dashboard__grid.css";
@@ -230,7 +228,6 @@
 @import "blocks/initiatives/__tasks/tasks.css";
 @import "blocks/initiatives/__responsive/responsive.css";
 
-/* Full map components */
 @import "blocks/map/__map/map.css";
 @import "blocks/map/__controls/controls.css";
 @import "blocks/map/__sidebar/sidebar.css";
